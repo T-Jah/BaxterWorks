@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.1.8", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.3.9", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.1.8
-;@Ahk2Exe-SetProductVersion 1.0.1.8
+;@Ahk2Exe-SetFileVersion 1.0.3.9
+;@Ahk2Exe-SetProductVersion 1.0.3.9
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
@@ -56,6 +56,7 @@
 		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
 		SetWorkingDir %A_ScriptDir%	; wichtig
 		FileEncoding UTF-8
+		ListLines Off
 ; Set Lock keys permanently - nur im ersten Skipt aufrufen (Tom)
 	SetNumlockState, AlwaysOn	
 	SetCapsLockState, AlwaysOff
@@ -65,9 +66,6 @@
 
 ; OnExit
 	#Include %A_ScriptDir%\Function\BaxFunk_Exit.ahk
-
-; Save settings on system shutdown
-	OnMessage(0x16, "SaveSettings") ; WM_ENDSESSION
 
 ;---------------------------------------------------------------------------------------------------------------
 
@@ -80,19 +78,40 @@
 ;│   - oder weiter im Skript          │
 ;└────────────────────────────────────┘
 
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 001 , 3
+;----------------------------------------------------------------------------------------------
 
 ; Startumgebungsvariablen festlegen
 	AppName = BaxterWorks
+	Bax_help = help
+	FensterVersion = 005
 	Bax_Bar = %A_Appdata%\Microsoft\Internet Explorer\Quick Launch
+	LastVersionBW = %CodeVersion%
+	BaxNutzerName = %A_UserName%_%A_ComputerName%
+	FormatTime, LastSeen,, LongDate
+	LastSeen = %LastSeen%
+	UhrStart = %A_Now%
+	
 	Bax_Start = %A_ScriptDir%
-	Bax_exe = %A_LineFile%
+	Bax_exe = %Bax_Start%\BaxterWorks.exe
 	Bax_Icon = %Bax_Start%\Grafix\bax.ico
 	homeini = %Bax_Start%\Config\BaxterWorks.ini
-	userini = %Bax_Start%\Config\%A_ComputerName%.ini
+	userini = %Bax_Start%\Config\%BaxNutzerName%.ini
 	scriptini = %Bax_Start%\Config\%AppName%.ini
-	FensterVersion = 004
-	PCName = %A_ComputerName%
+	backuptxt = %Bax_Start%\Log\%BaxNutzerName%.txt
 	
+; Alte Werte zurücksrtzen laden und beim beenden speichern
+	LastSeen_davor =
+	UhrStart_davor =
+
+	IniWrite, %BaxNutzerName% , %userini%, %A_UserName%_%A_ComputerName%, BaxNutzerName
+	IniRead, LastSeen_davor , %userini%, %BaxNutzerName% , %LastSeen%
+	IniRead, UhrStart_davor , %userini%, %BaxNutzerName% , %UhrStart%
+	
+	LastSeen_davor = %LastSeen%
+	UhrStart_davor = %UhrStart%
+
 ; Startumgebungsvariablen erfassen
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
@@ -101,11 +120,18 @@
 	IniDelete, %homeini%, FixVars, 
 	IniWrite, %A_ScriptDir% , %homeini%, FixVars, Bax_Start
 	IniWrite, %Bax_Start%\Config\BaxterWorks.ini , %homeini%, FixVars, homeini
-	IniWrite, %Bax_Start%\Config\BaxterWorks.ini , %homeini%, SkriptInfo, Bax_exe
 	IniWrite, %userini% , %homeini%, FixVars, userini
 	IniWrite, %A_Appdata%\Microsoft\Internet Explorer\Quick Launch , %homeini%, FixVars, Bax_Bar
-	IniWrite, %A_ComputerName% , %homeini%, FixVars, PCName
+	IniWrite, %Bax_exe% , %homeini%, FixVars, Bax_exe
 	IniWrite, %FensterVersion% , %homeini%, FixVars, FensterVersion
+	IniWrite, %backuptxt% , %homeini%, FixVars, backuptxt
+
+
+
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, %LastSeen% und %UhrStart%, 5
+;----------------------------------------------------------------------------------------------
+
 
 ; Das Menü der AppBar wird gecheckt, bzw das Symbol des Menüs
 	if !FileExist("%Bax_Bar%\00AppBar.lnk")
@@ -118,23 +144,20 @@
 
 ; Erster Start? Pfade müssen gesetzt werden mit einer ExtraApp
 
-if !FileExist("%Bax_Start%\Config\%A_Computername%.ini")
-	GoSub, INIREAD
+if !FileExist("%Bax_Start%\Config\%BaxNutzerName%.ini")
 	Loop, read, %userini%    ; die gesamtzahl der zeilen ermitteln
         lineMax++
-	if lineMax > 10
-	GoSub, 2ndstep
+	if lineMax > 15
+	GoTo, 2ndstep
 	else {
-
 ; öffnet GetReadyBax.exe
-	
-	MsgBox Eine Datei wurde gelöscht oder noch nicht erstellt oder nicht zu Ende bearbeitet.`nDu wirst zur Konfiguration gezwungen ;)
+	MsgBox, Eine Datei wurde gelöscht oder noch nicht erstellt oder nicht zu Ende bearbeitet.`nDu wirst zur Konfiguration gezw..beten.`nNimm Dir einen Moment Zeit. Die Eingaben sind von`nzentraler Bedeutung für den Nutzen dieser Anwendung.
 	
 	run, %Bax_Start%\Apps\GetReadyBax\GetReadyBax.exe
-	;run, %Bax_Start%\Apps\GetReadyBax\GetReadyBax.ahk
-	ExitApp
+	GoTo,Configzwang
 	return
-}
+	}
+
 ;┌──────────────────────────────────────────┐
 ;│ Teil2:                                   │
 ;│   - Always running apps starten          │
@@ -147,7 +170,9 @@ if !FileExist("%Bax_Start%\Config\%A_Computername%.ini")
 ; Teil 2
 
 	2ndstep:
-	;MsgBox Alle Pfade erfolgreich gesetzt, dann kann es hier weiter gehen:
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 002 Teil2 , 3
+;----------------------------------------------------------------------------------------------
 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │   AppStart mit Subanweisung         [Version 002, nur Starterskript]                                       │
@@ -162,6 +187,11 @@ if !FileExist("%Bax_Start%\Config\%A_Computername%.ini")
 	FileReadLINE,BaxIP,%Bax_Start%\Files\IP LogBuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt, 1
 	IniWrite, %BaxIP% , %homeini%, Netzinfo, Letzte IP
 
+;------AppBarcheck-----------------------------------------------------
+
+	if !WinExist("ahk_exe BWAppBar.exe")
+	;MsgBox, AppBar ist nicht an %Bax_Start%
+	Run, %Bax_Start%\Apps\BWAppBar\BWAppBar.exe
 
 
 ;┌──────────────────────────────────────────┐
@@ -173,17 +203,34 @@ if !FileExist("%Bax_Start%\Config\%A_Computername%.ini")
 ;│   -  		        	    │
 ;└──────────────────────────────────────────┘
 
-; Teil 3
+; Versionscheck
+	IniRead, LastVersionBW, %homeini%, SkriptInfo, LastVersionBW
+	If (LastVersionBW != CodeVersion)
+	Run, notepad.exe %Bax_Start%\Log\Versionsinfo.txt
+
+;--------------- Ende AutoExecBereich
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck Ende AutoExec , 3
+;----------------------------------------------------------------------------------------------
 
 ; Gute Stelle, um noch mehr Variablen zu laden
-	GoSub, INIREAD
-	GoSub, BaxMenu
-	GoSub, TRAYMENU
-; Wichtige Apps	und HK
-	#Include %A_ScriptDir%\Function\BaxFunk_appcheck.ahk	
-	#Include %A_ScriptDir%\Function\BaxFunk_Keys.ahk
-	BaxFunk_appststart()
+	GoSub, INIREAD		; aus IniFiles lesen
+	GoSub, BaxMenu		; erstellt das STRG+1 Menü
+	GoSub, TRAYMENU		; dann noch das TrayMenü
+	GoSub, CountBax		; ein einfacher Zähler
 
+
+; Wichtige HK (nur in diesem Skript, deswegen an dieser Stelle
+	#Include %A_ScriptDir%\Function\BaxFunk_Keys.ahk
+
+
+^1::Menu, BaxMenu, Show  ; Drücken Sie STRG+1, um das Menü anzuzeigen.
+
+
+
+	GoSub, IncludeBax	; integriert Hotkeys und Funktionen
+
+return
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │   BaxMenu, BaxterWorks Hauptmenü per HotKey      [Version 001]                                             │
@@ -203,13 +250,21 @@ BaxMenu:
 	Menu, SubBaxMenuBW, Add, 00AppBar, SubsBWHandler2
 	Menu, SubBaxMenuBW, Icon, 00AppBar, Grafix\menuico.ico,1     
 	Menu, SubBaxMenuBW, Add, CaptureBax, SubsBWHandler3
-	Menu, SubBaxMenuBW, Icon, CaptureBax, Grafix\schere.ico,1     
+	Menu, SubBaxMenuBW, Icon, CaptureBax, Grafix\schere.ico,1
+	Menu, SubBaxMenuBW, Add, DesktopPainter, SubsBWHandler4
+	Menu, SubBaxMenuBW, Icon, DesktopPainter, Grafix\pic.ico,1     
+	Menu, SubBaxMenuBW, Add, EmojiMenu, SubsBWHandler10
+	Menu, SubBaxMenuBW, Icon, EmojiMenu, Grafix\cool.ico,1     
+	Menu, SubBaxMenuBW, Add, FavoriteFolders, SubsBWHandler6
+	Menu, SubBaxMenuBW, Icon, FavoriteFolders, Grafix\ordner3.ico,1     
+	Menu, SubBaxMenuBW, Add, IconExtractor, SubsBWHandler7
+	Menu, SubBaxMenuBW, Icon, IconExtractor, Grafix\linux.ico,1     
 	Menu, SubBaxMenuBW, Add, KillerBax, SubsBWHandler8
 	Menu, SubBaxMenuBW, Icon, KillerBax, Grafix\killerbax.ico,1     
 	Menu, SubBaxMenuBW, Add, AppBoard, SubsBWHandler9
 	Menu, SubBaxMenuBW, Icon, AppBoard, Grafix\logo_tjah.ico,1     
-	Menu, SubBaxMenuBW, Add, MagnifyBax - Lupe, SubsBWHandler10
-	Menu, SubBaxMenuBW, Icon, MagnifyBax - Lupe, Grafix\lupe.ico,1     
+	Menu, SubBaxMenuBW, Add, MiniDBs, SubsBWHandler11
+	Menu, SubBaxMenuBW, Icon, MiniDBs, Grafix\fledermond2.ico,1     
 	Menu, SubBaxMenuBW, Add, NumpadZeichner, SubsBWHandler12
 	Menu, SubBaxMenuBW, Icon, NumpadZeichner, Grafix\npz.ico,1     
 	Menu, SubBaxMenuBW, Add, SuchBax, SubsBWHandler13
@@ -223,6 +278,16 @@ BaxMenu:
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte BWAppBar, Grafix\appbar.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte 00AppBar, SubsHilfeHandler3
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte 00AppBar, Grafix\menuico.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte DesktopPainter, SubsHilfeHandler4
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte DesktopPainter, Grafix\pic.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte EmojiMenu, SubsHilfeHandler5
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte EmojiMenu, Grafix\cool.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte FavoriteFolders, SubsHilfeHandler6
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte FavoriteFolders, Grafix\ordner3.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte IconExtractor, SubsHilfeHandler7
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte IconExtractor, Grafix\linux.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte MiniDBs, SubsHilfeHandler11
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte MiniDBs, Grafix\fledermond2.ico,1     
 ; Einträge Untermenü Versionsinfo
 	Menu, SubBaxMenuVersion, Add, Versionsinfo BaxterWorks, SubsMenuVersioninfo1
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo BaxterWorks, Grafix\bax.ico,1     
@@ -230,6 +295,16 @@ BaxMenu:
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo BWAppBar, Grafix\appbar.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo 00AppBar, SubsMenuVersioninfo3
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo 00AppBar, Grafix\menuico.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo DesktopPainter, SubsMenuVersioninfo4
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo DesktopPainter, Grafix\pic.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo EmojiMenu, SubsMenuVersioninfo5
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo EmojiMenu, Grafix\cool.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo FavoriteFolders, SubsMenuVersioninfo6
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo FavoriteFolders, Grafix\ordner3.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo IconExtractor, SubsMenuVersioninfo7
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo IconExtractor, Grafix\linux.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo MiniDBs, SubsMenuVersioninfo11
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo MiniDBs, Grafix\fledermond2.ico,1     
 ; Einträge Untermenü Telegram
 	Menu, SubBaxMenuTG, Add, T-Jah Tom @BaxterWorks, TGHandler1
 	Menu, SubBaxMenuTG, Icon, T-Jah Tom @BaxterWorks, Grafix\bax.ico,1     
@@ -259,7 +334,7 @@ BaxMenu:
 	Menu, BaxMenu, Icon, GetReadyBax - Konfiguration,  Grafix\runaway.ico,1     
 	Menu, BaxMenu, Add, About, AboutMenuSub  				; Fügt einen weiteren Menüpunkt unterhalb des Untermenüs ein.
 	Menu, BaxMenu, Icon, About, C:\WINDOWS\System32\SHELL32.dll,222
-return  ; Ende des automatischen Ausführungsbereichs.
+return
 
 
 ; 
@@ -288,8 +363,13 @@ Menu,Tray,Add,Tools laden,Apps						; Trennlinie
 Menu,Tray,Add,Settings...,EINSTELLUNGEN
 Menu,Tray,Add,Neuerungen...,Version
 Menu,Tray,Add,Exit,EXIT
-Menu,Tray,Tip,%AppName% %Codeversion%
+Menu,Tray,Tip,%AppName% %CodeVersion%
 Menu,Tray,Default,%AppName%
+
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 004 Traymenü , 3
+;----------------------------------------------------------------------------------------------
+
 return
 
 ; 
@@ -298,11 +378,20 @@ return
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
+IncludeBax:
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 006 Beginn Includes , 3
+;----------------------------------------------------------------------------------------------
+
 ; Apps und HK
-	#Include %A_ScriptDir%\HotKeys\hk_appstart.ahk
 	#Include %A_ScriptDir%\HotKeys\hk_editbax.ahk
 	#Include %A_ScriptDir%\HotKeys\hs_edittom.ahk
 	#Include %A_ScriptDir%\HotKeys\listbax.ahk
+	#Include %A_ScriptDir%\HotKeys\ifexist_notepad.ahk
+	#Include %A_ScriptDir%\HotKeys\tv_ahk.ahk
+	#Include %A_ScriptDir%\HotKeys\tv_md.ahk
+	#Include %A_ScriptDir%\HotKeys\tv_txt.ahk
+	#Include %A_ScriptDir%\HotKeys\hk_appstart.ahk
 
 ; BaxFunk Module
 	#Include %A_ScriptDir%\Function\BaxFunk_FensterInfo.ahk	
@@ -311,8 +400,6 @@ return
 	#Include %A_ScriptDir%\Function\BaxFunk_Dropper.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_ConfigWindow.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_reloadAHK.ahk
-
-	#Include %A_ScriptDir%\Function\FileInstall.ahk
 
 ; ThirdParty
 	#Include %A_ScriptDir%\Lib\Class_CTLCOLORS.ahk
@@ -334,22 +421,6 @@ return
 	#Include %A_ScriptDir%\Lib\VA.inc.ahk
 
 	#Include %A_ScriptDir%\HotKeys\AutoCorrect.ahk
-	#Include %A_ScriptDir%\HotKeys\hk_appstart.ahk
-	#Include %A_ScriptDir%\HotKeys\ifexist_notepad.ahk
-	#Include %A_ScriptDir%\HotKeys\tv_ahk.ahk
-	#Include %A_ScriptDir%\HotKeys\tv_md.ahk
-	#Include %A_ScriptDir%\HotKeys\tv_txt.ahk
-
-
-
-
-; On Shutdown (siehe oben)
-	SaveSettings() {
-	MsgBox, Viele Apps speichern beim Beenden DEINE Eingaben. Besser erst die Programme beenden - dann runterfahren.`nT-Jah Tom
-	GoSub, EXIT
-	}
-
-;-----------------------------------------------------------------(Ende Autoexec) 
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -365,7 +436,7 @@ Gui,99:Color, silver
 Gui,99:Add,Picture, w90 h90 Icon1,%AppName%.exe
 Gui,99:Font,Bold 
 Gui,99:Font, s10 cGreen, Verdana
-Gui,99:Add,Text, R1 xp+100 ,%AppName% - %Firma% - %Codeversion% 
+Gui,99:Add,Text, R1 xp+100 ,%AppName% - %Firma% - %CodeVersion% 
 Gui,99:Font
 Gui,99:Font, s9 cBlack, Verdana
 Gui,99:Add,Text, R3 ,BaxterWorks ist die Struktur für einige Tools und Funktionen.`nDie Software erweitert deinen PC`nBeachte die Hilfetexte
@@ -409,6 +480,10 @@ Gui,99:Font
 Gui,99:Show,,%AppName% About
 hCurs:=DllCall("LoadCursor","UInt",NULL,"Int",32649,"UInt") ;IDC_HAND
 OnMessage(0x200,"WM_MOUSEMOVE") 
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 005 Aboutfenster , 3
+;----------------------------------------------------------------------------------------------
+
 Return
 
 ; 
@@ -457,7 +532,7 @@ ConfigMenu:
 	return
 
 AboutMenuSub:
-	MsgBox, %AppName% %codeversion%`nBaxterWorks Software`n(c) 1999-2021 T-Jah Tom
+	MsgBox, %AppName% %U_version%`nBaxterWorks Software`n(c) 1999-2021 T-Jah Tom
 	return
 ;--------------------------------------------------------------------------------------Menüpunkte BW Apps
 
@@ -489,10 +564,10 @@ SubsBWHandler9:
 	run, %Bax_Start%\Apps\Launcher\AppBoard.exe
 	return
 SubsBWHandler10:
-	run, %Bax_Start%\Apps\Lupe\MagnifyBax.exe
+	run, %Bax_Start%\Apps\Emoji\EmojiMenu.exe
 	return
 SubsBWHandler11:
-	run, %Bax_Start%\Apps\MiniDBs\MiniDB.exe
+	run, %Bax_Start%\Apps\MiniDB\MiniDBs.exe, , UseErrorLevel
 	return
 SubsBWHandler12:
 	run, %Bax_Start%\Apps\NumpadZeichner\NumpadZeichner.exe
@@ -508,9 +583,9 @@ SubsBWHandler14:
 SubsHilfeHandler1:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help.htm, %Bax_Start%\Files\help.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %Bax_Start%\Files\%Bax_help%.htm
 	}
-	run,%Bax_Start%\Files\help.htm
+	run,%Bax_Start%\Files\%Bax_help%.htm
 	return
 
 SubsHilfeHandler2:
@@ -528,6 +603,41 @@ SubsHilfeHandler3:
 	}
 	run,%Bax_Start%\Files\help_hotkeys.htm
 	return
+SubsHilfeHandler4:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_deskpaint.htm, %Bax_Start%\Files\help_deskpaint.htm
+	}
+	run,%Bax_Start%\Files\help_deskpaint.htm
+	return
+SubsHilfeHandler5:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_emoji.htm, %Bax_Start%\Files\help_emoji.htm
+	}
+	run,%Bax_Start%\Files\help_emoji.htm
+	return
+SubsHilfeHandler6:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_favfolders.htm, %Bax_Start%\Files\help_favfolders.htm
+	}
+	run,%Bax_Start%\Files\help_favfolders.htm
+	return
+SubsHilfeHandler7:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_iconextract.htm, %Bax_Start%\Files\help_iconextract.htm
+	}
+	run,%Bax_Start%\Files\help_iconextract.htm
+	return
+SubsHilfeHandler11:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_minidb.htm, %Bax_Start%\Files\help_minidb.htm
+	}
+	run,%Bax_Start%\Files\help_minidb.htm
+	return
 
 ;--------------------------------------------------------------------------------------Menüpunkte Versionsinfos
 
@@ -541,13 +651,21 @@ SubsMenuVersioninfo3:
 	Run, %Bax_Start%\Log\Versionsinfo_00AppBar.txt
 	return
 SubsMenuVersioninfo4:
-	Run, %Bax_Start%\Log\Versionsinfo_00AppBar.txt
+	Run, %Bax_Start%\Log\Versionsinfo_DesktopPainter.txt
 	return
 SubsMenuVersioninfo5:
-	Run, %Bax_Start%\Log\Versionsinfo_00AppBar.txt
+	Run, %Bax_Start%\Log\Versionsinfo_EmojiMenu.txt
 	return
 SubsMenuVersioninfo6:
-	Run, %Bax_Start%\Log\Versionsinfo_00AppBar.txt
+	Run, %Bax_Start%\Log\Versionsinfo_FavoriteFolders.txt
+	return
+SubsMenuVersioninfo7:
+	Run, %Bax_Start%\Log\Versionsinfo_IconExtractor.txt
+	return
+
+
+SubsMenuVersioninfo11:
+	Run, %Bax_Start%\Log\Versionsinfo_MiniDBs.txt
 	return
 
 ;--------------------------------------------------------------------------------------Menüpunkte Telegram
@@ -595,10 +713,6 @@ TGHandler10:
 
 
 
-^1::Menu, BaxMenu, Show  ; Drücken Sie STRG+1, um das Menü anzuzeigen.
-RMenu:
-	Menu, BaxMenu, Show
-
 ;-----------------------------------------------------Ende BaxMenu
 
 
@@ -619,9 +733,9 @@ Licence:
 HilfeTray:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help.htm, %Bax_Start%\Files\help.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %Bax_Start%\Files\%Bax_help%.htm
 	}
-	run,%Bax_Start%\Files\help.htm
+	run,%Bax_Start%\Files\%Bax_help%.htm
 	return
 
 Credits:
@@ -674,40 +788,48 @@ BWSoft:
 	Return
 
 BWBlog:
-  	Run,http://blog.baxterworks.de,,UseErrorLevel
+  	Run,http://blog.baxterworks.de,, Max UseErrorLevel
 	Return
 
 AHKlabel:
-  	Run,http://www.autohotkey.com,,UseErrorLevel
+  	Run,http://www.autohotkey.com,, Min UseErrorLevel
 	Return
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini  [Version 002]                                                                                   │
+; │   Sub Ini  [Version 002]    +  nur in diesem Skript                                                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ; hier einfügen, was der User an Vars setzen kann
 
 INIREAD:
-IniRead, Bax_Start , %homeini%, FixVars, Bax_Start
-IniRead, homeini , %homeini%, FixVars, homeini
-IniRead, userini , %homeini%, FixVars, userini
-IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
-IniRead, Bax_IP , %homeini%, Netzinfo, Letzte IP
-IniRead, PCName , %homeini%, FixVars, PCName
-IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
 IniRead, Ziel1, %userini%, Dropper, Ziel1, %A_Space% 
 IniRead, Ziel2, %userini%, Dropper, Ziel2, %A_Space% 
 IniRead, DeinOrdner1, %userini%, 2Win, DeinOrdner1, %A_Space% 
 IniRead, DeinOrdner2, %userini%, 2Win, DeinOrdner2, %A_Space% 
 IniRead, Bax_JobDir, %userini%, Variablen, Bax_JobDir, %A_Space% 
 IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space% 
-IniRead, LastVersionBW, %userini%, Variablen, LastVersionBW, %A_Space% 
+
+
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 003 IniRead , 3
+;----------------------------------------------------------------------------------------------
 
 return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub          [Version 002]    ohneGUI  + Pfade nicht Standard                                         │
+; │   ErrorLevel          [Version 001]                                                                        │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+ErrorLevel:
+if (ErrorLevel = "ERROR")
+	MsgBox Das Dokument konnte nicht geöffnet werden.
+
+return
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   EndSub          [Version 002]    ohneGUI  + nicht Standard                                               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -720,16 +842,42 @@ return
 Suspend:
   	Suspend
 	Return
-
+Configzwang:
 EXIT:
 quit:
 MenuEnde:
 DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
 	INIWRITE:
-		IniWrite, %LetzteAnmeldung% , %userini%, Nutzerinfo, Letzter Nutzer
-		IniWrite, %LetzterEinsatz% , %userini%, Nutzerinfo, Letzter Rechner
-		IniWrite, %CodeVersion% , %userini%, Nutzerinfo, LastVersionBW
-		
+	IniWrite, %LetzteAnmeldung% , %userini%, Nutzerinfo, Letzter Nutzer
+	IniWrite, %LetzterEinsatz% , %userini%, Nutzerinfo, Letzter Rechner
+	IniWrite, %CodeVersion% , %homeini%, SkriptInfo, LastVersionBW
+	IniWrite, %CodeVersion% , %backuptxt%, SkriptInfo, LastVersionBW
+	IniWrite, %Bax_exe% , %backuptxt%, FixVars, Bax_exe
+	IniWrite, %A_ScriptDir% , %backuptxt%, FixVars, Bax_Start
+	IniWrite, %Bax_Start%\Config\BaxterWorks.ini , %backuptxt%, FixVars, homeini
+	IniWrite, %userini% , %backuptxt%, FixVars, userini
+	IniWrite, %A_Appdata%\Microsoft\Internet Explorer\Quick Launch , %backuptxt%, FixVars, Bax_Bar
+	IniWrite, %FensterVersion% , %backuptxt%, FixVars, FensterVersion
+	IniWrite, %backuptxt% , %backuptxt%, FixVars, backuptxt
+	IniWrite, %BaxIP% , %backuptxt%, Netzinfo, Letzte IP
+	IniWrite, %Ziel1% , %backuptxt%, Dropper, Ziel1
+	IniWrite, %Ziel2% , %backuptxt%, Dropper, Ziel2
+	IniWrite, %DeinOrdner1% , %backuptxt%, 2Win, DeinOrdner1
+	IniWrite, %DeinOrdner2% , %backuptxt%, 2Win, DeinOrdner2
+	IniWrite, %Bax_JobDir% , %backuptxt%, Variablen, Bax_JobDir
+	IniWrite, %Bax_Flex% , %backuptxt%, Variablen, Bax_Flex
+	IniWrite, %A_UserName%_%A_ComputerName% , %backuptxt%, %BaxNutzerName%, %BaxNutzerName%
+	IniWrite, %count% , %backuptxt%, %BaxNutzerName%, %BaxNutzerName%
+	IniWrite, %LastSeen% , %backuptxt%, %BaxNutzerName% , LastSeen_davor
+	IniWrite, %UhrStart% , %backuptxt%, %BaxNutzerName% , UhrStart_davor
+	IniWrite, %LastSeen% , %userini%, %BaxNutzerName% , LastSeen_davor
+	IniWrite, %UhrStart% , %userini%, %BaxNutzerName% , UhrStart_davor
+	
+	FormatTime, LastSeen,, LongDate
+	IniWrite, %LastSeen% , %backuptxt%, %BaxNutzerName% , LastSeen
+	IniWrite, %LastSeen% , %userini%, %BaxNutzerName% , LastSeen
+	IniWrite, %A_Now% , %backuptxt%, %BaxNutzerName% , UhrStart
+	IniWrite, %A_Now% , %userini%, %BaxNutzerName% , UhrStart
 
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
@@ -743,3 +891,44 @@ CleanUp:
 	FileDelete %A_ScriptDir%\Files\*.htm
 
 ExitApp
+return
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   Zähler      [Version 001]  					                                       │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+	CountBax:
+	IniRead, count, %userini%, %A_UserName%_%A_ComputerName%, %BaxNutzerName%
+	FileAppend, %count%, %A_ComputerName%_%A_UserName%.txt
+	FileRead, count, %A_ComputerName%_%A_UserName%.txt
+	++count
+	FileDelete, %A_ComputerName%_%A_UserName%.txt
+	FileAppend, %count%, %A_ComputerName%_%A_UserName%.txt
+	FileRead, count, %A_ComputerName%_%A_UserName%.txt
+	;MsgBox, % count
+	IniWrite, %count%, %userini%, %BaxNutzerName%, %BaxNutzerName%
+	FileDelete, %A_ComputerName%_%A_UserName%.txt
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 005 Zähler , 3
+;----------------------------------------------------------------------------------------------
+
+if (count = 1)
+	msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Warum der Defender die App ab und zu als`ngefährlich einstuft - versuche ich in der Hilfe zu erklären. Es gibt kein Grund zur Sorge`n Der Quellcode ist offen einsehbar github.com/T-Jah. , 15
+
+if (count = 15)
+msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 15 mal gestartet, was nur du lokal weißt`nDer Zähler ist eigentlich nur eine Übung und Info für dich. , 15
+
+if (count = 50)
+msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 50 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe , 15
+
+if (count = 100)
+msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 100 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe. Oh hab ich das schon gesagt? Na gut - du weißt es und ich muss es nicht mehr sagen. Und DANKE , 15
+
+
+;----------------------------------------------------------------------------------------------
+; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 005a Zähler , 3
+;----------------------------------------------------------------------------------------------
+
+
+	return

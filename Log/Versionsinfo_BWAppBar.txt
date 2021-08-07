@@ -1,0 +1,31 @@
+﻿ ┌───────────────────────────────────────────────────────────────────────────────────────┐
+ │  __________                  __                __      __             __              │
+ │  \______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______  │
+ │   |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/  │
+ │   |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \   │
+ │   |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >  │
+ │          \/      \/      \/           \/             \/                   \/     \/   │
+ ├───────────────────────────────────────────────────────────────────────────────────────┤
+ │                                                              (c) 1999-2021 T-Jah Tom  │
+ ├──────────────────────────────┬────────────────────────────────────┬───────────────────┤
+ │ Programm/Skript:	        │ Autor:	                     │ Info:	    	 │
+ │ BWAppBar                     │ T-Jah Tom, basiert auf Skript v SKAN          BWAppBar │
+ └──────────────────────────────┴────────────────────────────────────┴───────────────────┘
+
+  INHALT:
+
+	1.0.1.2 DragnDrop erster Teil
+	1.0.1.1 Win+Z Menü erweitert
+	1.0.1.0 Update auf FensterVersion 003
+	1.0.0.9 SaveSettings bei Shutdown
+	1.0.0.8 neues Menü erweitert
+	1.0.0.7 Update Credits und Hilfe
+	1.0.0.6 neues Menü erweitert
+	1.0.0.5 RechtsKlick auf die AppBar (oder Win+Z) für neues Menü
+	1.0.0.4 +Owner in eigene Funktionen integriert
+	1.0.0.3 Erweiterte Variable für 2. Monitor
+	1.0.0.2 Update Credits und Hilfe
+	1.0.0.1 Mit Configskript
+	1.0.0.0 Erste Version
+
+Credits to SKAN, Author of the orig. AppBar Script, which is used for BWAppBar.

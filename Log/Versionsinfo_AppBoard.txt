@@ -1,0 +1,43 @@
+﻿ ┌───────────────────────────────────────────────────────────────────────────────────────┐
+ │  __________                  __                __      __             __              │
+ │  \______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______  │
+ │   |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/  │
+ │   |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \   │
+ │   |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >  │
+ │          \/      \/      \/           \/             \/                   \/     \/   │
+ ├───────────────────────────────────────────────────────────────────────────────────────┤
+ │                                                              (c) 1999-2021 T-Jah Tom  │
+ ├──────────────────────────────┬────────────────────────────────────┬───────────────────┤
+ │ Programm/Skript:	        │ Autor:	                     │ Info:	    	 │
+ │ AppBoard                     │ T-Jah Tom	                     │ Übungsfenster	 │
+ └──────────────────────────────┴────────────────────────────────────┴───────────────────┘
+
+  INHALT:
+
+	1.1.4.1 Zurückgebaut zum leeren Fenster für BW
+	1.1.4.0 +Owner in eigene Funktionen integriert
+	1.1.3.9 Versionsupdate, neue Variable, neue ini
+	1.1.3.8 Updates Menü
+	1.1.3.7 Neue Pfade (Grafix)
+	1.1.3.6 Bugfix
+	1.1.3.5 Pfad Ordner Files, Credits
+	1.1.3.4 ListBox ToDo hinzugefügt
+	1.1.3.3 Code aufgeräumt, kleine Fehler behoben
+	1.1.3.2 Abouttext
+	1.1.3.1 GUI erweitert, neu sortiert
+	1.1.3.0 Ini in Configordner
+	1.1.2.9 Hotkeys für die Pakete
+	1.1.2.8 Korrektur
+	1.1.2.7 Pfadanpassung, Fehlersuche
+	1.1.2.6	HotKeys umgeordnet, um Konflikte zu meiden, Apps im Paket
+            	funktioniert nur, wenn AppBoard existiert: STRG+Zahl (zZt 1-3)
+	1.1.2.5 Panikfunktion, killt alle Skripte
+	1.1.2.4 Menüs eingebaut
+	1.1.2.3 Pfadanpassung
+	1.1.2.2 Neue Ordnerstruktur
+	1.1.2.1	Fortschrittsbalken animiert
+	1.1.2.0 Diese Datei eingebunden und Klasse tts integriert
+	1.1.1.9 Aboutfenster vom Musterfenster übernommen, Struktur neu geordnet	
+	1.1.1.8	Gdip einegbunden, weitere Lib im Test
+       		Ordner Grafiktools und Audiotools hinzugefügt
+

@@ -1,0 +1,42 @@
+﻿ ┌───────────────────────────────────────────────────────────────────────────────────────┐
+ │  __________                  __                __      __             __              │
+ │  \______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______  │
+ │   |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/  │
+ │   |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \   │
+ │   |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >  │
+ │          \/      \/      \/           \/             \/                   \/     \/   │
+ ├───────────────────────────────────────────────────────────────────────────────────────┤
+ │                                                              (c) 1999-2021 T-Jah Tom  │
+ ├──────────────────────────────┬────────────────────────────────────┬───────────────────┤
+ │ Programm/Skript:		│ Autor:	                     │ Info:		 │
+ │ NumpadZeichner     		│ T-Jah Tom	                     │ Anleitung im Tray │
+ └──────────────────────────────┴────────────────────────────────────┴───────────────────┘
+
+  INHALT:
+	Versionsinfo NumpadZeichner
+
+	2.0.1.7 Update auf BaxterWorks 005
+	2.0.1.6 Umzug in Struktur BaxterWorks
+	2.0.1.5 Versionsupdate, Scriptstructure
+	2.0.1.4 Versionsupdate, Hilfe und Credits
+	2.0.1.3 Versionsupdate, neue Variable, neue ini
+	2.0.1.2 Update Struktur
+	2.0.1.1 Tastenbelegung.pdf und Hilfe erweitert
+	2.0.1.0 Erweiterung Tasten
+	2.0.0.9 Exportversion auf GitHub
+	2.0.0.8 Läd htm, falls nicht da. Creditstray...
+	2.0.0.7 Updates interne Module (für alle Skripte, Optionen Version 018)
+	2.0.0.6 MIT Licence neu gewählt, analog zu GitHub
+	2.0.0.5 Bilder für LicenceWindow
+	2.0.0.4 Neue Pfadvariable
+	2.0.0.3 Licence und Credits
+	2.0.0.2 Anleitung erweitert
+	2.0.0.1 Den Abouttext verfasst
+	2.0.0.0 STRG+Numpadtasten, ganz neu aufgeteilt, Version 2
+	1.0.0.5 STRG+n hinzugefügt (neues Fenster mit Headline)
+	1.0.0.4 Anleitung und Beispiele
+	1.0.0.3 Fehlendes Zeichen addiert
+	1.0.0.2 Icon angelegt
+	1.0.0.1	Appauswahl optimiert
+	1.0.0.0	Erste Version
+

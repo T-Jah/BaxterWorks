@@ -1,0 +1,10 @@
+﻿Versionsinfo FavoriteFolders
+Autor: Savage
+
+1.0.1.4 Intergration in BaxterWorks
+1.0.1.3 neue Pfade, Grafix-Ordner
+1.0.1.2 neue Pfade
+1.0.1.1 EndeFunktion
+1.0.1.0 Ini im ConfigOrdner
+1.0.0.9	Pfadanpassung
+1.0.0.8 Neue Ordnerstruktur
