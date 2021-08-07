@@ -1,0 +1,58 @@
+Basic	Headline	Linie_HR1	<h1>text</h1>
+Basic	Headline	Linie_HR2	<h2>text</h2>
+Basic	Headline	Linie HR3	<h3>text</h3>
+Basic	Headline	Linie HR4	<h4>text</h4>
+Basic	Headline	Linie HR5	<h5>text</h5>
+Basic	Headline	Linie HR6	<h6>text</h6>
+Basic	Marker	marker1	<a href="index.htm" title="Home" class="marker1">BaxterWorks</a>
+Basic	Marker	marker2	<a href="index.htm" title="Home" class="marker2">BaxterWorks</a>
+Basic	Marker	marker3	<a href="index.htm" title="Home" class="marker3">BaxterWorks</a>
+Basic	Marker	marker4	<a href="index.htm" title="Home" class="marker4">BaxterWorks</a>
+Basic	Linien	linie1	<hr class="linie1">
+Basic	Linien	linie2	<hr class="linie2">
+Basic	Linien	linie3	<hr class="linie3">
+Basic	Absatz	p	<p>Ein Absatz</p>
+Basic	Fett	fett	<b>fett</b> und <b class="fett">fetter</b>
+Basic	Liste	Listen	<ul><li><a href="index.htm" class="basis">Start</a>Aufzaehlung</li></ul>
+Bilder	Media	Screen	<img src="pic.png" class="screen" alt="Screen">
+Bilder	Media	Banner	<img src="pic.png" class="banner" alt="Banner">
+Bilder	Media	Portrait	<img src="pic.png" class="portrait" alt="Portrait">
+Bilder	Media	RechtsLks	<img src="pic.png" class="quer_l" alt="quer_l"><img src="pic.png" class="quer_r" alt="quer_r">
+Bilder	Media	Hochkant	<img src="pic.png" class="hoch_l" alt="hoch_l"><img src="pic.png" class="hoch_r" alt="hoch_r">
+Bilder	Video	Video	<img src="pic.png" class="video" alt="video">
+Bilder	Video	VideoX	<img src="pic.png" class="video" alt="video">
+Block	Spalte1	Bild_lks	<img class="spalte_l" src="pic.png">
+Block	Spalte1	Bild_re	<img class="spalte_r" src="pic.png">
+Block	Spalte1	Text_lks	<div id="spalte_l">ID links</div>
+Block	Spalte1	Text_re	<div id="spalte_r">ID rechts</div>
+Einfach	Text	Txt-Style	<div id="spanbax"> <div class="spanbax1">ASCII ART</div></div>
+IDs	ID	Kopf	<div id="kopf">Head<a href="index.htm" class="nav">home</a></div>
+IDs	ID	Basis	<div class="basis">Basis<a href="index.htm" class="basis">Link</a></div>
+IDs	ID	Verweis	<div id="verweis">Ein <a href="index.htm" class="verweis">Querverweis</a></div>
+IDs	ID	Social	<div id="social">Zeile <a href="index.htm" class="nav">SocialMedia</a></div>
+Links	Navleiste	Navleiste	<a href="index.htm" class="nav">SocialMedia</a>
+Links	Verweis	Verweis	<a href="index.htm" class="verweis">Verweis</a>
+Links	Fuss	Unten	<div id="fuss"><a href="001_modul.htm" title="tombesch.de" target="_new"><img src="pic.png" id="fuss"></a></div>
+Links	Inhalte	Link1	<a href="index.htm" class="link1">Link1</a>
+Links	Inhalte	Link2	<a href="index.htm" class="link2">Link2</a>
+Links	Inhalte	Link3	<a href="index.htm" class="link3">Link3</a>
+Links	Signatur	sig1	<div id="sig1">BaxterWorks</div>
+Links	Signatur	sig2	<div id="sig2">(c) 2021 <a href="https://www.tombesch.de" target="_new" class="sig2" title="www.tombesch.de">Tom Besch</a></div>
+Musterdatei	Vorlage	baxterworks.css	https://pastebin.com/raw/ctjT3msk
+Rahmen	Frame1	Bild_lks	<img class="frame1_pix_l" src="pic.png">
+Rahmen	Frame1	Bild_re	<img class="frame1_pix_r" src="pic.png">
+Rahmen	Frame1	Text	<div class="frame1">Frame1 Rahmen.</div>
+Rahmen	Frame2	Bild_lks	<img class="frame2_pix_l" src="pic.png">
+Rahmen	Frame2	Bild_re	<img class="frame2_pix_r" src="pic.png">
+Rahmen	Frame2	Text	<div class="frame2">Frame2 Rahmen.</div>
+Rahmen	Frame3	Bild_lks	<img class="frame3_pix_l" src="pic.png">
+Rahmen	Frame3	Bild_re	<img class="frame3_pix_r" src="pic.png">
+Rahmen	Frame3	Text	<div class="frame3">Frame3 Rahmen.</div>
+sonstige	Beispiel	BSP	<div class="bsp">Das <a href="index.htm" class="bsp">Beispiel</a></div>
+sonstige	Wichtig	wichtig	<div class="wichtig">Das <a href="index.htm" class="wichtig">Wichtige</a></div>
+sonstige	Box	box1	<div class="box1">Die <a href="index.htm" class="box1">Box 1</a></div>
+sonstige	Box	box2	<div class="box2">Die <a href="index.htm" class="box2">Box 2</a></div>
+Spezial	Tabelle	Flexbox	<div class="flexbox"><div class="fb">drei spaltig<img src="pic.png"></div></div>
+Spezial	Tabelle	Tab1v3	<div class="tabspalte"><div class="tabspalte-1">drei spaltig<img src="pic.png"></div>
+Spezial	Tabelle	Tab2v3	<div class="tabspalte-2">drei spaltig<img src="pic.png"></div>
+Spezial	Tabelle	Tab3v3	<div class="tabspalte-3">drei spaltig<img src="pic.png"></div></div>
