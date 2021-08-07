@@ -24,7 +24,9 @@
 	SetWorkingDir %Bax_Start%		; wichtig
 	SendMode Input
 	FileEncoding UTF-8
-
+try
+{
+InstallBax:
 ; FileInstall
 ;------------------------------------- Icons
 	FileInstall, Grafix\ahk.ico, Grafix\ahk.ico, 0				; 1 = überschreiben
@@ -104,10 +106,24 @@
 
 ;------------------------------------- Dateien
 
-	FileInstall, Grafix\credits.md, Grafix\credits.md, 0			; 1 = überschreiben
-	FileInstall, Grafix\help.md, Grafix\help.md, 0				; 1 = überschreiben
-	FileInstall, Grafix\Licence, Grafix\Licence, 0				; 1 = überschreiben
+	FileInstall, Files\credits.md, Files\credits.md, 0			; 1 = überschreiben
+	FileInstall, Files\help.md, Files\help.md, 0				; 1 = überschreiben
+	FileInstall, Files\Licence, Files\Licence, 0				; 1 = überschreiben
 
-
-
+	
 ;------------------------------------- Apps
+
+		FileInstall, Apps\BWAppBar\BWAppBar.exe, Apps\BWAppBar\BWAppBar.exe, 0			; 1 = überschreiben
+		FileInstall, Apps\BWAppBar\00AppBar.exe, Apps\BWAppBar\00AppBar.exe, 0			; 1 = überschreiben
+		FileInstall, Apps\GetReadyBax\GetReadyBax.exe, Apps\GetReadyBax\GetReadyBax.exe, 0	; 1 = überschreiben
+		FileInstall, Apps\Emoji\EmojiMenu.exe, Apps\Emoji\EmojiMenu.exe, 0			; 1 = überschreiben
+		FileInstall, Apps\FavFolder\FavoriteFolders.exe, Apps\FavFolder\FavoriteFolders.exe, 0	; 1 = überschreiben
+
+}
+catch
+{
+    MsgBox, 16,, Es trat ein Fehler beim Absichern der Dateien auf!
+    ExitApp
+}
+
+MsgBox, Alles installiert

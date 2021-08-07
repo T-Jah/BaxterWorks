@@ -10,15 +10,9 @@ global
 		SetTitleMatchMode 2  		; Verhindert, dass unten der vollständige Pfad der Datei angegeben werden muss.
 		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
 		SetWorkingDir %Bax_Start%
-		FileEncoding UTF-8
-		#SingleInstance ignore
 	
 	if !WinExist("ahk_exe BWAppBar.exe")
 	;MsgBox, AppBar ist nicht an %Bax_Start%
 	Run, %Bax_Start%\Apps\BWAppBar\BWAppBar.exe
- 
-
-	if !WinExist("ahk_exe BaxterWorks.exe")	
-	Run, %Bax_Start%\BaxterWorks.exe
 
 }

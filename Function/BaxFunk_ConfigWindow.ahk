@@ -2,7 +2,7 @@
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │   BaxterWorks Software | T-Jah Tom | Funktionen | Aufruf mit: Bax_ConfigGui_Create()   	               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;     Version 009
+;     Version 010
 
 
 Bax_ConfigGui_Create(){
@@ -37,7 +37,7 @@ Gui,BaxterWorks:Font
 Gui,BaxterWorks:Font, s9 cWhite, Verdana
 Gui,BaxterWorks:Add, Checkbox, vCheck1 Checked%Check1% , EmojiMenu
 Gui,BaxterWorks:Add, Checkbox, vCheck2 Checked%Check2% , FavoriteFolders
-Gui,BaxterWorks:Add, Checkbox, vCheck3 Checked%Check3% , MiniDB
+Gui,BaxterWorks:Add, Checkbox, vCheck3 Checked%Check3% , MiniDBs
 Gui,BaxterWorks:Add, Checkbox, vCheck4 Checked%Check4% , NumpadZeichner
 Gui,BaxterWorks:Add, Checkbox, vCheck5 Checked%Check5% , DesktopPainter
 Gui,BaxterWorks:Add, Checkbox, vCheck6 Checked%Check6% , SuchBax
@@ -54,8 +54,8 @@ GuiControlGet, Check6
 Gui,BaxterWorks:Submit, NoHide
 Gui,BaxterWorks:Show, x400 y20, BaxterWorks Config
 OnMessage(0x200, "ConfigToolTips")
-return
 
+}
 
 ExitWithSaving:
 
@@ -63,10 +63,10 @@ BaxterWorksGuiClose:      ; wichtige Platzierung genau hier
 Gui,BaxterWorks:Submit, NoHide
 
 	If (Check1 = 0)
-		IniWrite, 0 , %homeini% , Komponenten , Check1
+		IniWrite, 0 , %userini% , Komponenten , Check1
 	if (Check1 = 1)
 	{
-	   	IniWrite, 1 , %homeini% , Komponenten , Check1
+	   	IniWrite, 1 , %userini% , Komponenten , Check1
 	   
 		If !WinExist("EmojiMenu.exe")
         	run, %Bax_Start%\Apps\Emoji\EmojiMenu.exe
@@ -74,10 +74,10 @@ Gui,BaxterWorks:Submit, NoHide
 
 
 	If (Check2 = 0)
-		IniWrite, 0 , %homeini% , Komponenten , Check2
+		IniWrite, 0 , %userini% , Komponenten , Check2
 	else if (Check2 = 1)
 	{
-	   	IniWrite, 1 , %homeini% , Komponenten , Check2
+	   	IniWrite, 1 , %userini% , Komponenten , Check2
 	   
 		If !WinExist("FavoriteFolders.exe")
         	run, %Bax_Start%\Apps\FavFolder\FavoriteFolders.exe
@@ -85,22 +85,22 @@ Gui,BaxterWorks:Submit, NoHide
 
 
 	If (Check3 = 0)
-		IniWrite, 0 , %homeini% , Komponenten , Check3
+		IniWrite, 0 , %userini% , Komponenten , Check3
 	else if (Check3 = 1)
 	{
-	   	IniWrite, 1 , %homeini% , Komponenten , Check3
+	   	IniWrite, 1 , %userini% , Komponenten , Check3
 	   
-		If !WinExist("BW_Allround.exe")
-        	run, %Bax_Start%\Apps\MiniDB\BW_Allround.exe
+		If !WinExist("MiniDBs.exe")
+        	run, %Bax_Start%\Apps\MiniDB\MiniDBs.exe
 	}
 
 
 
 	If (Check4 = 0)
-		IniWrite, 0 , %homeini% , Komponenten , Check4
+		IniWrite, 0 , %userini% , Komponenten , Check4
 	else if (Check4 = 1)
 	{
-	   	IniWrite, 1 , %homeini% , Komponenten , Check4
+	   	IniWrite, 1 , %userini% , Komponenten , Check4
 	   
 		If !WinExist("NumpadZeichner.exe")
         	run, %Bax_Start%\Apps\NumpadZeichner\NumpadZeichner.exe
@@ -109,10 +109,10 @@ Gui,BaxterWorks:Submit, NoHide
 
 
 	If (Check5 = 0)
-		IniWrite, 0 , %homeini% , Komponenten , Check5
+		IniWrite, 0 , %userini% , Komponenten , Check5
 	else if (Check5 = 1)
 	{
-	   	IniWrite, 1 , %homeini% , Komponenten , Check5
+	   	IniWrite, 1 , %userini% , Komponenten , Check5
 	   
 		If !WinExist("DesktopPainter.exe")
         	run, %Bax_Start%\Apps\DesktopPainter\DesktopPainter.exe
@@ -121,10 +121,10 @@ Gui,BaxterWorks:Submit, NoHide
 
 
 	If (Check6 = 0)
-		IniWrite, 0 , %homeini% , Komponenten , Check6
+		IniWrite, 0 , %userini% , Komponenten , Check6
 	else if (Check6 = 1)
 	{
-	   	IniWrite, 1 , %homeini% , Komponenten , Check6
+	   	IniWrite, 1 , %userini% , Komponenten , Check6
 	   
 		If !WinExist("SuchBax.exe")
         	run, %Bax_Start%\Apps\SuchBax\SuchBax.exe
@@ -134,23 +134,23 @@ Gui,BaxterWorks:Submit, NoHide
 
 
 WinClose
-
+Gui,BaxterWorks:Destroy
+return
 
 
 ExitWithoutSaving:
 WinClose
 Gui,BaxterWorks:Destroy
 return
-}
 
 
 Bax_IniRead:
-IniRead, Check1, %homeini%, Komponenten, Check1 , 0
-IniRead, Check2, %homeini%, Komponenten, Check2 , 0
-IniRead, Check3, %homeini%, Komponenten, Check3 , 0
-IniRead, Check4, %homeini%, Komponenten, Check4 , 0
-IniRead, Check5, %homeini%, Komponenten, Check5 , 0
-IniRead, Check6, %homeini%, Komponenten, Check6 , 0
+IniRead, Check1, %userini%, Komponenten, Check1 , 0
+IniRead, Check2, %userini%, Komponenten, Check2 , 0
+IniRead, Check3, %userini%, Komponenten, Check3 , 0
+IniRead, Check4, %userini%, Komponenten, Check4 , 0
+IniRead, Check5, %userini%, Komponenten, Check5 , 0
+IniRead, Check6, %userini%, Komponenten, Check6 , 0
 return
 
 

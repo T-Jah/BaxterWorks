@@ -1,25 +1,19 @@
 ﻿;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   BaxterWorks Software | T-Jah Tom | Funktionen | Aufruf mit: Bax_ConfigGui_Create()   	               │
+; │   BaxterWorks Software | T-Jah Tom | Funktionen | Aufruf mit: Bax_Keys_Create()   	               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;     Version 011
+;     Version 003
 
-
+		
 
 Bax_Keys_Create(){
 global
-		SetTitleMatchMode 2  		; Verhindert, dass unten der vollständige Pfad der Datei angegeben werden muss.
+		#SingleInstance ignore
 		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
+		SetTitleMatchMode 2  		; Verhindert, dass unten der vollständige Pfad der Datei angegeben werden muss.
 		SetWorkingDir %Bax_Start%
 		FileEncoding UTF-8
-		#SingleInstance ignore
 
-
-If !(FileExist(File1) && FileExist(File2))
-{
-	UrlDownloadToFile, http://www.baxterworks.de/software/pix/bw_banner.png,  Grafix\bw_banner.png
-	UrlDownloadToFile, http://www.baxterworks.de/software/pix/bw_software2.png,  Grafix\bw_software2.png
-}
 
 ;MsgBox, %Bax_Start%`n%A_ScriptDir%
 Gui,Keys:New
@@ -45,10 +39,11 @@ SendMessage 0x132B, 0, 5 | (4 << 16),, ahk_id %hTab% ; TCM_SETPADDING
 
 Gui,Keys:Tab, 1
     Gui,Keys:Add,StatusBar
-    Gui,Keys:Add, ListView, hWndhLVBaxterWorks x18 y44 w430 h428 +LV0x14000, Aktion|Taste
+    Gui,Keys:Add, ListView, hWndhLVBaxterWorks x18 y44 w430 h430 +LV0x14000, Aktion|Taste
     SetExplorerTheme(hLVEBaxterWorks)
 
     LV_Add("", "Ton AN/AUS", "STRG+. (Punkt)")
+    LV_Add("", "BaxMenü - Hauptmenü BaxterWorks", "STRG+1")
     LV_Add("", "HotKeys, dieses Fenster", "STRG+2")
     LV_Add("", "App SuchBax", "STRG+5")
     LV_Add("", "AHK Handbuch", "STRG+0")
@@ -64,8 +59,12 @@ Gui,Keys:Tab, 1
     LV_Add("", "App CaptureBax", "STRG+SHIFT+3")
     LV_Add("", "App Bax_Flex (UserVariable)", "STRG+SHIFT+0")
     LV_Add("", "Markierung in eckigen Klammern", "STRG+SHIFT+B")
+    LV_Add("", "App DesktopPainter", "STRG+SHIFT+D")
+    LV_Add("", "App EmojiMenu", "STRG+SHIFT+E")
+    LV_Add("", "App FavoriteFolders", "STRG+SHIFT+F")
     LV_Add("", "IP Adressen, lokal und online", "STRG+SHIFT+I")
     LV_Add("", "App: KillerBax", "STRG+SHIFT+K")
+    LV_Add("", "App: MiniDBs", "STRG+SHIFT+M")
     LV_Add("", "Funktion: 2Win", "STRG+SHIFT+N")
     LV_Add("", "OnTop, jedes Fenster", "STRG+SHIFT+O")
     LV_Add("", "Reload aller Skripte", "STRG+SHIFT+R")
@@ -86,7 +85,7 @@ Loop % LV_GetCount("Col")  ; Auto-size each column to fit its contents.
 
 
 Gui,Keys:Tab, 2
-    Gui,Keys:Add, ListView, hWndhLVIfActive x18 y44 w430 h428 +LV0x14000, Aktion|Taste
+    Gui,Keys:Add, ListView, hWndhLVIfActive x18 y44 w430 h430 +LV0x14000, Aktion|Taste
     SetExplorerTheme(hLVGUIIfActive)
 
     LV_Add("", "Notepad: BaxterWorks Fenster", "STRG + N")
@@ -96,7 +95,7 @@ Loop % LV_GetCount("Col")  ; Auto-size each column to fit its contents.
     LV_ModifyCol(2, "AutoHdr")
 
 Gui,Keys:Tab, 3
-    Gui,Keys:Add, ListView, hWndhLVWindows x18 y44 w430 h428 +LV0x14000, Aktion|Taste
+    Gui,Keys:Add, ListView, hWndhLVWindows x18 y44 w430 h430 +LV0x14000, Aktion|Taste
     SetExplorerTheme(hLVWindows)
 
     LV_Add("", "Taskmanager", "STRG+ALT+Entf")
@@ -116,8 +115,8 @@ Loop % LV_GetCount("Col")  ; Auto-size each column to fit its contents.
     LV_ModifyCol(2, "AutoHdr")
 Gui,Keys:Tab
 
-Gui,Keys:Add, Button, gKeysGuiClose x346 y494 w86 h24 Default, &tüss
-Gui,Keys:Show, w490 h550, BaxterWorks HotKey Collection
+Gui,Keys:Add, Button, gKeysGuiClose xm Default, &tüss
+Gui,Keys:Show, w490 h555, BaxterWorks HotKey Collection
 	
 Return
 
@@ -127,7 +126,7 @@ WinClose
 Gui, Keys:Destroy
 Return
 }
-
+Return
 
 SetExplorerTheme(hWnd) {
     Return DllCall("UxTheme.dll\SetWindowTheme", "Ptr", hWnd, "WStr", "Explorer", "Ptr", 0)    
