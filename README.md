@@ -9,4 +9,4 @@ With this work, I´ve learned some AHK. I want to go on this way, learning from 
 in the script. I left those and made myself many new comments. Maybe it will help another
 person to learn more easy. Thank you to all the people, sharing code for free.
 
-T-Jah Tom, mostly 
+T-Jah Tom, mostly student
