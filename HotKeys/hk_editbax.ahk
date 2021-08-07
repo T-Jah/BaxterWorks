@@ -1,26 +1,5 @@
 ﻿ListLines On
 
-:c*:.vfl::VfL Bochum 1848
-:c*:.smile::☺
-:c*:.grad::° Celsius
-:c*:.rec::🛑
-
-:*:ccm3::ccm³
-:*:qm2::qm²
-:c*:fms::Fibromyalgiesyndrom (FMS)
-:*:(a)::@
-:*:(c)::©
-:*:(t)::†
-:*:(tm)::™
-
-:*:Faru::Frau
-:*:Mashine::Machine
-:*:Tunier::Turnier
-:*:heir::hier
-:*:Verküpfung::Verknüpfung
-
-
-
 : Add ToolTip to tell whether always-on-top turned on or off
 ^+o::					; Strg+Shift+o
   WinSet, AlwaysOnTop, toggle, A
@@ -45,7 +24,7 @@ Return
 		SoundBeep,750, 500
 		MsgBox, MASTER ist nicht mehr stummgeschaltet.
 	}
-Return
+return
 
 
 !^i::                           ; Convert text to upper

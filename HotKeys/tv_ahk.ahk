@@ -20,18 +20,20 @@ SetWorkingDir %A_ScriptDir%		; wichtig
 SendMode Input
 
 
-; AHK HotStrings
-
-:*:A_S::%A_ScriptDir%
-:*:A_W::%A_WorkingDir%
-:*:A_P::%A_ProgramData%
-:*:A_U::%A_UserName%
-:*:A_C::%A_ComputerName%
-
-
-
 ; AHK Vorlagen
 
+
+:*:ahk_titel::
+SendInput {Raw}
+(
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   Titel und Info         [Version 001]                                                                     │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+)
+return
 
 :*:ahk_break::
 SendInput {Raw}
@@ -39,35 +41,6 @@ SendInput {Raw}
 ;---------------------------------------------------------------->
 ; ANFANG / ENDE
 ;---------------------------------------------------------------->
-
-)
-return
-
-
-
-:*:ahk_1head::
-SendInput {Raw}
-(
-;------------------------------------------------------------------------------------->
-; AHK AutoHotKey Skript. Handbuch und HP: https://ahkde.github.io/
-; (c) 2021 T-Jah Tom
-; https://github.com/T-Jah					   05/2021 Version 008
-;------------------------------------------------------------------------------------->
-; Skript besteht überwiegend aus Schnippseln aus dem Handbuch und der Community.
-;
-; BaxterWorks Software:	http://www.baxterworks.de/software
-;			http://blog.baxterworks.de
-;                       ^ STRG + Shift ! Alt # WIN
-;------------------------------------------------------------------------------------->
-; More:    ......https://github.com/T-Jah
-; Titel:   ......Name
-; Licence: ......BaxterWorks Software is licensed under the MIT Licence
-
-; Script options
-#SingleInstance force 			; oder off
-#NoEnv
-SetWorkingDir %A_ScriptDir%		; wichtig
-SendMode Input
 
 )
 return
@@ -155,9 +128,20 @@ return
 :*:ahk_head::
 SendInput {Raw}
 (
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │            __________                  __                __      __             __                         │
+; │            \______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______             │
+; │             |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/             │
+; │             |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \              │
+; │             |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >             │
+; │                    \/      \/      \/           \/             \/                   \/     \/              │
+; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 011               MiniBax AHK Skript
 
 /*
- * Muster
+ * MiniBax
  * Copyright 2021 T-Jah Tom
  * All Rights Reserved.
  * Use, reproduction, distribution, and modification of this code is subject to the terms and
@@ -167,7 +151,7 @@ SendInput {Raw}
  * Project: https://github.com/T-Jah
  *
  * ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- * │   Skriptoptionen 	                       [Version 009]                                                    │
+ * │   Skriptoptionen 	(lang)                 [Version 005]                                                    │
  * └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  *
  *                         BaxterWorks Software:	http://www.baxterworks.de/software
@@ -177,11 +161,52 @@ SendInput {Raw}
  */
 
 ; Script options
-#SingleInstance force 			; oder off
-#NoEnv
-SetWorkingDir %A_ScriptDir%		; wichtig
-SendMode Input
+	#SingleInstance force 			; oder off, ignore, force
+	#NoEnv
+	#MaxMem 512			
+	#Persistent
+	#InstallKeybdHook
+	#InstallMouseHook
+		SetBatchLines -1
+		DetectHiddenWindows On		; Ermöglicht die Erkennung des versteckten Hauptfensters eines Skripts.
+		SetTitleMatchMode 2  		; Verhindert, dass unten der vollständige Pfad der Datei angegeben werden muss.
+		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
+		SetWorkingDir %A_ScriptDir%	; wichtig
+		FileEncoding UTF-8
+		ListLines, Off			; spart Ressourcen wenn aus. Zum Debuggen einschalten für most recently executed lines
+; Icon
+	Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\cool2.ico	; #NoTrayIcon
+; OnExit
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
 
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   Variablen, zB Pfade     [Version 006]                                                                    │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+; Startumgebungsvariablen laden
+	IniRead, Bax_Start , %A_ScriptDir%\..\..\Config\BaxterWorks.ini, FixVars, Bax_Start
+	IniRead, homeini , %Bax_Start%\Config\BaxterWorks.ini, FixVars, homeini
+	IniRead, userini , %homeini%, FixVars, userini
+	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
+	IniRead, backuptxt , %homeini%, FixVars, backuptxt
+	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+
+; Startumgebungsvariablen festlegen
+	AppName = MiniBax
+	Bax_help = help	
+	LetzteAnmeldung = %A_UserName%
+	LetzterEinsatz = %A_ComputerName%
+	BaxNutzerName = %A_UserName%_%A_ComputerName%
+	Bax_Start = %Bax_Start%
+	scriptini = %Bax_Start%\Config\%AppName%.ini
+	Bax_Icon = %Bax_Start%\Grafix\cool2.ico
+	
+	
+; Variablentest
+; --------------------------------------------------------------- TextBox für die Fehlersuche
+; MsgBox,  %homeini% 
 )
 
 return
@@ -208,39 +233,48 @@ return
 ;------------------------------------------------------------------------------------->
 
 
-:*:ahk_kasten1::
-SendInput {Raw}
-(
-noch nicht fertig
-
-)
-return
-
-
 
 :*:ahk_options::
 SendInput {Raw}
 (
-;                       ^ STRG + Shift ! Alt # WIN
-;-------------------------------------------------------------------------------------------------------------
-#SingleInstance force 		; oder off, force, ignore
-#NoEnv				
-#Persistent			; mit ExitApp statt mit Exit beenden
-#MaxMem 512			
-; #NoTrayIcon			; auf doppelten Eintrag achten
-#KeyHistory 500
-#installKeybdHook
-DetectHiddenWindows On		; Ermöglicht die Erkennung des versteckten Hauptfensters eines Skripts.
-SetTitleMatchMode 2  		; Verhindert, dass unten der vollständige Pfad der Datei angegeben werden muss.
-SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
-SetWorkingDir %A_ScriptDir%
-FileEncoding UTF-8
-SetNumlockState, AlwaysOn	; Set Lock keys permanently - nur im ersten Skipt aufrufen (Tom)
-SetCapsLockState, AlwaysOff
-SetScrollLockState, AlwaysOff
+/*
+ * MiniBax
+ * Copyright 2021 T-Jah Tom
+ * All Rights Reserved.
+ * Use, reproduction, distribution, and modification of this code is subject to the terms and
+ * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ *
+ * Author: T-Jah Tom
+ * Project: https://github.com/T-Jah
+ *
+ * ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ * │   Skriptoptionen 	(lang)                 [Version 005]                                                    │
+ * └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ *
+ *                         BaxterWorks Software:	http://www.baxterworks.de/software
+ *			                 http://blog.baxterworks.de
+ *                                       ^ STRG + Shift ! Alt # WIN
+ * 
+ */
 
+; Script options
+	#SingleInstance force 			; oder off, ignore, force
+	#NoEnv
+	#MaxMem 512			
+	#Persistent
+	#InstallKeybdHook
+	#InstallMouseHook
+		SetBatchLines -1
+		DetectHiddenWindows On		; Ermöglicht die Erkennung des versteckten Hauptfensters eines Skripts.
+		SetTitleMatchMode 2  		; Verhindert, dass unten der vollständige Pfad der Datei angegeben werden muss.
+		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
+		SetWorkingDir %A_ScriptDir%	; wichtig
+		FileEncoding UTF-8
+		ListLines, Off			; spart Ressourcen wenn aus. Zum Debuggen einschalten für most recently executed lines
 ; Icon
-Menu Tray, Icon, %A_ScriptDir%\..\Grafix\bax.ico	; #NoTrayIcon
+	Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\cool2.ico	; #NoTrayIcon
+; OnExit
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
 
 )
 
@@ -260,72 +294,46 @@ Menu Tray, Icon, %A_ScriptDir%\..\Grafix\bax.ico 	; #NoTrayIcon
 return
 
 
-:*:ahk_1ende::
-SendInput {Raw}
-(
-#Persistent  ; Verhindert, dass sich das Skript automatisch beendet.
-
-;---------------------------------------------------------------->
-; BaxEx Klasse
-;---------------------------------------------------------------->
-
-#Include %A_ScriptDir%\..\Lib\BaxFunk_Exit.ahk
-
-; ----------- oben ----------------->
-
-
-; ----------- unten ---------------->
-EXIT:
-GuiClose:
-DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
-ButtonCancel:			; falls es einen Button gibt
-GuiEscape:
-CleanUp:
-; SoundPlay, NoFile.wav
-   Gui, Destroy			; gibt die Ressource frei
-   CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
-SoundBeep, 750, 500
-ExitApp
-)
-
-return
 
 :*:ahk_ende::
 SendInput {Raw}
 (
-;---------------------------------------------------------------->
-; BaxEx Klasse
-;---------------------------------------------------------------->
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   EndSub         [Version 003]           + ohne GUI                                                        │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
 
-#Persistent  ; Verhindert, dass sich das Skript automatisch beendet.
-OnExit(ObjBindMethod(BaxEx, "Beenden"))
-class BaxEx
-{
-    Beenden()
-    {
-        SplashTextOn, 400 fs18,,;   BaxEx macht noch eben ein wenig sauber.
-Sleep, 3000
-SplashTextOff
-	return
-        /*
-        und tüss
-        */
-    }
-}
-; ----------- oben ----------------->
+99GuiClose:
+  	Gui,99:Destroy
+ 	OnMessage(0x200,"")
+  	DllCall("DestroyCursor","Uint",hCur)
+	Return
 
+Suspend:
+  	Suspend
+	Return
 
-; ----------- unten ---------------->
 EXIT:
+quit:
 GuiClose:
+MenuEnde:
 DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
+	;IniWrite, %Lastseen%_%BaxNutzerName% , %backuptxt%, %BaxNutzerName% , Lastseen
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
 CleanUp:
-; SoundPlay, NoFile.wav
-   Gui, Destroy			; gibt die Ressource frei
-   CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
-SoundBeep, 750, 500
+SavePosition:
+	DetectHiddenWindows On
+	; SoundPlay, NoFile.wav
+   	Gui, Destroy			; gibt die Ressource frei
+	SoundBeep, 750, 500
+  	CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
+	Gdip_Shutdown(pToken)		; wird in includes gestartet
+
+	if FileExist("..\..\Files\*.htm")
+	FileDelete %Bax_Start%\Files\*.htm
+
 ExitApp
 )
 
@@ -333,32 +341,6 @@ return
 ;------------------------------------------------------------------------------------->
 ;------------------------------------------------------------------------------------->
 
-
-
-:*:ahk_index::
-SendInput {Raw}
-(
-/**
- *
- * AHK AutoHotKey Skript. Handbuch und HP: https://ahkde.github.io/
- *          * http://www.baxterworks.de/software *
- * ---------------------------------------------------------------->
- * Schnippselname: 
- * Skript aktiviert über:
- *      - include in appstart.ahk
- * Skript in Gebrauch für:
- *      - unbekannt
- * andere Skripte in Relation:
- *      - urlutils.ahk
- *
-*/
-
-)
-
-return
-
-;------------------------------------------------------------------------------------->
-;------------------------------------------------------------------------------------->
 
 :*:ahk_tabelle1::
 SendInput {Raw}
@@ -393,5 +375,21 @@ SendInput {Raw}
 ; │                   │ 	       │		 │  
 ; └───────────────────┴────────────────┴─────────────────┘  
 ; 
+)
+return
+
+
+;------------------------------------------------------------------------------------->
+
+:*:ahk_msg::
+SendInput {Raw}
+(
+MsgBox, 4,BaxterWorks Software meldet , Du bist dran - triff eine Entscheidung, 5  ; Zeitlimit.
+IfMsgBox, No
+    Return  ; Benutzer sagt nö
+IfMsgBox, Timeout
+    Return ; auch nein, weil die Zeit überschritten wurde.
+; Ansonsten fortsetzen:
+
 )
 return

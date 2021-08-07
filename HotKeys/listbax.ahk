@@ -1,7 +1,7 @@
 ﻿;------------------------------------------------------------------------------------->
 ; AHK AutoHotKey Skript. Handbuch und HP: https://ahkde.github.io/
 ; (c) 2021 T-Jah Tom
-; https://github.com/T-Jah					   05/2021 Version 008
+; https://github.com/T-Jah					   07/2021 Version 009
 ;------------------------------------------------------------------------------------->
 ; Skript besteht überwiegend aus Schnippseln aus dem Handbuch und der Community.
 ;
@@ -19,31 +19,28 @@
 SetWorkingDir %A_ScriptDir%		; wichtig
 SendMode Input
 
-:*:.list::	
+:*:.listbax::	
 SendInput {Raw}
 (
-
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐  
-│                                 Liste der Auslöser und Hotkeys					│  
+│                                 Liste der Auslöser und Hotkeys Version 020				│  
 │ ===================================================================================================== │  
-│ TBKeys		...............; STRG + 2        Benutzervariable Bax_Flex startet eine App     │  
-│ Fenster LaunchBax 	...............; STRG + 3        oder Webseite mit STRG+Shift+0 (Null)	        │  
+│ Diese Liste anzeigen	...............; STRG + 1        Benutzervariable Bax_Flex startet eine App     │  
+│ TBKeys		...............; STRG + 2        oder Webseite mit STRG+Shift+0 (Null)	        │  
 │ SuchBax	        ...............; STRG + 5                 				        │  
-│ DesktopPainter	...............; STRG + 7                 				        │  
-│ EmojiMenu (STRG+Alt+e) ..............; STRG + 9 			                                │  
 │ AHK-Handbuch		...............; STRG + 0 	 						│  
 │ IPfindMap  		...............; STRG + i							│  
 │ Umlaute (html)	...............; STRG + ä,ö,ü,ß,Ä,Ö,Ü						│  
 ├───────────────────────────────────────────────────┬───────────────────────────────────────────────────┤  
-│ Panikbutton		.........; STRG + WIN + P   │  							│  
-│ Toggle alle Hotkeys	.........; STRG + WIN + T   │ NumpadZeichner	.............; STRG + Shift + 1 │  
-│ FavFolders		.........; STRG + Shift + f │ NumpadZeichner	.............; STRG + Shift + 1 │  
-│ IP Info		.........; STRG + Shift + i │   						│  
+│ DesktopPainter	.........; STRG + Shift + d │ Panikbutton	.............; STRG + WIN + P   │  
+│ EmojiMenu		.........; STRG + Shift + e │ Toggle alle Hotkey ............; STRG + WIN + T   │  
+│ FavFolders		.........; STRG + Shift + f │ GetReadyBax	.............; STRG + Shift + 1 │  
+│ IP Info		.........; STRG + Shift + i │ NumpadZeichner	.............; STRG + Shift + 2	│  
 │ KillerBax		.........; STRG + Shift + k │ CaptureBax	.............; STRG + Shift + 3 │  
-│ LiveWindow	 	.........; STRG + Shift + l │ MagnifyBax	.............; STRG + Shift + 4 │
+│ LiveWindow	 	.........; STRG + Shift + l │ IconExtractor	.............; STRG + Shift + 4 │  
 │ Fenster MiniDBs 	.........; STRG + Shift + m │ Toggle FensterInfo.............; STRG + Shift + 8 │  
 │ notepad / 2Win        .........; STRG + Shift + n │                                                   │  
-│ Always on top		.........; STRG + Shift + o │ Bax_Flex App	.............; STRG + Shift + 0 │   
+│ Always on top		.........; STRG + Shift + o │ Bax_Flex App	.............; STRG + Shift + 0 │  
 │ Reload all		.........; STRG + Shift + r │                                                   │  
 │ Uhr, digital		.........; STRG + Shift + u │                                                   │  
 │ VarSchau		.........; STRG + Shift + v │ iSafeText 	.............; STRG + ALT + b   │  
@@ -59,10 +56,9 @@ SendInput {Raw}
 │ - <a href html link			; STRG + Win + b                                                │  
 │ Ton an/aus				; STRG + Punkt                                                  │  
 ├───────────────────────────────────────────────────────────────────────────────────────────────────────┤  
-│ MD-Module: 		 md_software _tab _todo _umleit                                                 │  
-│ AHK Textbausteine:	 ahk_box1 bis_4 _break _1end _end _1head _head _icon _info _index _kasten1      │  
-│ 			 _tabelle1+2 _options                                                           │  
-│ TXT Bausteine: 	 txt_box1 bis_3 _port _pubbw _bw _tabelle1+2 _tb _todo                          │  
+│ MD-Module: 	      	 md_software _tab _todo _umleit                                          	│  
+│ AHK Textbausteine: 	 ahk_box1-4 _break _end _head _icon _info _msg _options _tabelle1+2 _titel      │  
+│ TXT Bausteine:     	 txt_box1 bis_3 _port _pubbw _bw _tabelle1+2 _tb _todo                   	│  
 └───────────────────────────────────────────────────────────────────────────────────────────────────────┘  
  
 )
