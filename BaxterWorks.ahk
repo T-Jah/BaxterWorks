@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.3.9", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.4.0", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.3.9
-;@Ahk2Exe-SetProductVersion 1.0.3.9
+;@Ahk2Exe-SetFileVersion 1.0.4.0
+;@Ahk2Exe-SetProductVersion 1.0.4.0
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
@@ -79,13 +79,13 @@
 ;└────────────────────────────────────┘
 
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 001 , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 001 , 3
 ;----------------------------------------------------------------------------------------------
 
 ; Startumgebungsvariablen festlegen
 	AppName = BaxterWorks
 	Bax_help = help
-	FensterVersion = 005
+	FensterVersion = 007
 	Bax_Bar = %A_Appdata%\Microsoft\Internet Explorer\Quick Launch
 	LastVersionBW = %CodeVersion%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
@@ -101,7 +101,7 @@
 	scriptini = %Bax_Start%\Config\%AppName%.ini
 	backuptxt = %Bax_Start%\Log\%BaxNutzerName%.txt
 	
-; Alte Werte zurücksrtzen laden und beim beenden speichern
+; Alte Werte zurücksetzen, laden und beim beenden speichern
 	LastSeen_davor =
 	UhrStart_davor =
 
@@ -129,7 +129,7 @@
 
 
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, %LastSeen% und %UhrStart%, 5
+; msgbox, 4, BaxterWorks Software Testing, %LastSeen% und %UhrStart%, 5
 ;----------------------------------------------------------------------------------------------
 
 
@@ -171,7 +171,7 @@ if !FileExist("%Bax_Start%\Config\%BaxNutzerName%.ini")
 
 	2ndstep:
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 002 Teil2 , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 002 Teil2 , 3
 ;----------------------------------------------------------------------------------------------
 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -210,7 +210,7 @@ if !FileExist("%Bax_Start%\Config\%BaxNutzerName%.ini")
 
 ;--------------- Ende AutoExecBereich
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck Ende AutoExec , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck Ende AutoExec , 3
 ;----------------------------------------------------------------------------------------------
 
 ; Gute Stelle, um noch mehr Variablen zu laden
@@ -253,7 +253,7 @@ BaxMenu:
 	Menu, SubBaxMenuBW, Icon, CaptureBax, Grafix\schere.ico,1
 	Menu, SubBaxMenuBW, Add, DesktopPainter, SubsBWHandler4
 	Menu, SubBaxMenuBW, Icon, DesktopPainter, Grafix\pic.ico,1     
-	Menu, SubBaxMenuBW, Add, EmojiMenu, SubsBWHandler10
+	Menu, SubBaxMenuBW, Add, EmojiMenu, SubsBWHandler5
 	Menu, SubBaxMenuBW, Icon, EmojiMenu, Grafix\cool.ico,1     
 	Menu, SubBaxMenuBW, Add, FavoriteFolders, SubsBWHandler6
 	Menu, SubBaxMenuBW, Icon, FavoriteFolders, Grafix\ordner3.ico,1     
@@ -272,40 +272,72 @@ BaxMenu:
 	Menu, SubBaxMenuBW, Add, Digitaluhr, SubsBWHandler14
 	Menu, SubBaxMenuBW, Icon, Digitaluhr, Grafix\uhr3.ico,1     
 ; Einträge Untermenü Hilfe
+	Menu, SubBaxMenuHelp, Add, Hilfetexte HotKeys, SubsHilfeHandler3
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte HotKeys, Grafix\klee.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte Dateimenü, SubsHilfeHandler15
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte Dateimenü, Grafix\menuico.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte AppBoard, SubsHilfeHandler9
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte AppBoard, Grafix\logo_tjah.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte BaxterWorks, SubsHilfeHandler1
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte BaxterWorks, Grafix\bax.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte BWAppBar, SubsHilfeHandler2
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte BWAppBar, Grafix\appbar.ico,1     
-	Menu, SubBaxMenuHelp, Add, Hilfetexte 00AppBar, SubsHilfeHandler3
+	Menu, SubBaxMenuHelp, Add, Hilfetexte 00AppBar, SubsHilfeHandler2
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte 00AppBar, Grafix\menuico.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte CaptureBax, SubsHilfeHandler16
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte CaptureBax, Grafix\schere.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte DesktopPainter, SubsHilfeHandler4
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte DesktopPainter, Grafix\pic.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte EmojiMenu, SubsHilfeHandler5
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte EmojiMenu, Grafix\cool.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte FavoriteFolders, SubsHilfeHandler6
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte FavoriteFolders, Grafix\ordner3.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte GetReadyBax, SubsHilfeHandler8
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte GetReadyBax, Grafix\runaway.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte IconExtractor, SubsHilfeHandler7
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte IconExtractor, Grafix\linux.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte KillerBax, SubsHilfeHandler10
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte KillerBax, Grafix\KillerBax.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte MiniDBs, SubsHilfeHandler11
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte MiniDBs, Grafix\fledermond2.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte NumpadZeichner, SubsHilfeHandler12
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte NumpadZeichner, Grafix\npz.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte SuchBax, SubsHilfeHandler13
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte SuchBax, Grafix\welt.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte UhrDigiSimple, SubsHilfeHandler14
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte UhrDigiSimple, Grafix\uhr3.ico,1     
 ; Einträge Untermenü Versionsinfo
+	Menu, SubBaxMenuVersion, Add, Versionsinfo AppBoard, SubsMenuVersioninfo9
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo AppBoard, Grafix\logo_tjah.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo BaxterWorks, SubsMenuVersioninfo1
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo BaxterWorks, Grafix\bax.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo BWAppBar, SubsMenuVersioninfo2
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo BWAppBar, Grafix\appbar.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo 00AppBar, SubsMenuVersioninfo3
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo 00AppBar, Grafix\menuico.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo CaptureBax, SubsMenuVersioninfo15
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo CaptureBax, Grafix\schere.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo DesktopPainter, SubsMenuVersioninfo4
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo DesktopPainter, Grafix\pic.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo EmojiMenu, SubsMenuVersioninfo5
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo EmojiMenu, Grafix\cool.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo FavoriteFolders, SubsMenuVersioninfo6
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo FavoriteFolders, Grafix\ordner3.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo GetReadyBax, SubsMenuVersioninfo8
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo GetReadyBax, Grafix\runaway.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo IconExtractor, SubsMenuVersioninfo7
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo IconExtractor, Grafix\linux.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo KillerBax, SubsMenuVersioninfo10
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo KillerBax, Grafix\killerbax.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo MiniDBs, SubsMenuVersioninfo11
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo MiniDBs, Grafix\fledermond2.ico,1     
-; Einträge Untermenü Telegram
+	Menu, SubBaxMenuVersion, Add, Versionsinfo NumpadZeichner, SubsMenuVersioninfo12
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo NumpadZeichner, Grafix\npz.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo SuchBax, SubsMenuVersioninfo13
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo SuchBax, Grafix\welt.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo UhrDigiSimple, SubsMenuVersioninfo14
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo UhrDigiSimple, Grafix\uhr3.ico,1     
+	; Einträge Untermenü Telegram
 	Menu, SubBaxMenuTG, Add, T-Jah Tom @BaxterWorks, TGHandler1
 	Menu, SubBaxMenuTG, Icon, T-Jah Tom @BaxterWorks, Grafix\bax.ico,1     
 	Menu, SubBaxMenuTG, Add, BaxterWorks Stickerpacks, TGHandler2
@@ -367,7 +399,7 @@ Menu,Tray,Tip,%AppName% %CodeVersion%
 Menu,Tray,Default,%AppName%
 
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 004 Traymenü , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 004 Traymenü , 3
 ;----------------------------------------------------------------------------------------------
 
 return
@@ -380,7 +412,7 @@ return
 
 IncludeBax:
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 006 Beginn Includes , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 006 Beginn Includes , 3
 ;----------------------------------------------------------------------------------------------
 
 ; Apps und HK
@@ -481,7 +513,7 @@ Gui,99:Show,,%AppName% About
 hCurs:=DllCall("LoadCursor","UInt",NULL,"Int",32649,"UInt") ;IDC_HAND
 OnMessage(0x200,"WM_MOUSEMOVE") 
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 005 Aboutfenster , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 005 Aboutfenster , 3
 ;----------------------------------------------------------------------------------------------
 
 Return
@@ -631,6 +663,27 @@ SubsHilfeHandler7:
 	}
 	run,%Bax_Start%\Files\help_iconextract.htm
 	return
+SubsHilfeHandler8:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_getreadybax.htm, %Bax_Start%\Files\help_getreadybax.htm
+	}
+	run,%Bax_Start%\Files\help_getreadybax.htm
+	return
+SubsHilfeHandler9:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_appboard.htm, %Bax_Start%\Files\help_appboard.htm
+	}
+	run,%Bax_Start%\Files\help_appboard.htm
+	return
+SubsHilfeHandler10:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_killerbax.htm, %Bax_Start%\Files\help_killerbax.htm
+	}
+	run,%Bax_Start%\Files\help_killerbax.htm
+	return
 SubsHilfeHandler11:
 	If !(FileExist)
 	{
@@ -638,6 +691,42 @@ SubsHilfeHandler11:
 	}
 	run,%Bax_Start%\Files\help_minidb.htm
 	return
+SubsHilfeHandler12:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_numpadzeichner.htm, %Bax_Start%\Files\help_numpadzeichner.htm
+	}
+	run,%Bax_Start%\Files\help_numpadzeichner.htm
+	return
+SubsHilfeHandler13:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_suchbax.htm, %Bax_Start%\Files\help_suchbax.htm
+	}
+	run,%Bax_Start%\Files\help_suchbax.htm
+	return
+SubsHilfeHandler14:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_uhrdigisimple.htm, %Bax_Start%\Files\help_uhrdigisimple.htm
+	}
+	run,%Bax_Start%\Files\help_uhrdigisimple.htm
+	return
+SubsHilfeHandler15:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_menu.htm, %Bax_Start%\Files\help_menu.htm
+	}
+	run,%Bax_Start%\Files\help_menu.htm
+	return
+SubsHilfeHandler16:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_capturebax.htm, %Bax_Start%\Files\help_capturebax.htm
+	}
+	run,%Bax_Start%\Files\help_capturebax.htm
+	return
+
 
 ;--------------------------------------------------------------------------------------Menüpunkte Versionsinfos
 
@@ -662,10 +751,29 @@ SubsMenuVersioninfo6:
 SubsMenuVersioninfo7:
 	Run, %Bax_Start%\Log\Versionsinfo_IconExtractor.txt
 	return
-
-
+SubsMenuVersioninfo8:
+	Run, %Bax_Start%\Log\Versionsinfo_GetReadyBax.txt
+	return
+SubsMenuVersioninfo9:
+	Run, %Bax_Start%\Log\Versionsinfo_AppBoard.txt
+	return
+SubsMenuVersioninfo10:
+	Run, %Bax_Start%\Log\Versionsinfo_KillerBax.txt
+	return
 SubsMenuVersioninfo11:
 	Run, %Bax_Start%\Log\Versionsinfo_MiniDBs.txt
+	return
+SubsMenuVersioninfo12:
+	Run, %Bax_Start%\Log\Versionsinfo_NumpadZeichner.txt
+	return
+SubsMenuVersioninfo13:
+	Run, %Bax_Start%\Log\Versionsinfo_SuchBax.txt
+	return
+SubsMenuVersioninfo14:
+	Run, %Bax_Start%\Log\Versionsinfo_UhrDigiSimple.txt
+	return
+SubsMenuVersioninfo15:
+	Run, %Bax_Start%\Log\Versionsinfo_CaptureBax.txt
 	return
 
 ;--------------------------------------------------------------------------------------Menüpunkte Telegram
@@ -811,7 +919,7 @@ IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space%
 
 
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 003 IniRead , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 003 IniRead , 3
 ;----------------------------------------------------------------------------------------------
 
 return
@@ -910,24 +1018,24 @@ return
 	IniWrite, %count%, %userini%, %BaxNutzerName%, %BaxNutzerName%
 	FileDelete, %A_ComputerName%_%A_UserName%.txt
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 005 Zähler , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 005 Zähler , 3
 ;----------------------------------------------------------------------------------------------
 
 if (count = 1)
-	msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Warum der Defender die App ab und zu als`ngefährlich einstuft - versuche ich in der Hilfe zu erklären. Es gibt kein Grund zur Sorge`n Der Quellcode ist offen einsehbar github.com/T-Jah. , 15
+	msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Warum der Defender die App ab und zu als`ngefährlich einstuft - versuche ich in der Hilfe zu erklären. Es gibt kein Grund zur Sorge`n Der Quellcode ist offen einsehbar github.com/T-Jah. , 15
 
 if (count = 15)
-msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 15 mal gestartet, was nur du lokal weißt`nDer Zähler ist eigentlich nur eine Übung und Info für dich. , 15
+msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 15 mal gestartet, was nur du lokal weißt`nDer Zähler ist eigentlich nur eine Übung und Info für dich. , 15
 
 if (count = 50)
-msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 50 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe , 15
+msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 50 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe , 15
 
 if (count = 100)
-msgbox, 4 BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 100 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe. Oh hab ich das schon gesagt? Na gut - du weißt es und ich muss es nicht mehr sagen. Und DANKE , 15
+msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 100 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe. Oh hab ich das schon gesagt? Na gut - du weißt es und ich muss es nicht mehr sagen. Und DANKE , 15
 
 
 ;----------------------------------------------------------------------------------------------
-; msgbox, 4 BaxterWorks Software Testing, BaxterWorks Skriptcheck 005a Zähler , 3
+; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 005a Zähler , 3
 ;----------------------------------------------------------------------------------------------
 
 
