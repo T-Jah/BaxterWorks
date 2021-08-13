@@ -1,17 +1,16 @@
-﻿CodeVersion := "2.0.1.7", Firma := "BaxterWorks Software"
+﻿CodeVersion := "2.0.1.9", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\npz.ico
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Rahmen und Kästen mit Numpad
-;@Ahk2Exe-SetFileVersion 2.0.1.7
-;@Ahk2Exe-SetProductVersion 2.0.1.7
+;@Ahk2Exe-SetFileVersion 2.0.1.9
+;@Ahk2Exe-SetProductVersion 2.0.1.9
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks NumpadZeichner
 ;@Ahk2Exe-SetProductName NumpadZeichner
-; 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │            __________                  __                __      __             __                         │
@@ -22,8 +21,7 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 006               NumpadZeichner AHK Skript
-
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 009              M.i.n.i.Bax AHK Skript
 /*
  * NumpadZeichner
  * Copyright 2021 T-Jah Tom
@@ -35,7 +33,7 @@
  * Project: https://github.com/T-Jah
  *
  * ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- * │   Skriptoptionen 	(lang)                 [Version 003]                                                    │
+ * │  MiniBax Skriptoptionen 	(lang)                 [Version 005]                                            │
  * └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  *
  *                         BaxterWorks Software:	http://www.baxterworks.de/software
@@ -45,10 +43,9 @@
  */
 
 ; Script options
-	#SingleInstance force 			; oder off
+	#SingleInstance force 			; oder off, ignore, force
 	#NoEnv
 	#MaxMem 512			
-	#KeyHistory 500
 	#Persistent
 	#InstallKeybdHook
 	#InstallMouseHook
@@ -58,52 +55,43 @@
 		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
 		SetWorkingDir %A_ScriptDir%	; wichtig
 		FileEncoding UTF-8
-; Set Lock keys permanently - nur im ersten Skipt aufrufen (Tom)
-	;SetNumlockState, AlwaysOn	
-	;SetCapsLockState, AlwaysOff
-	;SetScrollLockState, AlwaysOff
-
-#Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
-
+		ListLines, Off			; spart Ressourcen wenn aus. Zum Debuggen einschalten für most recently executed lines
 ; Icon
 Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\npz.ico	; #NoTrayIcon
 
-; 
-; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   FileInstall (Anfang AutoExecute)            [Version 004]                                                │
-; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;
+; OnExit
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
 
-FileInstall, ..\..\Grafix\ahk.ico, ..\..\Grafix\ahk.ico, 0						; 1 = überschreiben
-FileInstall, ..\..\Grafix\bax.ico, ..\..\Grafix\bax.ico, 0						; 1 = überschreiben
-FileInstall, ..\..\Grafix\BW_Software.ico, ..\..\Grafix\BW_Software.ico, 0				; 1 = überschreiben
-FileInstall, ..\..\Grafix\npz.ico, ..\..\Grafix\npz.ico, 0						; 1 = überschreiben
-FileInstall, ..\..\Config\NumpadZeichner.ini, ..\..\Config\NumpadZeichner.ini, 0			; 1 = überschreiben
-FileInstall, ..\..\Log\Versionsinfo_NumpadZeichner.txt, ..\..\Log\Versionsinfo_NumpadZeichner.txt, 0	; 1 = überschreiben
-FileInstall, ..\..\Files\Licence, ..\..\Files\Licence, 0						; 1 = überschreiben
-FileInstall, ..\..\Files\help.md, ..\..\Files\help.md, 0						; 1 = überschreiben
-FileInstall, ..\..\Files\Credits.md, ..\..\Files\Credits.md, 0					; 1 = überschreiben
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Variablen, zB Pfade     [Version 003]                                                                    │
+; │   Variablen, MiniBax zB Pfade     [Version 003]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 ; Startumgebungsvariablen laden
 	IniRead, Bax_Start , %A_ScriptDir%\..\..\Config\BaxterWorks.ini, FixVars, Bax_Start
 	IniRead, homeini , %Bax_Start%\Config\BaxterWorks.ini, FixVars, homeini
-	IniRead, userini , %Bax_Start%\Config\BaxterWorks.ini, FixVars, userini
-	IniRead, Bax_Bar , %Bax_Start%\Config\BaxterWorks.ini, FixVars, Bax_Bar
+	IniRead, userini , %homeini%, FixVars, userini
+	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
+	IniRead, backuptxt , %homeini%, FixVars, backuptxt
+	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
+	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
 
 ; Startumgebungsvariablen festlegen
 	AppName = NumpadZeichner
+	Bax_help = help_numpadzeichner	
+	Skriptvorlage = MiniBax_008
+	Bax_Icon = %Bax_Start%\Grafix\npz.ico
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
-	Bax_exe = %A_LineFile%
+	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
 	scriptini = %Bax_Start%\Config\%AppName%.ini
-	Bax_Icon = %Bax_Start%\Grafix\npz.ico
+	
 	
 ; Variablentest
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
@@ -112,35 +100,24 @@ FileInstall, ..\..\Files\Credits.md, ..\..\Files\Credits.md, 0					; 1 = übersc
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   AppStart mit Subanweisung         [Version 001]                                                          │
+; │  MiniBax AppStart mit Subanweisung         [Version 003]                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-/** IP Logbuch, archiviert die eigene externe IP
-	URLDownloadToFile,http://www.netikus.net/show_ip.html, %A_ScriptDir%\..\..\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt
-	if ErrorLevel = 1
-  	{
-    	MsgBox, 16,IpAddresses,Your public Ipaddress could not be detected.
-  	}
-	FileReadLINE,BaxIP,%A_ScriptDir%\..\..\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt, 1
-	IniWrite, %BaxIP% , %scriptini%, Netzinfo, Letzte IP
-
-Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werden, das regelmäßig läuft
-*/
 
 ;---------------------------------------------------------------->
 ; AppStart (AutoExec Bereich geht nach dem letzten Eintrag weiter)
-; Also hier nach Traymenü.
+; Also hier nach Traymenü. Endet ggf mit return nach den includes
 ;---------------------------------------------------------------->
 
 	GoSub,INIDELETE
 	GoSub,INIREAD
 	GoSub,INIWRITE
 	GoSub,TRAYMENU
-
+	
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Includes (Ende Autoexec)        [Version 001]     +                                                      │
+; │ MiniBax  Includes (Ende Autoexec)        [Version 008]                                                     │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -148,11 +125,36 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
 ; MsgBox, %Bax_ScriptStart%
 
+; BaxFunk Module
+	; #Include %A_ScriptDir%\..\..\Function\BaxFunk_FensterInfo.ahk	
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_IconShow.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_LicenceWindow.ahk	
- 
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_2Win.ahk
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Dropper.ahk
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_ConfigWindow.ahk
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_reloadAHK.ahk
+	#Include %A_ScriptDir%\..\..\Lib\datecalc.ahk
+	#include %A_ScriptDir%\..\..\Lib\funk_panic.ahk
+	#Include %A_ScriptDir%\..\..\Lib\funk_toggle.ahk
+	#Include %A_ScriptDir%\..\..\Lib\Gdip_all.ahk
+	#Include %A_ScriptDir%\..\..\Lib\ipfindmap.ahk
+	#Include %A_ScriptDir%\..\..\Lib\keepalive.ahk
+	#Include %A_ScriptDir%\..\..\Lib\MouseisOver.ahk
+	#Include %A_ScriptDir%\..\..\Lib\ObjCSV.ahk
+	#Include %A_ScriptDir%\..\..\Lib\tf.ahk
+	#Include %A_ScriptDir%\..\..\Lib\toggle_hiddenfiles.ahk
+	#Include %A_ScriptDir%\..\..\Lib\toggle_lightdark.ahk
+
+
+	;Gdip_Startup()
+	
+;-------------------------------------------------------Ende AutoExec
+	return
+;-------------------------------------------------------Ende AutoExec
+
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Traymenü                    [Version 001]                                                           │
+; │  MiniBax GUI, Traymenü             [Version 001]                                                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -176,22 +178,28 @@ Menu,Tray,Add,&Neuerungen...,Version
 Menu,Tray,Add,E&xit,EXIT
 Menu,Tray,Tip,%AppName% %Codeversion%
 Menu,Tray,Default,%AppName%
-return
+
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Dateimenü, kein return        [Version 009]                                                         │
+; │  MiniBax GUI, Dateimenü, kein return        [Version 003]                                                  │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Fenster, Teil 1 [Version 015]                                                                       │
+; │ MiniBax  GUI, Fenster, Teil 1 [Version 001]                                                                │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, TrayFensterFenster (About), ein Label vom Traymenü      [Version 001]                               │
+; │ MiniBax  GUI, Fenster, Teil 2 [ohne Versionsnummer]                                                        │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+	return
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MiniBax GUI, TrayFensterFenster (About), ein Label vom Traymenü      [Version 001]                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -251,7 +259,7 @@ Return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   HotKeys     [Version 001]     +                                                                          │
+; │  MiniBax HotKeys     [Version 001]            ++                                                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -395,26 +403,26 @@ return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Funktionen                                                                                               │
+; │  MiniBax Funktionen Standard [Version 002]      Tooltips immer unterschiedlich                             │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Label und Subs    [Version 005]                                                                                    │
+; │ MiniBax  Funktionen von diesem Skript                                                                      │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-; Hinweis: sub sonstiges ist nicht Standard
-
+;
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub sonstiges                                                                                            │
+; │ MiniBax  Label und Subs    [Version 001]                                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;
+; 
+
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini  [Version 003]                                                                                   │
+; │ MiniBax  Sub Ini  [Version 004]                                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -430,31 +438,33 @@ INIREAD:
 	IniRead, Bax_JobDir, %userini%, Variablen, Bax_JobDir, %A_Space% 
 	IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space% 
 
-
 INIWRITE:
 	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
 	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
-	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Letzte IP
-	IniWrite, %Bax_exe% , %scriptini%, Skriptinfo, Bax_exe
+	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
+	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
 
 return
 
 
-
+;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs GUI-Fenster       [Version 006]                                                                     │
+; │ MiniBax  Subs GUI-Fenster       [Version 001]                                                              │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Traymenü      (nicht Standard)                                                                      │
+; │  MiniBax Subs Dateimenü     [Version 001]                                                                  │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-Anleitung:
-Run,%A_ScriptDir%\data\Hilfe_NumpadZeichner.txt
-return
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │ MiniBax  Subs Traymenü    [Version 003]         wenn ohne GUI, OpenGUI auf About                           │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
 
 Licence:
 	Bax_LicenceGui_Create()
@@ -463,9 +473,9 @@ Licence:
 HilfeTray:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help.htm, %Bax_Start%\Files\help.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %Bax_Start%\Files\%Bax_help%.htm
 	}
-	run,%Bax_Start%\Files\help.htm
+	run,%Bax_Start%\Files\%Bax_help%.htm
 	return
 
 Credits:
@@ -500,18 +510,19 @@ Reload:
 	return
 
 OpenGUI:
-	GoSub, About
+	;Gui, Show, Center Autosize, %AppName%
+	GoSub,About
 	return
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Aboutfenster        [Version 001]                                                                   │
+; │  MiniBax Subs Aboutfenster        [Version 002]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 BWApp:
-  	Run,http://www.baxterworks.de/software/hilfe/help.htm,,UseErrorLevel
+  	Run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm,,UseErrorLevel
 	Return
+
 
 BWSoft:
  	Run,http://www.baxterworks.de/software,,UseErrorLevel
@@ -524,10 +535,9 @@ BWBlog:
 AHKlabel:
   	Run,http://www.autohotkey.com,,UseErrorLevel
 	Return
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub          [Version 001]                                                                            │
+; │ MiniBax  EndSub          [Version 007]        +gdib aus                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -545,13 +555,25 @@ EXIT:
 quit:
 GuiClose:
 MenuEnde:
-DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
 CleanUp:
+SavePosition:
+DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
+	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
+	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	DetectHiddenWindows On
+	; WinGetPos, X, Y, %AppName%
+	; If (x > 0)
+	; IniWrite, % " x" X " y" Y, %scriptini%, Position, %AppName%_Position
+ 	; IniWrite, 0, %scriptini%, Schalter, %AppName%_FensterInfo
+	; SoundPlay, NoFile.wav
+   	Gui, Destroy			; gibt die Ressource frei
 	SoundBeep, 750, 500
   	CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
-	;Gdip_Shutdown(pToken)		; wird in includes gestartet
+	; Gdip_Shutdown(pToken)		; wird in includes gestartet
 
 	if FileExist("..\..\Files\*.htm")
 	FileDelete %Bax_Start%\Files\*.htm

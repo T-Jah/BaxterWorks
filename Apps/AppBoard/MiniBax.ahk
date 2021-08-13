@@ -1,16 +1,16 @@
-﻿CodeVersion := "1.0.0.9", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.0.1", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
-;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\killerbax.ico
+;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\cool2.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
-;@Ahk2Exe-SetDescription Erstellt Dateien aus Vorlagen
-;@Ahk2Exe-SetFileVersion 1.0.0.9
-;@Ahk2Exe-SetProductVersion 1.0.0.9
+;@Ahk2Exe-SetDescription Musterskript und Vorlage
+;@Ahk2Exe-SetFileVersion 1.0.0.1
+;@Ahk2Exe-SetProductVersion 1.0.0.1
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
-;@Ahk2Exe-SetName BaxterWorks KillerBax
-;@Ahk2Exe-SetProductName KillerBax
+;@Ahk2Exe-SetName BaxterWorks MiniBax
+;@Ahk2Exe-SetProductName MiniBax
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │            __________                  __                __      __             __                         │
@@ -21,9 +21,10 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 019          M.u.s.t.e.r.Bax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 006               MiniBax AHK Skript
+
 /*
- * KillerBax
+ * MiniBax
  * Copyright 2021 T-Jah Tom
  * All Rights Reserved.
  * Use, reproduction, distribution, and modification of this code is subject to the terms and
@@ -33,7 +34,7 @@
  * Project: https://github.com/T-Jah
  *
  * ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- * │   Skriptoptionen 	MusterBax              [Version 005]                                                    │
+ * │  MiniBax Skriptoptionen 	(lang)                 [Version 005]                                            │
  * └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  *
  *                         BaxterWorks Software:	http://www.baxterworks.de/software
@@ -56,16 +57,14 @@
 		SetWorkingDir %A_ScriptDir%	; wichtig
 		FileEncoding UTF-8
 		ListLines, Off			; spart Ressourcen wenn aus. Zum Debuggen einschalten für most recently executed lines
-
 ; Icon
-	Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\killerbax.ico	; #NoTrayIcon
+	Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\cool2.ico	; #NoTrayIcon
 ; OnExit
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
 
-
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Variablen, MusterBax zB Pfade     [Version 008]                                                          │
+; │   Variablen, MiniBax zB Pfade     [Version 002]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -77,30 +76,25 @@
 	IniRead, backuptxt , %homeini%, FixVars, backuptxt
 	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
 	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
-	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
 
 ; Startumgebungsvariablen festlegen
-	AppName = KillerBax
-	Bax_help = help_killerbax	
-	Skriptvorlage = MusterBax_019
-	Bax_Icon = %Bax_Start%\Grafix\killerbax.ico
-	LastLogIn = %A_Now%_%AppName%
-	LastLogInZeit = %A_Now%
+	AppName = MiniBax
+	Bax_help = help	
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
 	scriptini = %Bax_Start%\Config\%AppName%.ini
+	Bax_Icon = %Bax_Start%\Grafix\cool2.ico
+	
 	
 ; Variablentest
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
 ; MsgBox,  %homeini% 
 
-
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   AppStart MusterBax mit Subanweisung         [Version 002]                                                          │
+; │  MiniBax AppStart mit Subanweisung         [Version 002]                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -125,10 +119,11 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 	GoSub,INIREAD
 	GoSub,INIWRITE
 	GoSub,TRAYMENU
-	
+	return
+
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Includes (Ende Autoexec)  MusterBax      [Version 006]                                                   │
+; │ MiniBax  Includes (Ende Autoexec)        [Version 007]    +gdib aus                                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -157,16 +152,15 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 	#Include %A_ScriptDir%\..\..\Lib\toggle_lightdark.ahk
 
 
-	Gdip_Startup()
+	;Gdip_Startup()
 	
 ;-------------------------------------------------------Ende AutoExec
 	return
 ;-------------------------------------------------------Ende AutoExec
 
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Traymenü                    [Version 001]                                                           │
+; │  MiniBax GUI, Traymenü             [Version 001]                                                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -193,153 +187,31 @@ Menu,Tray,Default,%AppName%
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Dateimenü, MusterBax          [Version 003]                                                         │
+; │  MiniBax GUI, Dateimenü, kein return        [Version 003]                                                  │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
-
-Menu, Dateimenü, Add, reload, Config
-Menu, Dateimenü, Icon, reload, C:\WINDOWS\System32\SHELL32.dll,147
-Menu, Dateimenü, Add, Exit, Beenden
-Menu, Dateimenü, Icon, Exit, C:\WINDOWS\System32\SHELL32.dll,28
-
-Menu, Configmenü, Add, Toggle DesktopSymbol, %AppName%_Icon 
-Menu, Configmenü, ToggleCheck, Toggle DesktopSymbol       
-Menu, Configmenü, Add, Toggle BaxBarSymbol, %AppName%_BaxBar 
-Menu, Configmenü, ToggleCheck, Toggle BaxBarSymbol       
-Menu, Configmenü, Add, Toggle FensterInfo, %AppName%_FensterInfo 
-Menu, Configmenü, ToggleCheck, Toggle FensterInfo       
-Menu, Configmenü, Add, GetReadyBax - Config, GetReady 
-Menu, Configmenü, Icon, GetReadyBax - Config,  ..\..\Grafix\runaway.ico, 0   
-
-Menu, Toolsmenü, Add, IconShow, MenuIconShow
-Menu, Toolsmenü, Icon, IconShow, C:\WINDOWS\System32\SHELL32.dll,23
-Menu, Toolsmenü, Add, Link Extractor, MenuLinksEx
-Menu, Toolsmenü, Icon, Link Extractor, C:\WINDOWS\System32\SHELL32.dll,136
-Menu, Toolsmenü, Add, Dropperfenster laden, DropperMenu
-Menu, Toolsmenü, Icon, Dropperfenster laden, C:\WINDOWS\System32\SHELL32.dll,27
-Menu, Toolsmenü, Add, Skripte killen: Panikbutton, Panik
-Menu, Toolsmenü, Icon, Skripte killen: Panikbutton, ..\..\Grafix\killerbax.ico, 0
-
-Menu, Baxmenü, Add, BaxterWorks Software, Homepage
-Menu, Baxmenü, Add, Blog BaxterWorks, Blog
-Menu, Baxmenü, Add, Home Tom Besch, HPTom
-Menu, Baxmenü, Add, GitHub T-Jah Tom, GitHub
-Menu, Baxmenü, Icon, BaxterWorks Software, ..\..\Grafix\bw_software.ico, 0
-Menu, Baxmenü, Icon, Blog BaxterWorks, ..\..\Grafix\bax.ico, 0
-Menu, Baxmenü, Icon, Home Tom Besch, ..\..\Grafix\logo_tb2.ico, 0
-Menu, Baxmenü, Icon, GitHub T-Jah Tom, ..\..\Grafix\github1.ico, 0
-
-Menu, Hilfsmenü, Add, Credits, MenuCredits
-Menu, Hilfsmenü, Icon, Credits, C:\WINDOWS\System32\SHELL32.dll,131
-Menu, Hilfsmenü, Add, Info, MenuInfo
-Menu, Hilfsmenü, Icon, Info, C:\WINDOWS\System32\SHELL32.dll,222
-Menu, Hilfsmenü, Add, Software Lizenz, Lizenzmenu
-Menu, Hilfsmenü, Icon, Software Lizenz, C:\WINDOWS\System32\SHELL32.dll,327
-Menu, Hilfsmenü, Add, Hilfe, MenuHilfe
-Menu, Hilfsmenü, Icon, Hilfe, C:\WINDOWS\System32\SHELL32.dll,173
-Menu, Hilfsmenü, Add, Tom unterstützen, MenuSupport
-Menu, Hilfsmenü, Icon, Tom unterstützen, C:\WINDOWS\System32\SHELL32.dll,177
-
-Menu, MeineMenüleiste, Add, &Datei, :Dateimenü
-Menu, MeineMenüleiste, Add, Einstellungen, :Configmenü
-Menu, MeineMenüleiste, Add, Tools, :Toolsmenü
-Menu, MeineMenüleiste, Add, BaxterWorks, :Baxmenü
-Menu, MeineMenüleiste, Add, ?, :Hilfsmenü
 
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Fenster, Teil 1 [Version 001]                                                                       │
+; │ MiniBax  GUI, Fenster, Teil 1 [Version 001]                                                                │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-Gui, Font, s10 cWhite, Verdana,Tahoma
-Gui, Margin, 0, 10
-Gui, Color, White
 
-	IniRead, Pos, %scriptini%, Position, %AppName%_Position
-	If (Pos = "ERROR") {
-	IniWrite, x40 y40, %scriptini%, Position, %AppName%_Position
-	Gui, Show, x40 y40, KillerBax Error
-	}
-	Else
-
-; -------------------------------------------------------------------------------------------
-	IniRead, %AppName%_Icon, %scriptini%, Schalter, %AppName%_Icon
-
-	If (KillerBax_Icon = "1") {
-	Menu, Configmenü, Check, 1&
-	}
-	If (KillerBax_Icon = "0") {
-	Menu, Configmenü, UnCheck, 1&
-	}
-
-; -------------------------------------------------------------------------------------------
-
-	IniRead, %AppName%_BaxBar, %scriptini%, Schalter, %AppName%_BaxBar
-
-	If (KillerBax_BaxBar = "1") {
-	Menu, Configmenü, Check, 2&
-	}
-	If (KillerBax_BaxBar = "0") {
-	Menu, Configmenü, UnCheck, 2&
-	}
-
-; -------------------------------------------------------------------------------------------
-
-IniRead, %AppName%_FensterInfo, %scriptini%, Schalter, %AppName%_FensterInfo
-
-If (KillerBax_FensterInfo = "1"){
-Menu, Configmenü, Check, 3&
-}
-
-If (KillerBax_FensterInfo = "0"){
-Menu, Configmenü, UnCheck, 3&
-}
-
-; -------------------------------------------------------------------------------------------
-
-Gui,Menu, MeineMenüleiste
-Gui, Font
-Gui, Font, s12 cBlack, Verdana,Tahoma
-Gui,Add,Picture, x-1 y0 w600 h-1, ..\..\Grafix\bw_banner.png
-
-	IniRead, KillerBax_AOTStatus, %scriptini%, Schalter, KillerBax_AOTStatus
-	If (KillerBax_AOTStatus = "1") {
-	Gui,+AlwaysOnTop
-	}
-	IniRead, KillerBax_AOT, %scriptini%, Schalter, KillerBax_AOT
-	If (KillerBax_AOT = "-") {
-	WinSet, AlwaysOnTop, Off
-	}
-	else 
-	KillerBax_AOT := +
-	WinSet, AlwaysOnTop, On
-
-Gui, Add, CheckBox, x5 y+5 vKillerBax_AOTStatus gAOTLabel Checked%KillerBax_AOT%, Always on top
-Gui, Font
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Fenster, Teil 2 [ohne Versionsnummer]                                                               │
+; │ MiniBax  GUI, Fenster, Teil 2 [ohne Versionsnummer]                                                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-Gui Add, Button, gsearch default x+20, Prozesse listen
-Gui Add, Button, gkill default x+2, Prozesse beenden
-Gui Add, Text, x5 y+5 R1, Dieses Tool ist kein Spielzeug. Platzhalter mit Sternchen erlaubt:
-Gui Add, Picture, x560 y105 w80 h-1, %A_ScriptDir%\..\..\Grafix\killerbax.ico
-Gui Add, Edit, x5 y180 w300 h25, FavoriteFold*
-Gui, Font
-Gui, Font, s10 cRed, Courier,Verdana,Tahoma
-Gui Add, Edit, 0x100 x5 y210 w640 R25 t50 t80 t260 t350 t500, +ReadOnly Multi
-Gui, Font
-Gui, Show, %Pos% w650, %AppName%
-OnMessage(0x200, "CheckControl")
-return
+
+	return
+
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, TrayFensterFenster (About), ein Label vom Traymenü      [Version 001]                               │
+; │  MiniBax GUI, TrayFensterFenster (About), ein Label vom Traymenü      [Version 001]                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -354,12 +226,12 @@ Gui,99:Font, s10 cGreen, Verdana
 Gui,99:Add,Text, R1 xp+100 ,%AppName% - %Firma% - %Codeversion% 
 Gui,99:Font
 Gui,99:Font, s9 cBlack, Verdana
-Gui,99:Add,Text, R3 ,BaxterWorks Software präsentiert KillerBax.`nDas ist ein Taskmanager mit Filterfunktion`nFunktioniert
+Gui,99:Add,Text, R3 ,BaxterWorks Software.`nDas ist MiniBax`nFunktioniert
 Gui,99:Font,cBlue bold Underline
 Gui,99:Add,Text,R1 gBWApp,www.baxterworks.de/software
 Gui,99:Font
 
-Gui,99:Add,Picture,xs w70 h70 Icon1,%A_ScriptDir%\..\..\Grafix\BW_Software.ico
+Gui,99:Add,Picture,xs w70 h70 Icon1,%Bax_Start%\Grafix\BW_Software.ico
 Gui,99:Font,Bold
 Gui,99:Font, s10 cBlack, Verdana
 Gui,99:Add,Text, R1 xp+100 ,%Firma%
@@ -370,7 +242,7 @@ Gui,99:Font,CBlue bold Underline
 Gui,99:Add,Text,y+5 gBWSoft,www.baxterworks.de/software
 Gui,99:Font
 
-Gui,99:Add,Picture,xs w70 h70 Icon1,%A_ScriptDir%\..\..\Grafix\bax.ico
+Gui,99:Add,Picture,xs w70 h70 Icon1,%Bax_Start%\Grafix\bax.ico
 Gui,99:Font,Bold
 Gui,99:Font, s10 cBlack, Verdana
 Gui,99:Add,Text, R1 xp+100 ,Blog BaxterWorks
@@ -381,7 +253,7 @@ Gui,99:Font,CBlue bold Underline
 Gui,99:Add,Text,y+5 gBWBlog,blog.baxterworks.de
 Gui,99:Font
 
-Gui,99:Add,Picture,xs w70 h70 Icon1,%A_ScriptDir%\..\..\Grafix\ahk.ico
+Gui,99:Add,Picture,xs w70 h70 Icon1,%Bax_Start%\Grafix\ahk.ico
 Gui,99:Font,Bold
 Gui,99:Font, s10 cBlack, Verdana
 Gui,99:Add,Text, R1 xp+100 ,AutoHotKey
@@ -399,7 +271,7 @@ Return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   HotKeys     [Version 001]                                                                                │
+; │  MiniBax HotKeys     [Version 001]                                                                         │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -407,75 +279,35 @@ Return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Funktionen Standard MusterBax [Version 002]      Tooltips immer unterschiedlich                          │
+; │  MiniBax Funktionen Standard [Version 002]      Tooltips immer unterschiedlich                             │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-; Tooltips für die GUI
 
-CheckControl() {
-MouseGetPos,,,, VarControl
-IfEqual, VarControl, Button1
-	Message := "An oder Aus - entscheide dich"
-else IfEqual, VarControl, Button2
-	Message := "Wähle ein Ziel für die neue Datei!"
-else IfEqual, VarControl, Combobox1
-	Message := "Bitte zuerst einen Zielordner wählen."
-else IfEqual, VarControl, Combobox2
-	Message := "Lade dir diese Daten in die Zwischenablage."
-ToolTip % Message
-}
-
-;--------------------------------------------------------
-
-; Dropfiles GUI
-
-GuiDropFiles(GuiHwnd, DateiArray, ElementHwnd, X, Y) {
-	for i, Datei in DateiArray
-		MsgBox Datei %i% ist:`n%Datei%`n`nKeine Ahnung, was ich jetzt damit machen soll.
-}
-return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Funktionen von diesem Skript                                                                             │
+; │ MiniBax  Funktionen von diesem Skript                                                                      │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Label und Subs    [Version 001]                                                                          │
+; │ MiniBax  Label und Subs    [Version 001]                                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ; 
 
-search:
-clipboard =
-Run cmd /c "tasklist|sort|clip"
-ClipWait
-GuiControl,, Edit2, %ClipBoard%
-GuiControl, Focus, Edit1
-return
-
-kill:
-ControlGet, processkill2, Line, 1, Edit1
-MsgBox, 4,, %processkill2% wirklich beenden?
-IfMsgBox No, return
-clipboard =
-Run cmd /c "taskkill /F /IM %processkill2% 2>&1|clip"
-ClipWait
-MsgBox, %ClipBoard%
-GoSub, search
-return
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini MusterBax [Version 008]                                                                          │
+; │ MiniBax  Sub Ini  [Version 005]                                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 INIDELETE:
 	IniDelete, %scriptini%, Nutzerinfo, 
+	IniDelete, %scriptini%, Skriptinfo, 
 
 INIREAD:
 	IniRead, Bax_IP , %homeini%, Netzinfo, Letzte IP, %A_Space%
@@ -491,281 +323,29 @@ INIWRITE:
 	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
 	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
 	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
-	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats, LogIn
+	IniWrite, %A_Now%_%AppName% , %userini%, Stats, LogIn
 
 return
-
-
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs GUI-Fenster       [Version 001]                                                                     │
+; │ MiniBax  Subs GUI-Fenster       [Version 001]                                                              │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
-
-; Always on Top Toggle, gehört zur Checkbox in der GUI, sofern vorhanden.
-
-AOTLabel:
-	Gui,Submit,NoHide
-	IniWrite, %KillerBax_AOTStatus%, %scriptini%, Schalter, KillerBax_AOTStatus
-
-; --------------------------------------------------------------- TextBox für die Fehlersuche
-; MsgBox, %KillerBax_AOTStatus%  ; sollte 0 oder 1 sein
-
-	if (KillerBax_AOTStatus=1)
-	{
-	WinSet, AlwaysOnTop, On
-	IniWrite, + , %scriptini%, Schalter, KillerBax_AOT
-	}
-	else
-	{
-	WinSet, AlwaysOnTop, Off
-	IniWrite, - , %scriptini%, Schalter, KillerBax_AOT
-	}
-	Return
-; 
-; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Dateimenü  MusterBax   [Version 004]                                                                │
-; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;
-
-; Dateimenü: Datei ......................................
-
-Beenden:
-	GoSub,SavePosition
-	return
-
-Config:
-	reload
-	return
-
-; Dateimenü: Einstellungen ..............................
-
-KillerBax_Icon:
-	Gui,Submit,NoHide
-	IniRead, KillerBax_Icon, %scriptini%, Schalter, KillerBax_Icon
-	KillerBax_Icon := KillerBax_Icon
-
-if (KillerBax_Icon = "0")
-{
-	Menu, Configmenü, Check, Toggle DesktopSymbol  
-	FileCreateShortcut, %A_ScriptFullPath%, %A_Desktop%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%      
-	IniWrite, 1, %scriptini%, Schalter, KillerBax_Icon
-}
-if (KillerBax_Icon = "1")
-{
-    	Menu, Configmenü, UnCheck, Toggle DesktopSymbol  
-	FileDelete, %A_Desktop%\%AppName%.lnk
-	IniWrite, 0, %scriptini%, Schalter, KillerBax_Icon
-}
-if (KillerBax_Icon = "ERROR")
-{
-    	Menu, Configmenü, UnCheck, Toggle DesktopSymbol
-	FileDelete, %A_Desktop%\%AppName%.lnk
-	IniWrite, 0, %scriptini%, Schalter, KillerBax_Icon
-	MsgBox, BaxterWorks meldet einen Fehler. Ist die ini-Datei ok? Wenn der Fehler bleibt`nbitte in der ini den Error mit 0 ersetzen.
-}
-
-return
-
-;------------------------------------------------------------------------------------------
-
-KillerBax_BaxBar:
-	Gui,Submit,NoHide
-	IniRead, KillerBax_BaxBar, %scriptini%, Schalter, KillerBax_BaxBar
-	KillerBax_BaxBar := KillerBax_BaxBar
-
-if (KillerBax_BaxBar = "0")
-{
-	Menu, Configmenü, Check, Toggle BaxBarSymbol  
-	FileCreateShortcut, %A_ScriptFullPath%, %Bax_Bar%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%      
-	IniWrite, 1, %scriptini%, Schalter, KillerBax_BaxBar
-}
-if (KillerBax_BaxBar = "1")
-{
-    	Menu, Configmenü, UnCheck, Toggle BaxBarSymbol
-	FileDelete, %Bax_Bar%\%AppName%.lnk
-	IniWrite, 0, %scriptini%, Schalter, KillerBax_BaxBar
-}
-if (KillerBax_BaxBar = "ERROR")
-{
-    	Menu, Configmenü, UnCheck, Toggle BaxBarSymbol
-	FileDelete, %Bax_Bar%\%AppName%.lnk
-	IniWrite, 0, %scriptini%, Schalter, KillerBax_BaxBar
-	MsgBox, BaxterWorks meldet einen Fehler. Ist die ini-Datei ok? Wenn der Fehler bleibt`nbitte in der ini den Error mit 0 ersetzen.
-}
-
-return
-
-;------------------------------------------------------------------------------------------
-
-KillerBax_FensterInfo:
-	Gui,Submit,NoHide
-	IniRead, KillerBax_FensterInfo, %scriptini%, Schalter, KillerBax_FensterInfo
-	KillerBax_FensterInfo := KillerBax_FensterInfo
-
-if (KillerBax_FensterInfo = "0")
-{
-	Menu, Configmenü, Check, Toggle FensterInfo  
-	Bax_FensterInfo_Create()
-	IniWrite, 1, %scriptini%, Schalter, KillerBax_FensterInfo
-
-}
-if (KillerBax_FensterInfo = "1")
-{
-    	Menu, Configmenü, UnCheck, Toggle FensterInfo
-	send, ^+8
-	IniWrite, 0, %scriptini%, Schalter, KillerBax_FensterInfo
-
-}
-if (KillerBax_FensterInfo = "ERROR")
-{
-    	Menu, Configmenü, UnCheck, Toggle FensterInfo
-	send, ^+8
-	IniWrite, 0, %scriptini%, Schalter, KillerBax_FensterInfo
-	MsgBox, BaxterWorks meldet einen Fehler. Ist die ini-Datei ok? Wenn der Fehler bleibt`nbitte in der ini den Error mit 0 ersetzen.
-}
-
-return
-
-GetReady:
-	run, %Bax_Start%\Apps\GetReadyBax\GetReadyBax.exe
-	return
-
-; Dateimnenü: Tools ....................................
-
-DropperMenu:
-	Bax_DropperGui_Create()
-	return
-Panik:
-	AHKPanic(3)   ; 1 bis 3 - killt alle Skripte
-	return
-
-MenuIconShow:
-	Bax_IconShow_Create()
-	Return
-
-MenuLinksEx:
-	FileSelectFile, QuelleDatei, 3,, Wählen Sie eine Text- oder HTML-Datei zum Analysieren aus:
-	if (QuelleDatei = "")
-	return  ; In diesem Fall beenden.
-
-	SplitPath, QuelleDatei,, QuelleDateiPfad,, QuelleDateiOhneEnd
-	ZielDatei := QuelleDateiPfad "\" QuelleDateiOhneEnd " Extrahierte Links.txt"
-
-	if FileExist(ZielDatei)
-	{
-	MsgBox, 4,, Vorhandene Datei überschreiben? Drücken Sie Nein, um die Links nur anzufügen.`n`nDATEI: %ZielDatei%
-	IfMsgBox, Yes
-        FileDelete, %ZielDatei%
-	}
-
-	LinksAnzahl := 0
-	Loop, read, %QuelleDatei%, %ZielDatei%
-	{
-	URLSuchZkette := A_LoopReadLine
-	Gosub, URLSuche
-	}
-	MsgBox %LinksAnzahl% Links wurden gefunden und in "%ZielDatei%" geschrieben.
-	return
-URLSuche:
-	;Das wird auf diese Weise gemacht, weil einige URLs andere URLs eingebettet haben:
-	URLStart1 := InStr(URLSuchZkette, "https://")
-	URLStart2 := InStr(URLSuchZkette, "http://")
-	URLStart3 := InStr(URLSuchZkette, "ftp://")
-	URLStart4 := InStr(URLSuchZkette, "www.")
-
-	; Findet die Startposition ganz links:
-	URLStart := URLStart1  ; Setzt den Standardwert.
-Loop
-	{
-	; Es kommt der Leistung zugute (zumindest in einem Skript mit vielen Variablen), wenn "URLStart%A_Index%" nur einmal aufgelöst wird:
-	ArrayElement := URLStart%A_Index%
-    	if (ArrayElement = "")  ; Ende des Pseudo-Arrays erreicht.
-        break
-    	if (ArrayElement = 0)  ; Dieses Element ist disqualifiziert.
-        continue
-    	if (URLStart = 0)
-        	URLStart := ArrayElement
-    	else 			; URLStart beinhaltet eine gültige Position, also mit ArrayElement vergleichen.
-    	{
-        if (ArrayElement != 0)
-        if (ArrayElement < URLStart)
-        	URLStart := ArrayElement
-	}
-	}
-
-	if (URLStart = 0)  ; Keine URLs in der URLSuchZkette.
-    	return
-
-	; Extrahiert ansonsten diese URL:
-	URL := SubStr(URLSuchZkette, URLStart)  ; Entfernt den beginnenden/irrelevanten Teil.
-	Loop, parse, URL, %A_Tab%%A_Space%<>  ; Findet das erste Leer-, Tab- oder Winkelzeichen (falls vorhanden).
-	{
-   	URL := A_LoopField
-    	break  ; Führt nur eine Schleifeniteration durch, um das erste "Feld" zu holen.
-	}
-
-	StringReplace, SaubereURL, URL, ",, All
-	FileAppend, %SaubereURL%`n
-	LinksAnzahl += 1
-
-	; Schaut nach, ob noch andere URLs in dieser Zeile vorkommen:
-	WegzulassendeZeichen := StrLen(URL)
-	WegzulassendeZeichen += URLStart
-	URLSuchZkette := SubStr(URLSuchZkette, WegzulassendeZeichen)
-	Gosub, URLSuche  ; Rekursiver Aufruf von sich selbst.
-	return
-
-; Dateimnenü: BaxterWorks ..............................
-
-Homepage:
-	run, http://www.baxterworks.de/software
-	return
-HPTom:
-	run, https://www.tombesch.de
-	return
-Blog:
-	run, http://blog.baxterworks.de
-	return
-GitHub:
-	run, https://github.com/T-Jah
-	return
-
-; Dateimnenü: Hilfe ....................................
-
-MenuCredits:
-	If !(FileExist)
-	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
-	}
-	run,%Bax_Start%\Files\Credits.htm
-	return
-
-MenuHilfe:
-	If !(FileExist)
-	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %Bax_Start%\Files\%Bax_help%.htm
-	}
-	run,%Bax_Start%\Files\%Bax_help%.htm
-	return
-
-MenuInfo:
-	run, %A_WinDir%\notepad.exe %Bax_Start%\Log\Versionsinfo_%AppName%.txt
-	return
-
-Lizenzmenu:
-	Bax_LicenceGui_Create()
-	return
-
-MenuSupport:
-	run, https://www.tombesch.de/konto.htm
-	return
 
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Traymenü   MusterBax [Version 002]                                                                  │
+; │  MiniBax Subs Dateimenü     [Version 003]                                                                  │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │ MiniBax  Subs Traymenü    [Version 003]         wenn ohne GUI, OpenGUI auf About                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -813,17 +393,18 @@ Reload:
 	return
 
 OpenGUI:
-	Gui, Show, Center Autosize, %AppName%
+	;Gui, Show, Center Autosize, %AppName%
+	GoSub,About
 	return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Aboutfenster MusterBax       [Version 002]                                                          │
+; │  MiniBax Subs Aboutfenster        [Version 001]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 BWApp:
-  	Run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm,,UseErrorLevel
+  	Run,http://www.baxterworks.de/software/hilfe/help.htm,,UseErrorLevel
 	Return
 
 BWSoft:
@@ -840,7 +421,7 @@ AHKlabel:
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub  MusterBax        [Version 008]                                                                   │
+; │ MiniBax  EndSub          [Version 006]        +gdib aus                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -858,14 +439,13 @@ EXIT:
 quit:
 GuiClose:
 MenuEnde:
-DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
-SavePosition:
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
 CleanUp:
-	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
-	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
-	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+SavePosition:
+DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
+	IniWrite, %Lastseen%_%BaxNutzerName% , %backuptxt%, %BaxNutzerName% , Lastseen
+	IniWrite, %A_Now% , %backuptxt%, %BaxNutzerName% , LogIn_%AppName%
 	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 	DetectHiddenWindows On
 	WinGetPos, X, Y, %AppName%
@@ -876,7 +456,7 @@ CleanUp:
    	Gui, Destroy			; gibt die Ressource frei
 	SoundBeep, 750, 500
   	CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
-	Gdip_Shutdown(pToken)		; wird in includes gestartet
+	;Gdip_Shutdown(pToken)		; wird in includes gestartet
 
 	if FileExist("..\..\Files\*.htm")
 	FileDelete %Bax_Start%\Files\*.htm

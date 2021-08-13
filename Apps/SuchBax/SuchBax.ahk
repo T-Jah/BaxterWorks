@@ -1,12 +1,12 @@
-CodeVersion := "1.0.1.0", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.1.5", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\welt.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Sucht in mehreren Quellen
-;@Ahk2Exe-SetFileVersion 1.0.1.0
-;@Ahk2Exe-SetProductVersion 1.0.1.0
+;@Ahk2Exe-SetFileVersion 1.0.1.5
+;@Ahk2Exe-SetProductVersion 1.0.1.5
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks SuchBax
@@ -21,7 +21,7 @@ CodeVersion := "1.0.1.0", Firma := "BaxterWorks Software"
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 010               SuchBax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 019          M.u.s.t.e.r.Bax AHK Skript
 
 /*
  * SuchBax
@@ -34,7 +34,7 @@ CodeVersion := "1.0.1.0", Firma := "BaxterWorks Software"
  * Project: https://github.com/T-Jah
  *
  * ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- * │   Skriptoptionen 	(lang)                 [Version 005]                                                    │
+ * │   Skriptoptionen 	MusterBax              [Version 005]                                                    │
  * └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  *
  *                         BaxterWorks Software:	http://www.baxterworks.de/software
@@ -63,10 +63,9 @@ CodeVersion := "1.0.1.0", Firma := "BaxterWorks Software"
 ; OnExit
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
 
-
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Variablen, zB Pfade     [Version 005]                                                                    │
+; │   Variablen, MusterBax zB Pfade     [Version 008]                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -77,16 +76,21 @@ CodeVersion := "1.0.1.0", Firma := "BaxterWorks Software"
 	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
 	IniRead, backuptxt , %homeini%, FixVars, backuptxt
 	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
+	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
 
 ; Startumgebungsvariablen festlegen
 	AppName = SuchBax
+	Bax_help = help_suchbax	
+	Skriptvorlage = MusterBax_019
+	Bax_Icon = %Bax_Start%\Grafix\welt.ico
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
 	scriptini = %Bax_Start%\Config\%AppName%.ini
-	Bax_Icon = %Bax_Start%\Grafix\welt.ico
-	Bax_help = help_suchbax
 	
 ; Variablentest
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
@@ -95,7 +99,7 @@ CodeVersion := "1.0.1.0", Firma := "BaxterWorks Software"
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   AppStart mit Subanweisung         [Version 002]                                                          │
+; │   AppStart MusterBax mit Subanweisung         [Version 002]                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -123,9 +127,10 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Includes (Ende Autoexec)        [Version 006]                                                            │
+; │   Includes (Ende Autoexec)  MusterBax      [Version 006]                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
+
 
 #Persistent  							; Verhindert, dass sich das Skript automatisch beendet.
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
@@ -160,7 +165,7 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Traymenü                    [Version 001]                                                           │
+; │   GUI, Traymenü   MusterBax        [Version 001]                                                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -187,7 +192,7 @@ Menu,Tray,Default,%AppName%
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Dateimenü, kein return        [Version 003]                                                         │
+; │   GUI, Dateimenü, MusterBax          [Version 003]                                                         │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -242,7 +247,7 @@ Menu, MeineMenüleiste, Add, ?, :Hilfsmenü
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Fenster, Teil 1 [Version 001]                                                                       │
+; │   GUI, Fenster, Teil 1 MusterBax  [Version 001]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -314,9 +319,10 @@ Gui, Font
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Fenster, Teil 2 [ohne Versionsnummer]                                                               │
+; │   GUI, Fenster, Teil 2 MusterBax  [ohne Versionsnummer]                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
+
 
 Gui,Add,Picture, x400 y+50 w64 h-1, ..\..\Grafix\gta_moped2.ico
 Gui, Add, GroupBox, x30 y130 w500 h170, SuchBax 
@@ -333,7 +339,7 @@ gui, font, S10 cblue ;Font size to 10 and color to blue
 gui, Add, Checkbox, x350 yp+8 checked0 vquotes,Begriffe in Anführungszeichen
 
 Gui, Font
-Gui, Show, %Pos% w600, %applicationname%
+Gui, Show, %Pos% w600, %AppName%
 GuiControl,Focus,SearchTerm
 OnMessage(0x200, "CheckControl")
 return
@@ -341,9 +347,10 @@ return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, TrayFensterFenster (About), ein Label vom Traymenü      [Version 001]                               │
+; │   GUI, TrayFensterFenster (About), MusterBax                   [Version 001]                               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
+
 
 ABOUT:
 Gui,99:Destroy
@@ -401,7 +408,7 @@ Return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   HotKeys     [Version 001]                                                                                │
+; │   HotKeys  MusterBax   [Version 001]                                                                       │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -409,9 +416,10 @@ Return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Funktionen Standard [Version 002]     +                                                                  │
+; │   Funktionen Standard MusterBax [Version 002]      Tooltips immer unterschiedlich                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
+
 
 ; Tooltips für die GUI
 
@@ -439,7 +447,7 @@ else IfEqual, VarControl, Edit1
 	Message := "Gib hier ein, wonach du suchst"
 ToolTip % Message
 }
-
+return
 ;--------------------------------------------------------
 
 ; Dropfiles GUI
@@ -450,11 +458,13 @@ GuiDropFiles(GuiHwnd, DateiArray, ElementHwnd, X, Y) {
 }
 return
 
+
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Funktionen von diesem Skript                                                                             │
+; │   Funktionen von diesem Skript    MusterBax                                                                │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
+
 Search:
 Gui Submit ;Needed to pull inf0 from controls
 if quotes ;if selected, url enclude double quotes around search term
@@ -472,17 +482,16 @@ If ahkforum
 	run "http://www.google.com/search?q=%SearchTerm%+site:http://www.autohotkey.com/forum"
 
 
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Label und Subs    [Version 001]                                                                          │
+; │   Label und Subs MusterBax   [Version 001]                                                                 │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ; 
 
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini  [Version 004]                                                                                   │
+; │   Sub Ini MusterBax [Version 008]                                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -498,18 +507,18 @@ INIREAD:
 	IniRead, Bax_JobDir, %userini%, Variablen, Bax_JobDir, %A_Space% 
 	IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space% 
 
-
 INIWRITE:
 	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
 	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
-	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Letzte IP
-	IniWrite, %Bax_exe% , %scriptini%, Skriptinfo, Bax_exe
+	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
+	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
 
 return
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs GUI-Fenster       [Version 001]                                                                     │
+; │   Subs GUI-Fenster   MusterBax    [Version 001]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -536,7 +545,7 @@ AOTLabel:
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Dateimenü     [Version 003]                                                                         │
+; │   Subs Dateimenü  MusterBax   [Version 004]                                                                │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -560,8 +569,8 @@ SuchBax_Icon:
 if (SuchBax_Icon = "0")
 {
 	Menu, Configmenü, Check, Toggle DesktopSymbol  
-	FileCreateShortcut, %Bax_exe%, %A_Desktop%\%AppName%.lnk, %A_ScriptDir%, "%A_ScriptFullPath%", BaxterWorks Software mit STRG+Alt+M starten, %Bax_Icon%, M      
-	IniWrite, 1, %scriptini%, Schalter, SuchBax_Icon
+	FileCreateShortcut, %A_ScriptFullPath%, %A_Desktop%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%      
+      	IniWrite, 1, %scriptini%, Schalter, SuchBax_Icon
 }
 if (SuchBax_Icon = "1")
 {
@@ -589,7 +598,7 @@ SuchBax_BaxBar:
 if (SuchBax_BaxBar = "0")
 {
 	Menu, Configmenü, Check, Toggle BaxBarSymbol  
-	FileCreateShortcut, %Bax_exe%, %Bax_Bar%\%AppName%.lnk, %A_ScriptDir%, "%A_ScriptFullPath%", BaxterWorks Software, %Bax_Icon%,      
+	FileCreateShortcut, %A_ScriptFullPath%, %Bax_Bar%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%      
 	IniWrite, 1, %scriptini%, Schalter, SuchBax_BaxBar
 }
 if (SuchBax_BaxBar = "1")
@@ -775,7 +784,7 @@ MenuSupport:
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Traymenü    [Version 002]                                                                           │
+; │   Subs Traymenü   MusterBax [Version 002]                                                                  │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -827,14 +836,15 @@ OpenGUI:
 	return
 
 
+
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Aboutfenster        [Version 001]                                                                   │
+; │   Subs Aboutfenster MusterBax       [Version 002]                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 BWApp:
-  	Run,http://www.baxterworks.de/software/hilfe/help.htm,,UseErrorLevel
+  	Run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm,,UseErrorLevel
 	Return
 
 BWSoft:
@@ -848,10 +858,9 @@ BWBlog:
 AHKlabel:
   	Run,http://www.autohotkey.com,,UseErrorLevel
 	Return
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub          [Version 003]                                                                            │
+; │   EndSub  MusterBax        [Version 008]                                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -867,14 +876,17 @@ Suspend:
 
 EXIT:
 quit:
-;GuiClose:
+GuiClose:
 MenuEnde:
 DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
-	;IniWrite, %Lastseen%_%BaxNutzerName% , %backuptxt%, %BaxNutzerName% , Lastseen
+SavePosition:
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
 CleanUp:
-SavePosition:
+	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
+	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 	DetectHiddenWindows On
 	WinGetPos, X, Y, %AppName%
 	If (x > 0)

@@ -1,16 +1,17 @@
-CodeVersion := "1.0.1.3", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.1.5", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\appbar.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription BWAppBar - Taskleiste2 Credits to SKAN
-;@Ahk2Exe-SetFileVersion 1.0.1.3
-;@Ahk2Exe-SetProductVersion 1.0.1.3
+;@Ahk2Exe-SetFileVersion 1.0.1.5
+;@Ahk2Exe-SetProductVersion 1.0.1.5
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks BWAppBar
 ;@Ahk2Exe-SetProductName BWAppBar
+; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │            __________                  __                __      __             __                         │
 ; │            \______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______             │
@@ -20,42 +21,61 @@ CodeVersion := "1.0.1.3", Firma := "BaxterWorks Software"
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                                                               BWAppBar AHK Skript
-
-; 
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 009              M.i.n.i.Bax AHK Skript
+;
+;                                 keine Standardreihenfolge in diesem Skript
+;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Vorarbeiten: Pfade festlegen, Apps checken [Version 002]                                                 │
+; │   Variablen, MiniBax zB Pfade     [Version 003]                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-	IniRead, homeini , %A_ScriptDir%\..\..\Config\BaxterWorks.ini, FixVars, homeini
-	IniRead, Bax_Start , %homeini%, FixVars, Bax_Start
+; Startumgebungsvariablen laden
+	IniRead, Bax_Start , %A_ScriptDir%\..\..\Config\BaxterWorks.ini, FixVars, Bax_Start
+	IniRead, homeini , %Bax_Start%\Config\BaxterWorks.ini, FixVars, homeini
 	IniRead, userini , %homeini%, FixVars, userini
 	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
-	IniRead, Bax_IP , %homeini%, Netzinfo, Letzte IP
-	IniRead, PCName , %homeini%, Netzinfo, PCName
-	IniRead, FensterVersion , %homeini%, Netzinfo, FensterVersion
-
-	IniRead, Ziel1, %userini%, Dropper, Ziel1, %A_Space% 
-	IniRead, Ziel2, %userini%, Dropper, Ziel2, %A_Space% 
-	IniRead, DeinOrdner1, %userini%, 2Win, DeinOrdner1, %A_Space% 
-	IniRead, DeinOrdner2, %userini%, 2Win, DeinOrdner2, %A_Space% 
-	IniRead, Bax_JobDir, %userini%, 2Win, Bax_JobDir, %A_Space% 
-	IniRead, Bax_Flex, %userini%, 2Win, Bax_Flex, %A_Space% 
+	IniRead, backuptxt , %homeini%, FixVars, backuptxt
+	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
+	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
 
 ; Startumgebungsvariablen festlegen
 	AppName = BWAppBar
+	Bax_help = help_bwappbar	
+	Skriptvorlage = MiniBax_009
 	Bax_Icon = %Bax_Start%\Grafix\appbar.ico
-	scriptini = %Bax_Start%\Config\%AppName%.ini
-
-; Startumgebungsvariablen erfassen
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
+	BaxNutzerName = %A_UserName%_%A_ComputerName%
+	Bax_Start = %Bax_Start%
+	scriptini = %Bax_Start%\Config\%AppName%.ini
+	
+; Variablentest
+; --------------------------------------------------------------- TextBox für die Fehlersuche
+; MsgBox,  %homeini% 
+
 
 
 
 if !FileExist("%Bax_Bar%\00AppBar.lnk")
 FileCreateShortcut, %A_ScriptDir%\00AppBar.exe, %Bax_Bar%\00AppBar.lnk, %A_ScriptDir%, "%A_ScriptFullPath%", Menü mit Rechtsklick oder WIN+Z, %A_ScriptDir%\..\..\Grafix\menuico.ico,      
+
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │ MiniBax  Sub Ini  [Version 004]        + nur write                                                         │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
+	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
+	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
+	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
+
+
 
 /*
  * BWAppBar
@@ -194,7 +214,7 @@ Off :=  NumPut(  GH, Off+0, "Int" )
 Off :=  NumPut(   1, Off+0, "Ptr" )
 GoSub, RegisterAppBar
 
-OnExit, QuitScript
+;OnExit, QuitScript
 Return
 
 ToggleGUI:
@@ -289,6 +309,10 @@ QuitScript:
   GoSub, RemoveAppbar
 if FileExist("..\..\Files\*.htm")
 FileDelete %A_ScriptDir%\..\..\Files\*.htm
+	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
+	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 
   ExitApp
 Return
@@ -303,9 +327,9 @@ Return
 HilfeTray:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help_bwappbar.htm, %A_ScriptDir%\..\..\Files\help_bwappbar.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %A_ScriptDir%\..\..\Files\%Bax_help%.htm
 	}
-	run,%A_ScriptDir%\..\..\Files\help_bwappbar.htm
+	run,%A_ScriptDir%\..\..\Files\%Bax_help%.htm
 	return
 
 Credits:

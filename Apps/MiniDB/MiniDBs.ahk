@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.0.7", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.0.9", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\fledermond2.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.0.7
-;@Ahk2Exe-SetProductVersion 1.0.0.7
+;@Ahk2Exe-SetFileVersion 1.0.0.9
+;@Ahk2Exe-SetProductVersion 1.0.0.9
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks MiniDBs
@@ -21,7 +21,7 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 010               MiniDBs AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 008             M.a.c.r.o.Bax AHK Skript
 
 /*
  * MiniDBs
@@ -65,7 +65,7 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\fledermond2.ico
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Variablen, zB Pfade     [Version 006]                                                                    │
+; │   MacroBax  Variablen, zB Pfade     [Version 003]                                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -76,46 +76,31 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\fledermond2.ico
 	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
 	IniRead, backuptxt , %homeini%, FixVars, backuptxt
 	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
+	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
 
 ; Startumgebungsvariablen festlegen
 	AppName = MiniDBs
 	Bax_help = help_minidb	
+	Skriptvorlage = MacroBax_008
+	Bax_Icon = %Bax_Start%\Grafix\klee.ico
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
 	;scriptini = %Bax_Start%\Config\%AppName%.ini
-	Bax_Icon = %Bax_Start%\Grafix\fledermond2.ico
-	
-; Variablentest
-; --------------------------------------------------------------- TextBox für die Fehlersuche
-; MsgBox,  %homeini% 
 
-; 
+;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   AppStart mit Subanweisung         [Version 002]                                                          │
+; │               Appstart MacroBax         [Version 001]                                                      │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
-/** IP Logbuch, archiviert die eigene externe IP
-	URLDownloadToFile,http://www.netikus.net/show_ip.html, %Bax_Start%\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt
-	if ErrorLevel = 1
-  	{
-    	MsgBox, 16,IpAddresses,Your public Ipaddress could not be detected.
-  	}
-	FileReadLINE,BaxIP,%Bax_Start%\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt, 1
-	IniWrite, %BaxIP% , %scriptini%, Netzinfo, Letzte IP
+GoSub, TRAYMENU
 
-Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werden, das regelmäßig läuft
-*/
-
-;---------------------------------------------------------------->
-; AppStart (AutoExec Bereich geht nach dem letzten Eintrag weiter)
-; Also hier nach Traymenü.
-;---------------------------------------------------------------->
-
-
-gosub, TRAYMENU
+;-----Skript------------------------------------------
 
 Gui, Font, s10 cDarkskyblue, Tahoma,Verdana
 Gui, Add, Text, y0 , Datenbank wählen und mit ++ Menü aktivieren
@@ -149,27 +134,45 @@ return
 StarterBax3:
 Run %A_ScriptDir%\CSS_Baustein.exe
 WinClose
+
+
+;-----Skriptende--------------------------------------
 return
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   EndSub MacroBax        [Version 005]                                                                     │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
 
 
 GuiEscape:
 GuiClose:
 ButtonCancel:
 quit:
+	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
+	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 ExitApp
 
 
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   SubTray MacroBax         [Version 003]                                                                   │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
 About:
-	MsgBox, 64, About, MiniDBs ist ein Starterfenster von BaxterWorks`nhttp://www.BaxterWorks.de`nCredits an das offizielle Handbuch. 
+	MsgBox, 64, About, Mehr über BaxterWorks Software findest du im Netz:`nhttp://www.BaxterWorks.de/software`nCredits an das offizielle Handbuch.`n`nDownload: https://github.com/T-Jah
 	return
 
 helptray:
-run,http://www.baxterworks.de/software/hilfe/help.htm
+run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm
 return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Traymenü  mini              [Version 002]                                                           │
+; │   GUI, Traymenü   MacroBax            [Version 002]                                                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 

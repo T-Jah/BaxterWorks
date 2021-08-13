@@ -26,7 +26,7 @@ If !(FileExist(File1) && FileExist(File2))
 GoSub, IniReadDrop
 
 Gui,Dropper:New
-Gui,Dropper:+Owner  ; Definiert Dropper als Unterfenster vom Hauptfenster des Skripts, um dessen Taskleistenschaltfläche zu verstecken.
+Gui,Dropper:+DPIScale +E0x10 -ToolWindow -MaximizeBox +Resize -Owner +OwnDialogs -Border  ; Definiert Dropper als Unterfenster vom Hauptfenster des Skripts, um dessen Taskleistenschaltfläche zu verstecken.
 Gui,Dropper:Margin,20,20
 Gui,Dropper:Color, Black
 Gui,Dropper:Font, s14 cLime, Verdana

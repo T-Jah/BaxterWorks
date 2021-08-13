@@ -32,7 +32,7 @@ Gui,BaxterWorks:Margin,15,10
 Gui,BaxterWorks:Color, Black
 Gui,BaxterWorks:Font, s10 cLime, Verdana
 Gui,BaxterWorks:Add,Picture, x-1 y0, %Bax_Start%\Grafix\bw_banner.png
-Gui,BaxterWorks:Add,Text, R2 xp+20 yp+90 ,%applicationname% Software Collection`nWähle die Tools, die du starten möchtest.
+Gui,BaxterWorks:Add,Text, R2 xp+20 yp+90 ,%AppName% Software Collection`nWähle die Tools, die du starten möchtest.
 Gui,BaxterWorks:Font
 Gui,BaxterWorks:Font, s9 cWhite, Verdana
 Gui,BaxterWorks:Add, Checkbox, vCheck1 Checked%Check1% , EmojiMenu
@@ -51,15 +51,13 @@ GuiControlGet, Check3
 GuiControlGet, Check4
 GuiControlGet, Check5
 GuiControlGet, Check6
-Gui,BaxterWorks:Submit, NoHide
 Gui,BaxterWorks:Show, x400 y20, BaxterWorks Config
 OnMessage(0x200, "ConfigToolTips")
 
 }
-
+return
 ExitWithSaving:
 
-BaxterWorksGuiClose:      ; wichtige Platzierung genau hier
 Gui,BaxterWorks:Submit, NoHide
 
 	If (Check1 = 0)
@@ -139,6 +137,8 @@ return
 
 
 ExitWithoutSaving:
+BaxterWorksGuiClose:      ; wichtige Platzierung genau hier
+
 WinClose
 Gui,BaxterWorks:Destroy
 return

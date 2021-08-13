@@ -1,12 +1,12 @@
-CodeVersion := "1.0.0.7", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.0.8", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\uhr3.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.0.7
-;@Ahk2Exe-SetProductVersion 1.0.0.7
+;@Ahk2Exe-SetFileVersion 1.0.0.8
+;@Ahk2Exe-SetProductVersion 1.0.0.8
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks Tom
@@ -34,12 +34,7 @@ SendMode Input
 ;Icon
 Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\uhr3.ico
 
-
 #Include %A_ScriptDir%\..\..\Function\BaxFunk_Exit.ahk
-
-
-TodoAutoExec:
-OnExit, SavePosition
 
 
 Vorarbeiten:
@@ -47,17 +42,46 @@ Gosub,currentTime
 Gosub,guiupdator
 SetTimer,currentTime,500
 
-AppStart:
-; App Start
-AppName=UhrDigiSimple
-scriptini=%A_ScriptDir%\..\..\Config\%AppName%.ini
+
+
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   MacroBax  Variablen, zB Pfade     [Version 003]                                                                    │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+; Startumgebungsvariablen laden
+	IniRead, Bax_Start , %A_ScriptDir%\..\..\Config\BaxterWorks.ini, FixVars, Bax_Start
+	IniRead, homeini , %Bax_Start%\Config\BaxterWorks.ini, FixVars, homeini
+	IniRead, userini , %homeini%, FixVars, userini
+	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
+	IniRead, backuptxt , %homeini%, FixVars, backuptxt
+	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
+	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
+
+; Startumgebungsvariablen festlegen
+	AppName = UhrDigiSimple
+	Bax_help = help	
+	Skriptvorlage = MacroBax_008
+	Bax_Icon = %Bax_Start%\Grafix\klee.ico
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
+	LetzteAnmeldung = %A_UserName%
+	LetzterEinsatz = %A_ComputerName%
+	BaxNutzerName = %A_UserName%_%A_ComputerName%
+	Bax_Start = %Bax_Start%
+	;scriptini = %Bax_Start%\Config\%AppName%.ini
+
+
+
 GoSub,TRAYMENU
 
 ;GUI
 Gui, +AlwaysOnTop +Disabled -Caption +Owner
 Gui Font, s26, Arial Black, Verdana, Segoe UI, bold
 Gui Color, Red
-Gui, Add, Picture, x258 y4 w38 h33 gclose +BackgroundTrans,  %A_ScriptDir%\..\..\Grafix\close.png
+;Gui, Add, Picture, x258 y4 w38 h33 gclose +BackgroundTrans,  %A_ScriptDir%\..\..\Grafix\close.png
 Gui, Add, Picture, x0 y0 w300 h35 gUImove,  %A_ScriptDir%\..\..\Grafix\bar.png
 Gui, Add, Text, x30 y34 w250 vbaxtime, %Time%
 Gui, show, w300 h90, UhrDigiSimple
@@ -182,7 +206,7 @@ return
 
 
 BWApp:
-  Run,http://www.baxterworks.de/software,,UseErrorLevel
+  Run,http://www.baxterworks.de/software/hilfe/help.htm,,UseErrorLevel
 Return
 
 BWSoft:
@@ -218,74 +242,27 @@ Return
 Suspend:
   Suspend
 Return
-close:
-EXIT:
+
 GuiClose:
-MenuEnde:
 DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
 ButtonCancel:			; falls es einen Button gibt
 ;GuiEscape:
 CleanUp:
+EXIT:
 SavePosition:
-;DetectHiddenWindows On
+DetectHiddenWindows On
 ;WinGetPos, X, Y, Width, Height, UhrDigiSimple
 ;If (x > 0)
 ;	IniWrite, % " x" X " y" Y " w" Width-16 " h" Height-39, %scriptini%, Position, WinPos
+	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
+	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+%A_ComputerName%.bax
 
 ; SoundPlay, NoFile.wav
-   Gui, Destroy			; gibt die Ressource frei
   CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
 SoundBeep, 750, 500
 
 ExitApp
-
-
-
-; Das folgende DllCall ist optional: es teilt dem OS mit, dass dieses Skript zuerst beendet werden soll (bevor alle anderen Anwendungen beendet werden).
-DllCall("kernel32.dll\SetProcessShutdownParameters", "UInt", 0x4FF, "UInt", 0)
-OnMessage(0x0011, "WM_QUERYENDSESSION")
 return
-
-WM_QUERYENDSESSION(wParam, lParam)
-{
-    ENDSESSION_LOGOFF := 0x80000000
-    if (lParam & ENDSESSION_LOGOFF)  ; Benutzer meldet sich ab.
-        Ereignis := "Abmelden"
-    else  ; System wird entweder heruntergefahren oder neu gestartet.
-        Ereignis := "Herunterfahren"
-    try
-    {
-        ; Bestimmt einen Anzeigetext für die OS-Herunterfahren-UI. Wir
-        ; zeigen keine eigene Sicherheitsabfrage an, da wir nur 5 Sekunden
-        ; haben, bevor das OS von sich aus die Herunterfahren-UI anzeigt.  
-        ; Außerdem kann ein Programm ohne sichtbares Fenster das
-        ; Herunterfahren nur blockieren, wenn ein Grund angegeben ist.
-        BlockiereHerunterfahren("Es wird versucht, " Ereignis " zu verhindern.")
-        return false
-    }
-    catch
-    {
-        ; ShutdownBlockReasonCreate ist nicht verfügbar, demzufolge läuft
-        ; vermutlich Windows XP, 2003 oder 2000, wo wir tatsächlich
-        ; das Herunterfahren verhindern können.
-        MsgBox, 4,, %Ereignis% im Gange.  Erlauben?
-        IfMsgBox Yes
-            return true  ; Erlaubt dem OS das Herunterfahren/Abmelden.
-        else
-            return false  ; Verbietet dem OS das Herunterfahren/Abmelden.
-    }
-}
-
-BlockiereHerunterfahren(Grund)
-{
-    ; Wenn Ihr Skript eine sichtbare GUI hat, nutzen Sie diese anstelle
-    ; von A_ScriptHwnd.
-    DllCall("ShutdownBlockReasonCreate", "ptr", A_ScriptHwnd, "wstr", Grund)
-    OnExit("StoppeBlockenHerunterfahren")
-}
-
-StoppeBlockenHerunterfahren()
-{
-    OnExit(A_ThisFunc, 0)
-    DllCall("ShutdownBlockReasonDestroy", "ptr", A_ScriptHwnd)
-}

@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.1.4", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.1.6", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\ordner3.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright Savage
 ;@Ahk2Exe-SetDescription Menü am Mauszeiger mit Favoriten
-;@Ahk2Exe-SetFileVersion 1.0.1.4
-;@Ahk2Exe-SetProductVersion 1.0.1.4
+;@Ahk2Exe-SetFileVersion 1.0.1.6
+;@Ahk2Exe-SetProductVersion 1.0.1.6
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks FavoriteFolders
@@ -85,7 +85,7 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\ordner3.ico	; #NoTrayIcon
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Variablen, zB Pfade     [Version 005]                                                                    │
+; │   MacroBax  Variablen, zB Pfade     [Version 003]                                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -96,22 +96,28 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\ordner3.ico	; #NoTrayIcon
 	IniRead, Bax_Bar , %homeini%, FixVars, Bax_Bar
 	IniRead, backuptxt , %homeini%, FixVars, backuptxt
 	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
+	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
+	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
 
 ; Startumgebungsvariablen festlegen
 	AppName = FavoriteFolders
+	Bax_help = help_favfolders	
+	Skriptvorlage = MacroBax_008
+	Bax_Icon = %Bax_Start%\Grafix\klee.ico
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
 	scriptini = %Bax_Start%\Config\%AppName%.ini
-	Bax_Icon = %Bax_Start%\Grafix\ordner3.ico
-	Bax_help = help
+	
 	
 ; Variablentest
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
 ; MsgBox,  %homeini% 
 
-
+GoSub, TRAYMENU
 
 
 Hotkey, %f_Hotkey%, f_DisplayMenu
@@ -245,3 +251,53 @@ if f_AlwaysShowMenu = n  ; The menu should be shown only selectively.
 ; Otherwise, the menu should be presented for this type of window:
 Menu, Favorites, show
 return
+
+;-----Skriptende--------------------------------------
+return
+
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   EndSub MacroBax        [Version 005]                                                                     │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+
+GuiEscape:
+GuiClose:
+ButtonCancel:
+quit:
+	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
+	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+ExitApp
+
+
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   SubTray MacroBax         [Version 003]                                                                   │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+About:
+	MsgBox, 64, About, Mehr über BaxterWorks Software findest du im Netz:`nhttp://www.BaxterWorks.de/software`nCredits an das offizielle Handbuch.`n`nDownload: https://github.com/T-Jah
+	return
+
+helptray:
+run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm
+return
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   GUI, Traymenü   MacroBax            [Version 002]                                                        │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+TRAYMENU:
+	Menu, Tray, NoStandard
+	Menu, Tray, Add, Über diese App, About
+	Menu, Tray, Add, Hilfe, helptray
+	Menu, Tray, Add, Exit, quit
+	Menu, Tray, Default, Über diese App
+	Menu, Tray, Tip, %AppName%  %Codeversion%
+	return
