@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.4.0", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.4.5", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.4.0
-;@Ahk2Exe-SetProductVersion 1.0.4.0
+;@Ahk2Exe-SetFileVersion 1.0.4.5
+;@Ahk2Exe-SetProductVersion 1.0.4.5
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
@@ -20,8 +20,7 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     STARTERSKRIPT                                  Tom AHK Skript
-
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 019          M.u.s.t.e.r.Bax AHK Skript
 /*
  * BaxterWorks
  * Copyright 2021 T-Jah Tom
@@ -33,7 +32,7 @@
  * Project: https://github.com/T-Jah
  *
  * ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- * │   Skriptoptionen 	(lang)                 [Version 003]                                                    │
+ * │   Skriptoptionen 	MusterBax              [Version 005]        +                                           │
  * └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  *
  *                         BaxterWorks Software:	http://www.baxterworks.de/software
@@ -43,10 +42,9 @@
  */
 
 ; Script options
-	#SingleInstance force 			; oder off
+	#SingleInstance force 			; oder off, ignore, force
 	#NoEnv
 	#MaxMem 512			
-	#KeyHistory 500
 	#Persistent
 	#InstallKeybdHook
 	#InstallMouseHook
@@ -56,7 +54,7 @@
 		SendMode Input			; Macht Send synonym mit SendInput, hohe Geschwindigkeit und Zuverlässigkeit.
 		SetWorkingDir %A_ScriptDir%	; wichtig
 		FileEncoding UTF-8
-		ListLines Off
+		ListLines, Off			; spart Ressourcen wenn aus. Zum Debuggen einschalten für most recently executed lines
 ; Set Lock keys permanently - nur im ersten Skipt aufrufen (Tom)
 	SetNumlockState, AlwaysOn	
 	SetCapsLockState, AlwaysOff
@@ -66,6 +64,16 @@
 
 ; OnExit
 	#Include %A_ScriptDir%\Function\BaxFunk_Exit.ahk
+
+; OnError
+	OnError("FehlerProtokollieren")
+	Fehler := auslösen
+
+	FehlerProtokollieren(Exception) {
+    	FileAppend % "Fehler bei Zeile " Exception.Line ": " Exception.Message "`n" , FehlerBax.txt
+    	return true
+	}
+
 
 ;---------------------------------------------------------------------------------------------------------------
 
@@ -85,14 +93,17 @@
 ; Startumgebungsvariablen festlegen
 	AppName = BaxterWorks
 	Bax_help = help
-	FensterVersion = 007
+	FensterVersion = MusterBax_019		; aktuelle Vorlage und Module
+	Skriptvorlage = MusterBax_019		; eingesetzte Version und Vorlage
 	Bax_Bar = %A_Appdata%\Microsoft\Internet Explorer\Quick Launch
 	LastVersionBW = %CodeVersion%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	FormatTime, LastSeen,, LongDate
 	LastSeen = %LastSeen%
 	UhrStart = %A_Now%
-	
+	LastLogIn = %A_Now%_%AppName%
+	LastLogInZeit = %A_Now%
+
 	Bax_Start = %A_ScriptDir%
 	Bax_exe = %Bax_Start%\BaxterWorks.exe
 	Bax_Icon = %Bax_Start%\Grafix\bax.ico
@@ -124,6 +135,7 @@
 	IniWrite, %A_Appdata%\Microsoft\Internet Explorer\Quick Launch , %homeini%, FixVars, Bax_Bar
 	IniWrite, %Bax_exe% , %homeini%, FixVars, Bax_exe
 	IniWrite, %FensterVersion% , %homeini%, FixVars, FensterVersion
+	IniWrite, %Skriptvorlage% , %homeini%, FixVars, Skriptvorlage
 	IniWrite, %backuptxt% , %homeini%, FixVars, backuptxt
 
 
@@ -151,8 +163,11 @@ if !FileExist("%Bax_Start%\Config\%BaxNutzerName%.ini")
 	GoTo, 2ndstep
 	else {
 ; öffnet GetReadyBax.exe
-	MsgBox, Eine Datei wurde gelöscht oder noch nicht erstellt oder nicht zu Ende bearbeitet.`nDu wirst zur Konfiguration gezw..beten.`nNimm Dir einen Moment Zeit. Die Eingaben sind von`nzentraler Bedeutung für den Nutzen dieser Anwendung.
+	MsgBox, Hallo`nIch habe die Aufgabe ein paar Variablen zu füllen - besser du.`nDas macht Arbeit. Aber es gibt dir die Möglichkeit`ndeine Vorlieben einzugeben die ich nicht kennen kann.`n`nEine Datei wurde gelöscht oder noch nicht erstellt oder nicht zu Ende bearbeitet.`nDu wirst zur Konfiguration gezw..beten.`nNimm Dir einen Moment Zeit. Die Eingaben sind von`nzentraler Bedeutung für den Nutzen dieser Anwendung.
 	
+	firstseen = %A_Now%
+	FileAppend, ErstNutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	IniWrite, %firstseen% , %userini%, %BaxNutzerName% , Erstnutzung
 	run, %Bax_Start%\Apps\GetReadyBax\GetReadyBax.exe
 	GoTo,Configzwang
 	return
@@ -448,6 +463,7 @@ IncludeBax:
 	#Include %A_ScriptDir%\Lib\toggle_hiddenfiles.ahk
 	#Include %A_ScriptDir%\Lib\toggle_lightdark.ahk
 	#Include %A_ScriptDir%\Lib\tf.ahk
+	#Include %A_ScriptDir%\Lib\toolbar.ahk
 	#Include %A_ScriptDir%\Lib\tts.ahk
 	#Include %A_ScriptDir%\Lib\UrlDownloadToVar.ahk
 	#Include %A_ScriptDir%\Lib\VA.inc.ahk
@@ -986,6 +1002,7 @@ DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
 	IniWrite, %LastSeen% , %userini%, %BaxNutzerName% , LastSeen
 	IniWrite, %A_Now% , %backuptxt%, %BaxNutzerName% , UhrStart
 	IniWrite, %A_Now% , %userini%, %BaxNutzerName% , UhrStart
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:

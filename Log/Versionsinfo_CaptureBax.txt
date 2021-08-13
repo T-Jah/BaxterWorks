@@ -9,11 +9,13 @@
  │                                                              (c) 1999-2021 T-Jah Tom  │
  ├──────────────────────────────┬────────────────────────────────────┬───────────────────┤
  │ Programm/Skript:		│ Autoren:	Editor:              │ Info:		 │
- │ DesktopPainter     		│ Rajat		T-Jah Tom            │ 			 │
+ │ CaptureBax     		│ Rajat		T-Jah Tom            │ 	ScreenCapture	 │
  └──────────────────────────────┴────────────────────────────────────┴───────────────────┘
 
   INHALT: Versionsinfo
 
+	1.0.0.7 Stats-Var in ini
+	1.0.0.6 Update auf FensterVersion 015
 	1.0.0.5 In BaxterWorks integriert
 	1.0.0.4 Neuer Ordner, neue Pfade (Grafix)
 	1.0.0.3 Anpassung Menü

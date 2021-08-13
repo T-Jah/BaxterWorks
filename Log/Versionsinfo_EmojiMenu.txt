@@ -16,6 +16,7 @@
 
   INHALT:
 
+	1.0.0.5 Variablen für die ini
 	1.0.0.4 Integration in BaxterWorks
 	1.0.0.3 Neue Pfade (Grafix)
 	1.0.0.2	Jede Menge Zeit in Wörter gesteckt

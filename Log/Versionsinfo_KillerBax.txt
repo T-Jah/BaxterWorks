@@ -15,6 +15,7 @@
 
   INHALT:
 
+	1.0.0.9 Statistik Variable	
 	1.0.0.8 Funktionspfade korrigiert	
 	1.0.0.7 In BaxterWorks Struktur integriert	
 	1.0.0.6 Auf Fensterversion 041 upgedatet	

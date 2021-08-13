@@ -14,6 +14,12 @@
 
   INHALT: Versionsinfo
 
+	1.0.4.5	FensterVersion 019
+	1.0.4.4	Versuch mit Errorlevel
+	1.0.4.3	Update Configfunktion
+	1.0.4.2	Umbenennung Vars, VarSchau erweitert
+	1.0.4.1	Doppelstartproblem behoben, Tools laden Funktion
+	1.0.4.0	Rubrik Hilfetexte im Menü erzeugt
 	1.0.3.9	Versuche mit Datum und Zeit (lastseen)
 	1.0.3.8	Speicherorte verlegt, home zu userini, nochmal
 	1.0.3.7	Speicherorte verlegt, home zu userini
@@ -29,7 +35,7 @@
 	1.0.2.7	VersionsCheck überarbeitet
 	1.0.2.6	App EmojiMenu
 	1.0.2.5	Korrekturen
-	1.0.2.4	Lupe raus, BaxUserName neue Variable
+	1.0.2.4	Lupe rausgenommen, BaxUserName neue Variable
 	1.0.2.3	App DesktopPainter
 	1.0.2.2	Kommentare, Umstellung der Reihenfolge im Skript
 	1.0.2.1	VersionsCheck

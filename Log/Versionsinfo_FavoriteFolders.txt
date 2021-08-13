@@ -1,6 +1,8 @@
 ﻿Versionsinfo FavoriteFolders
 Autor: Savage
 
+1.0.1.6 Variable für Statistik in ini
+1.0.1.5 Intergration in BaxterWorks
 1.0.1.4 Intergration in BaxterWorks
 1.0.1.3 neue Pfade, Grafix-Ordner
 1.0.1.2 neue Pfade

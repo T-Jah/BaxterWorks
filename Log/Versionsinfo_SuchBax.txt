@@ -14,6 +14,11 @@
 
   INHALT: Versionsinfo
 
+	1.0.1.5 StatistikVariable
+	1.0.1.4 Korrektur Icon Verknüpfung
+	1.0.1.3 Update auf FensterVersion 015, Variable Stats_Name
+	1.0.1.2 Update auf FensterVersion 013
+	1.0.1.1 Korrektur
 	1.0.1.0 Update auf FensterVersion 010
 	1.0.0.9 Update auf FensterVersion 005
 	1.0.0.8 Korrektur Funktionspfade

@@ -8,29 +8,16 @@
  ├───────────────────────────────────────────────────────────────────────────────────────┤
  │                                                              (c) 1999-2021 T-Jah Tom  │
  ├──────────────────────────────┬────────────────────────────────────┬───────────────────┤
- │ Programm/Skript:	        │ Autor:	                     │ Info:	    	 │
- │ 00AppBar                     │ T-Jah Tom	                     │ Config der AppBar │
+ │ Programm/Skript:		│ Autor:	                     │ Info:		 │
+ │ KillerBaxAHK    		│ T-Jah Tom	                     │ Credits to Forum  │
  └──────────────────────────────┴────────────────────────────────────┴───────────────────┘
+
 
   INHALT:
 
-	1.0.1.7 Update auf Fensterversion 019
-	1.0.1.6 Stats für ini
-	1.0.1.5 Update auf Fensterversion 015
-	1.0.1.4 Update auf Fensterversion 009
-	1.0.1.3 Update auf Fensterversion 005
-	1.0.1.2 Korrektur Pfade
-	1.0.1.1 Umzug BaxterWorks - neue Pfade
-	1.0.1.0 Update auf Fensterversion 041 (alt)
-	1.0.0.9 Korrekturanpassung
-	1.0.0.8 Dateitypen für ordnerweise Verknüpfungen erweitert
-	1.0.0.7 Tooltips
-	1.0.0.6 Strg+Shift+v zeigt Variablen
-	1.0.0.5 Update auf Fensterversion 035 (alt)
-	1.0.0.4 +Owner in eigene Funktionen integriert
-	1.0.0.3 Versionsupdate, neue Variable, neue ini
-	1.0.0.2 Update Credits und Hilfe
-	1.0.0.1 Ordnerwahl und einzelne Datei möglich
-	1.0.0.0 Erste Version
+	1.0.0.3 StatistikVariable	
+	1.0.0.2 GUI verbessert	
+	1.0.0.1 Neue Ordnerstruktur	
+	1.0.0.0	Erste Version
 
 

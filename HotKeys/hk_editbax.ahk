@@ -160,7 +160,7 @@ return
 ^+v::
 OnMessage(0x53, "OnHelp")
 Gui +OwnDialogs
-MsgBox 0x4040, VarSchau, %A_ScriptName%`nBaxterWorks Variablen Tester Box Version 005:`n---------------------------------------------------`nBaxIP: %BaxIP%`nBax_Start: %Bax_Start%`nBax_JobDir: %Bax_JobDir%`nBax_Flex: %Bax_Flex%`nA_ScriptHwnd: %A_ScriptHwnd%`n`nA_LineFile: %A_LineFile%`nA_ComputerName: %A_ComputerName%`nA_Username: %A_Username%`nA_MyDocuments:  %A_MyDocuments%`nA_AppData: %A_AppData%`nA_WinDir: %A_WinDir%`n`nA_ComSpec: %A_ComSpec%`nA_Temp: %A_Temp%`nA_OSType: %A_OSType%`n`n, 60
+MsgBox 0x4040, VarSchau, %A_ScriptName%`nBaxterWorks Variablen Tester Box Version 005:`n---------------------------------------------------`nBaxNutzerName: %BaxNutzerName%`nBaxIP: %BaxIP%`nBax_Start: %Bax_Start%`nScriptIni: %scriptini%`nBax_JobDir: %Bax_JobDir%`nBax_Flex: %Bax_Flex%`nA_ScriptHwnd: %A_ScriptHwnd%`n`nA_LineFile: %A_LineFile%`nA_ComputerName: %A_ComputerName%`nA_Username: %A_Username%`nA_MyDocuments:  %A_MyDocuments%`nA_AppData: %A_AppData%`nA_WinDir: %A_WinDir%`n`nA_ComSpec: %A_ComSpec%`nA_Temp: %A_Temp%`nA_OSType: %A_OSType%`n`n, 60
 
 IfMsgBox Timeout, {
 WinClose

@@ -14,6 +14,9 @@
 
   INHALT:
 
+	1.0.0.9 Update auf FensterVersion 019
+	1.0.0.8 Variable für Statistik in ini
+	1.0.0.7 Update auf BaxterWorks 015
 	1.0.0.6 Update auf BaxterWorks 010
 	1.0.0.5 Erweiterung Iniwrite
 	1.0.0.4 Update auf BaxterWorks 005
