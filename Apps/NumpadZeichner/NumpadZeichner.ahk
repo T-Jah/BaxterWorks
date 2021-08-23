@@ -1,12 +1,12 @@
-﻿CodeVersion := "2.0.1.9", Firma := "BaxterWorks Software"
+﻿CodeVersion := "2.0.2.2", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\npz.ico
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Rahmen und Kästen mit Numpad
-;@Ahk2Exe-SetFileVersion 2.0.1.9
-;@Ahk2Exe-SetProductVersion 2.0.1.9
+;@Ahk2Exe-SetFileVersion 2.0.2.2
+;@Ahk2Exe-SetProductVersion 2.0.2.2
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks NumpadZeichner
@@ -21,7 +21,7 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 009              M.i.n.i.Bax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 015              M.i.n.i.Bax AHK Skript
 /*
  * NumpadZeichner
  * Copyright 2021 T-Jah Tom
@@ -82,7 +82,7 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\npz.ico	; #NoTrayIcon
 ; Startumgebungsvariablen festlegen
 	AppName = NumpadZeichner
 	Bax_help = help_numpadzeichner	
-	Skriptvorlage = MiniBax_008
+	Skriptvorlage = MiniBax_015
 	Bax_Icon = %Bax_Start%\Grafix\npz.ico
 	LastLogIn = %A_Now%_%AppName%
 	LastLogInZeit = %A_Now%
@@ -100,7 +100,7 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\npz.ico	; #NoTrayIcon
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │  MiniBax AppStart mit Subanweisung         [Version 003]                                                   │
+; │  MiniBax AppStart mit Subanweisung         [Version 004]                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -114,10 +114,13 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\npz.ico	; #NoTrayIcon
 	GoSub,INIREAD
 	GoSub,INIWRITE
 	GoSub,TRAYMENU
+	GoSub,STATS
+	
+
 	
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │ MiniBax  Includes (Ende Autoexec)        [Version 008]                                                     │
+; │ MiniBax  Includes (Ende Autoexec)        [Version 009]                                                     │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -126,13 +129,15 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\npz.ico	; #NoTrayIcon
 ; MsgBox, %Bax_ScriptStart%
 
 ; BaxFunk Module
-	; #Include %A_ScriptDir%\..\..\Function\BaxFunk_FensterInfo.ahk	
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_backuptxt.ahk	
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_VarSchau.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_IconShow.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_LicenceWindow.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_2Win.ahk
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Dropper.ahk
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_ConfigWindow.ahk
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_reloadAHK.ahk
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Stats.ahk
 	#Include %A_ScriptDir%\..\..\Lib\datecalc.ahk
 	#include %A_ScriptDir%\..\..\Lib\funk_panic.ahk
 	#Include %A_ScriptDir%\..\..\Lib\funk_toggle.ahk
@@ -142,9 +147,9 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\npz.ico	; #NoTrayIcon
 	#Include %A_ScriptDir%\..\..\Lib\MouseisOver.ahk
 	#Include %A_ScriptDir%\..\..\Lib\ObjCSV.ahk
 	#Include %A_ScriptDir%\..\..\Lib\tf.ahk
+	#Include %A_ScriptDir%\..\..\Lib\toolbar.ahk
 	#Include %A_ScriptDir%\..\..\Lib\toggle_hiddenfiles.ahk
 	#Include %A_ScriptDir%\..\..\Lib\toggle_lightdark.ahk
-
 
 	;Gdip_Startup()
 	
@@ -256,6 +261,28 @@ Gui,99:Show,,%AppName% About
 hCurs:=DllCall("LoadCursor","UInt",NULL,"Int",32649,"UInt") ;IDC_HAND
 OnMessage(0x200,"WM_MOUSEMOVE") 
 Return
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MusterBax Stats     [Version 003]                                                                           │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
+
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
+return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -422,7 +449,7 @@ return
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │ MiniBax  Sub Ini  [Version 004]                                                                            │
+; │ MiniBax  Sub Ini  [Version 007]                                                                            │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -431,19 +458,21 @@ INIDELETE:
 
 INIREAD:
 	IniRead, Bax_IP , %homeini%, Netzinfo, Letzte IP, %A_Space%
-	IniRead, Ziel1, %userini%, Dropper, Ziel1, %A_Space% 
-	IniRead, Ziel2, %userini%, Dropper, Ziel2, %A_Space% 
-	IniRead, DeinOrdner1, %userini%, 2Win, DeinOrdner1, %A_Space% 
-	IniRead, DeinOrdner2, %userini%, 2Win, DeinOrdner2, %A_Space% 
-	IniRead, Bax_JobDir, %userini%, Variablen, Bax_JobDir, %A_Space% 
-	IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space% 
+	IniRead, Ziel1, %userini%, UserVars, Ziel1
+	IniRead, Ziel2, %userini%, UserVars, Ziel2  
+	IniRead, DeinOrdner1, %userini%, UserVars, DeinOrdner1 
+	IniRead, DeinOrdner2, %userini%, UserVars, DeinOrdner2  
+	IniRead, Bax_JobDir, %userini%, UserVars, Bax_JobDir 
+	IniRead, Bax_Flex, %userini%, UserVars, Bax_Flex 
 
 INIWRITE:
 	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
 	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
 	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
 	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %Skriptvorlage% , %scriptini%, Nutzerinfo, Skriptvorlage
 	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
 
 return
 
@@ -537,7 +566,7 @@ AHKlabel:
 	Return
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │ MiniBax  EndSub          [Version 007]        +gdib aus                                                    │
+; │ MiniBax  EndSub          [Version 010]                                                                     │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -560,10 +589,12 @@ GuiEscape:
 CleanUp:
 SavePosition:
 DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
+	FormatTime, LastSeen,, LongDate
 	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
 	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
 	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 	DetectHiddenWindows On
 	; WinGetPos, X, Y, %AppName%
 	; If (x > 0)

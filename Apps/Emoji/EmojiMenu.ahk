@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.0.5", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.0.9", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\cool.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright Jack Dunning & T-Jah Tom
 ;@Ahk2Exe-SetDescription Ersetzt Text durch Emojis
-;@Ahk2Exe-SetFileVersion 1.0.0.5
-;@Ahk2Exe-SetProductVersion 1.0.0.5
+;@Ahk2Exe-SetFileVersion 1.0.0.9
+;@Ahk2Exe-SetProductVersion 1.0.0.9
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks Jack Dunning
 ;@Ahk2Exe-SetName BaxterWorks EmojiMenu
@@ -14,7 +14,7 @@
 ;------------------------------------------------------------------------------------->
 ; AHK AutoHotKey Skript. Handbuch und HP: https://ahkde.github.io/
 ; (c) 2021 T-Jah Tom
-; https://www.tombesch.de					   04/2021 Version 005
+; https://www.tombesch.de					   08/2021 Version 014
 ;------------------------------------------------------------------------------------->
 ; Autor: Jack Dunning, https://jacksautohotkeyblog.wordpress.com
 ; All the german words by Tom
@@ -32,7 +32,7 @@ SetWorkingDir %A_ScriptDir%
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   MacroBax  Variablen, zB Pfade     [Version 003]                                                                    │
+; │   MacroBax  Variablen, zB Pfade     [Version 004]                                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -49,8 +49,8 @@ SetWorkingDir %A_ScriptDir%
 ; Startumgebungsvariablen festlegen
 	AppName = EmojiMenu
 	Bax_help = help_emoji	
-	Skriptvorlage = MacroBax_008
-	Bax_Icon = %Bax_Start%\Grafix\klee.ico
+	Skriptvorlage = MacroBax_014
+	Bax_Icon = %Bax_Start%\Grafix\cool.ico
 	LastLogIn = %A_Now%_%AppName%
 	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
@@ -58,13 +58,24 @@ SetWorkingDir %A_ScriptDir%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
 	scriptini = %Bax_Start%\Config\%AppName%.ini
-	
+		
 	
 ; Variablentest
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
 ; MsgBox,  %homeini% 
 
-GoSub,AppStart
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │               Appstart MacroBax         [Version 002]                                                      │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Stats.ahk
+	GoSub,TRAYMENU
+	GoSub,STATS
+	
+
+;-----Skript------------------------------------------
 
 					; STRG + Alt + ,
 !^,::
@@ -112,14 +123,37 @@ Else
   Clipboard := OldClipboard
 Return
 
+;-----Skriptende--------------------------------------
+return
 
-FileInstall, ..\..\Grafix\cool.ico, ..\..\Grafix\cool.ico, 0
-;----------------------------------------
-; Tray Start
-;----------------------------------------
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MacroBax Stats     [Version 003]                                                                           │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
 
-AppStart:
-AppName=EmojiMenu
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
+return
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   GUI, Traymenü   MacroBax            [Version 00x]    + komplett eigen mit SubTray                        │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+TRAYMENU:
 
 Menu,Tray,NoStandard
 Menu,Tray,DeleteAll
@@ -151,7 +185,7 @@ Ende:
 GoSub,GuiClose
 
 MenuVersion:
-run, ..\..\Log\Versionsinfo_EmojiMenu.txt
+run, %A_ScriptDir%\..\..\Log\Versionsinfo_%AppName%.txt
 return
 
 InsertEmoji:
@@ -162,13 +196,13 @@ InsertEmoji:
 
 Return
 
-OnExit, ExitSub  
+OnExit, GuiEscape  
 return
 
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub MacroBax        [Version 005]                                                                     │
+; │   EndSub MacroBax        [Version 007]                                                                     │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -177,11 +211,17 @@ GuiEscape:
 GuiClose:
 ButtonCancel:
 quit:
+	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
+	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
+	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %Skriptvorlage% , %scriptini%, Nutzerinfo, Skriptvorlage
+	IniWrite, %A_Now% , %scriptini%, Nutzerinfo, LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
+
+	FormatTime, LastSeen,, LongDate
 	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
 	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
 	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
-ExitApp
-
-ExitSub:
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 ExitApp

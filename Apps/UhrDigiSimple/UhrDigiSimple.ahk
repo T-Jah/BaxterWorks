@@ -1,20 +1,20 @@
-CodeVersion := "1.0.0.8", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.1.1", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\uhr3.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.0.8
-;@Ahk2Exe-SetProductVersion 1.0.0.8
+;@Ahk2Exe-SetFileVersion 1.0.1.1
+;@Ahk2Exe-SetProductVersion 1.0.1.1
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
-;@Ahk2Exe-SetName BaxterWorks Tom
-;@Ahk2Exe-SetProductName Tom
+;@Ahk2Exe-SetName BaxterWorks DigitalUhr
+;@Ahk2Exe-SetProductName Tom UhrDigiSimple
 ;------------------------------------------------------------------------------------->
 ; AHK AutoHotKey Skript. Handbuch und HP: https://ahkde.github.io/
 ; (c) 2021 T-Jah Tom
-; https://www.tombesch.de					   04/2021 Version 001
+; https://www.tombesch.de					   04/2021 Version 014
 ;------------------------------------------------------------------------------------->
 ; Skript besteht überwiegend aus Schnippseln aus dem Handbuch und der Community.
 ;
@@ -46,7 +46,7 @@ SetTimer,currentTime,500
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   MacroBax  Variablen, zB Pfade     [Version 003]                                                                    │
+; │   MacroBax  Variablen, zB Pfade     [Version 004]                                                                    │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -63,19 +63,28 @@ SetTimer,currentTime,500
 ; Startumgebungsvariablen festlegen
 	AppName = UhrDigiSimple
 	Bax_help = help	
-	Skriptvorlage = MacroBax_008
-	Bax_Icon = %Bax_Start%\Grafix\klee.ico
+	Skriptvorlage = MacroBax_014
+	Bax_Icon = %Bax_Start%\Grafix\uhr3.ico
 	LastLogIn = %A_Now%_%AppName%
 	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
 	LetzterEinsatz = %A_ComputerName%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
 	Bax_Start = %Bax_Start%
-	;scriptini = %Bax_Start%\Config\%AppName%.ini
+	scriptini = %Bax_Start%\Config\%AppName%.ini
 
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │               Appstart MacroBax         [Version 002]                                                      │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
 
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Stats.ahk
+	GoSub,TRAYMENU
+	GoSub,STATS
+	
+;-----Skript------------------------------------------
 
-GoSub,TRAYMENU
 
 ;GUI
 Gui, +AlwaysOnTop +Disabled -Caption +Owner
@@ -102,98 +111,6 @@ UImove:
 PostMessage, 0xA1, 2,,, A
 return
 
-;---------------------------------------------------------------->
-; AppStart (AutoExec Bereich geht nach dem letzten Eintrag weiter
-; Also hier nach Traymenü.
-;---------------------------------------------------------------->
-
-
-
-
-Variablen:
-ListVars
-return
-
-Version:
-Run,%A_ScriptDir%\..\..\Log\Versionsinfo_%AppName%.txt
-return
-
-HotKeys:
-ListHotkeys
-return
-
-Reload:
-reload
-return
-
-TRAYMENU:
-Menu,Tray,NoStandard
-Menu,Tray,DeleteAll
-Menu,Tray,Add,%AppName%,About
-Menu,Tray,Add
-;Menu,Tray,Add,&Variablen...,Variablen
-Menu,Tray,Add,&Neuerungen...,Version
-;Menu,Tray,Add,&HotKeys...,HotKeys
-Menu,Tray,Add,&Reload...,Reload
-Menu,Tray,Add,&About...,About
-Menu,Tray,Add,E&xit,EXIT
-Menu,Tray,Tip,%AppName% %CodeVersion%
-Menu,Tray,Default,%AppName%
-return
-
-ABOUT:
-Gui,99:Destroy
-Gui,99:Margin,20,20
-Gui,99:Color, silver
-
-Gui,99:Add,Picture, w90 h90 Icon1,%AppName%.exe
-Gui,99:Font,Bold 
-Gui,99:Font, s10 cGreen, Verdana
-Gui,99:Add,Text, R1 xp+100 ,%AppName% - %Firma% - %Codeversion% 
-Gui,99:Font
-Gui,99:Font, s9 cBlack, Verdana
-Gui,99:Add,Text, R3 ,Die Uhr war mein erstes Projekt.`nEin prima Übungsskript und der Beginn`neiner wunderbaren Beziehung ;)
-Gui,99:Font,cBlue bold Underline
-Gui,99:Add,Text,R1 gBWApp,www.baxterworks.de/software
-Gui,99:Font
-
-Gui,99:Add,Picture,xs w70 h70 Icon1,%A_ScriptDir%\..\..\Grafix\BW_Software.ico
-Gui,99:Font,Bold
-Gui,99:Font, s10 cBlack, Verdana
-Gui,99:Add,Text, R1 xp+100 ,%Firma%
-Gui,99:Font
-Gui,99:Font, s9 cBlack, Verdana
-Gui,99:Add,Text,R3 ,Auf der Webseite findest du weitere Apps,`nein paar Codeschnippsel und Informationen`nzur Software.
-Gui,99:Font,CBlue bold Underline
-Gui,99:Add,Text,y+5 gBWSoft,www.baxterworks.de/software
-Gui,99:Font
-
-Gui,99:Add,Picture,xs w70 h70 Icon1,%A_ScriptDir%\..\..\Grafix\bax.ico
-Gui,99:Font,Bold
-Gui,99:Font, s10 cBlack, Verdana
-Gui,99:Add,Text, R1 xp+100 ,Blog BaxterWorks
-Gui,99:Font
-Gui,99:Font, s9 cBlack, Verdana
-Gui,99:Add,Text,R3 ,Die ungefragte Meinung`nIn unregelmäßigen Abständen melde ich mich dort zu Wort.`nMöglichkeit der Kontaktaufnahme ist gegeben.
-Gui,99:Font,CBlue bold Underline
-Gui,99:Add,Text,y+5 gBWBlog,blog.baxterworks.de
-Gui,99:Font
-
-Gui,99:Add,Picture,xs w70 h70 Icon1,%A_ScriptDir%\..\..\Grafix\ahk.ico
-Gui,99:Font,Bold
-Gui,99:Font, s10 cBlack, Verdana
-Gui,99:Add,Text, R1 xp+100 ,AutoHotKey
-Gui,99:Font
-Gui,99:Font, s9 cBlack, Verdana
-Gui,99:Add,Text,R3 ,Dieses Tool wurde mit AutoHotKey erstellt`nStichwort Lowcode Programmierung`nMehr Info und kostenloser Download:
-Gui,99:Font,CBlue Underline
-Gui,99:Add,Text,y+5 gAHKlabel,www.AutoHotkey.com
-Gui,99:Font
-
-Gui,99:Show,,%AppName% About
-hCurs:=DllCall("LoadCursor","UInt",NULL,"Int",32649,"UInt") ;IDC_HAND
-OnMessage(0x200,"WM_MOUSEMOVE") 
-Return
 
 currentTime:
 FormatTime,Time,T12,hh:mm:ss
@@ -205,64 +122,113 @@ GuiControl, text, baxtime , %Time%
 return
 
 
-BWApp:
-  Run,http://www.baxterworks.de/software/hilfe/help.htm,,UseErrorLevel
-Return
-
-BWSoft:
-  Run,http://www.baxterworks.de/software,,UseErrorLevel
-Return
-
-BWBlog:
-  Run,http://blog.baxterworks.de,,UseErrorLevel
-Return
-
-AHKlabel:
-  Run,http://www.autohotkey.com,,UseErrorLevel
-Return
-
-99GuiClose:
-  Gui,99:Destroy
-  OnMessage(0x200,"")
-  DllCall("DestroyCursor","Uint",hCur)
-Return
-
-WM_MOUSEMOVE(wParam,lParam)
-{
-  Global hCurs
-  MouseGetPos,,,,ctrl
-  If ctrl in Static9,Static13,Static17
-    DllCall("SetCursor","UInt",hCurs)
-  Return
-}
-Return
 
 
+;-----Skriptende--------------------------------------
+return
 
-Suspend:
-  Suspend
-Return
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MusterBax Stats     [Version 003]                                                                           │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
 
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
+return
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   EndSub MacroBax        [Version 007]                                                                     │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+
+GuiEscape:
 GuiClose:
-DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
-ButtonCancel:			; falls es einen Button gibt
-;GuiEscape:
-CleanUp:
-EXIT:
-SavePosition:
-DetectHiddenWindows On
-;WinGetPos, X, Y, Width, Height, UhrDigiSimple
-;If (x > 0)
-;	IniWrite, % " x" X " y" Y " w" Width-16 " h" Height-39, %scriptini%, Position, WinPos
+ButtonCancel:
+quit:
+	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
+	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
+	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %Skriptvorlage% , %scriptini%, Nutzerinfo, Skriptvorlage
+	IniWrite, %A_Now% , %scriptini%, Nutzerinfo, LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
+
+	FormatTime, LastSeen,, LongDate
 	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
 	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
 	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
-%A_ComputerName%.bax
-
-; SoundPlay, NoFile.wav
-  CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
-SoundBeep, 750, 500
-
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 ExitApp
-return
+
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   SubTray MacroBax         [Version 005]                                                                   │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+About:
+	MsgBox, 64, About, Mehr über BaxterWorks Software findest du im Netz:`nhttp://www.BaxterWorks.de/software`nCredits an das offizielle Handbuch.`n`nDownload: https://github.com/T-Jah
+	return
+
+helptray:
+If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %A_ScriptDir%\..\..\Files\%Bax_help%.htm
+	}
+	run,%A_ScriptDir%\..\..\Files\%Bax_help%.htm
+	return
+Credits:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
+	}
+	run, %Bax_Start%\Files\Credits.htm
+	return
+Version:
+	Run,%Bax_Start%\Log\Versionsinfo_%AppName%.txt
+	return
+Reload:
+	reload
+	return
+
+OpenGUI:
+	Gui, Show, Center Autosize, %AppName%
+	;GoSub,About
+	return
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   GUI, Traymenü   MacroBax            [Version 003]                                                        │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+TRAYMENU:
+	Menu, Tray, NoStandard
+	Menu, Tray, DeleteAll
+	Menu, Tray, NoMainWindow
+	Menu, Tray, Add, %AppName%, OpenGUI
+	Menu, Tray, Add						; Trennlinie
+	Menu, Tray, Add, Über diese App, About
+	Menu, Tray, Add, Hilfe, helptray
+	Menu, Tray, Add, Versionsinfo, version
+	Menu, Tray, Add, Credits, Credits
+	Menu, Tray, Add
+	Menu, Tray, Add, Reload, reload
+	Menu, Tray, Add, Exit, quit
+	Menu, Tray, Default, %AppName%
+	Menu, Tray, Tip, %AppName%  %Codeversion%
+	return

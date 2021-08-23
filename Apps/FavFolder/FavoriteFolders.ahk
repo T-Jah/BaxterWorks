@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.1.6", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.1.9", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\ordner3.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright Savage
 ;@Ahk2Exe-SetDescription Menü am Mauszeiger mit Favoriten
-;@Ahk2Exe-SetFileVersion 1.0.1.6
-;@Ahk2Exe-SetProductVersion 1.0.1.6
+;@Ahk2Exe-SetFileVersion 1.0.1.9
+;@Ahk2Exe-SetProductVersion 1.0.1.9
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks FavoriteFolders
@@ -85,7 +85,7 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\ordner3.ico	; #NoTrayIcon
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   MacroBax  Variablen, zB Pfade     [Version 003]                                                                    │
+; │   MacroBax  Variablen, zB Pfade     [Version 004]                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -102,8 +102,8 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\ordner3.ico	; #NoTrayIcon
 ; Startumgebungsvariablen festlegen
 	AppName = FavoriteFolders
 	Bax_help = help_favfolders	
-	Skriptvorlage = MacroBax_008
-	Bax_Icon = %Bax_Start%\Grafix\klee.ico
+	Skriptvorlage = MacroBax_014
+	Bax_Icon = %Bax_Start%\Grafix\ordner3.ico
 	LastLogIn = %A_Now%_%AppName%
 	LastLogInZeit = %A_Now%
 	LetzteAnmeldung = %A_UserName%
@@ -117,7 +117,18 @@ Menu Tray, Icon, %A_ScriptDir%\..\..\Grafix\ordner3.ico	; #NoTrayIcon
 ; --------------------------------------------------------------- TextBox für die Fehlersuche
 ; MsgBox,  %homeini% 
 
-GoSub, TRAYMENU
+;
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │               Appstart MacroBax         [Version 002]                                                      │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Stats.ahk
+	GoSub,TRAYMENU
+	GoSub,STATS
+	
+
+;-----Skript------------------------------------------
 
 
 Hotkey, %f_Hotkey%, f_DisplayMenu
@@ -255,9 +266,31 @@ return
 ;-----Skriptende--------------------------------------
 return
 
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MusterBax Stats     [Version 003]                                                                           │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
+
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
+return
+
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub MacroBax        [Version 005]                                                                     │
+; │   EndSub MacroBax        [Version 007]                                                                     │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -266,16 +299,24 @@ GuiEscape:
 GuiClose:
 ButtonCancel:
 quit:
+	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
+	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
+	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %Skriptvorlage% , %scriptini%, Nutzerinfo, Skriptvorlage
+	IniWrite, %A_Now% , %scriptini%, Nutzerinfo, LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
+
+	FormatTime, LastSeen,, LongDate
 	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
 	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
 	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 ExitApp
-
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   SubTray MacroBax         [Version 003]                                                                   │
+; │   SubTray MacroBax         [Version 005]                                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -284,20 +325,50 @@ About:
 	return
 
 helptray:
-run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm
-return
+If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/%Bax_help%.htm, %A_ScriptDir%\..\..\Files\%Bax_help%.htm
+	}
+	run,%A_ScriptDir%\..\..\Files\%Bax_help%.htm
+	return
+Credits:
+	If !(FileExist)
+	{
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
+	}
+	run, %Bax_Start%\Files\Credits.htm
+	return
+Version:
+	Run,%Bax_Start%\Log\Versionsinfo_%AppName%.txt
+	return
+Reload:
+	reload
+	return
+
+OpenGUI:
+	Gui, Show, Center Autosize, %AppName%
+	;GoSub,About
+	return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   GUI, Traymenü   MacroBax            [Version 002]                                                        │
+; │   GUI, Traymenü   MacroBax            [Version 003]                                                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 TRAYMENU:
 	Menu, Tray, NoStandard
+	Menu, Tray, DeleteAll
+	Menu, Tray, NoMainWindow
+	Menu, Tray, Add, %AppName%, OpenGUI
+	Menu, Tray, Add						; Trennlinie
 	Menu, Tray, Add, Über diese App, About
 	Menu, Tray, Add, Hilfe, helptray
+	Menu, Tray, Add, Versionsinfo, version
+	Menu, Tray, Add, Credits, Credits
+	Menu, Tray, Add
+	Menu, Tray, Add, Reload, reload
 	Menu, Tray, Add, Exit, quit
-	Menu, Tray, Default, Über diese App
+	Menu, Tray, Default, %AppName%
 	Menu, Tray, Tip, %AppName%  %Codeversion%
 	return

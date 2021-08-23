@@ -1,12 +1,12 @@
-CodeVersion := "1.0.1.5", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.1.9", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\appbar.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription BWAppBar - Taskleiste2 Credits to SKAN
-;@Ahk2Exe-SetFileVersion 1.0.1.5
-;@Ahk2Exe-SetProductVersion 1.0.1.5
+;@Ahk2Exe-SetFileVersion 1.0.1.9
+;@Ahk2Exe-SetProductVersion 1.0.1.9
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks BWAppBar
@@ -21,7 +21,7 @@ CodeVersion := "1.0.1.5", Firma := "BaxterWorks Software"
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 009              M.i.n.i.Bax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 015              M.i.n.i.Bax AHK Skript
 ;
 ;                                 keine Standardreihenfolge in diesem Skript
 ;
@@ -43,7 +43,7 @@ CodeVersion := "1.0.1.5", Firma := "BaxterWorks Software"
 ; Startumgebungsvariablen festlegen
 	AppName = BWAppBar
 	Bax_help = help_bwappbar	
-	Skriptvorlage = MiniBax_009
+	Skriptvorlage = MiniBax_015
 	Bax_Icon = %Bax_Start%\Grafix\appbar.ico
 	LastLogIn = %A_Now%_%AppName%
 	LastLogInZeit = %A_Now%
@@ -65,7 +65,7 @@ FileCreateShortcut, %A_ScriptDir%\00AppBar.exe, %Bax_Bar%\00AppBar.lnk, %A_Scrip
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │ MiniBax  Sub Ini  [Version 004]        + nur write                                                         │
+; │ MiniBax  Sub Ini  [Version 007]        + nur write                                                         │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -73,7 +73,9 @@ FileCreateShortcut, %A_ScriptDir%\00AppBar.exe, %Bax_Bar%\00AppBar.lnk, %A_Scrip
 	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
 	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
 	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %Skriptvorlage% , %scriptini%, Nutzerinfo, Skriptvorlage
 	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
 
 
 
@@ -100,6 +102,39 @@ FileCreateShortcut, %A_ScriptDir%\00AppBar.exe, %Bax_Bar%\00AppBar.lnk, %A_Scrip
 SetBatchLines -1
 CoordMode, Mouse  , Screen
 CoordMode, Tooltip, Screen
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   BWAppBar AppChecker      [Version 001]                                                                   │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+
+
+ If !FindProc("BaxterWorks.exe")
+      Run, %Bax_Start%\BaxterWorks.exe
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MiniBax Stats     [Version 003]          +include  +return                                                │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Stats.ahk
+
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
+
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
 
 
 
@@ -309,10 +344,12 @@ QuitScript:
   GoSub, RemoveAppbar
 if FileExist("..\..\Files\*.htm")
 FileDelete %A_ScriptDir%\..\..\Files\*.htm
+	FormatTime, LastSeen,, LongDate
 	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
 	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
 	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 
   ExitApp
 Return
@@ -450,3 +487,10 @@ RMenu:
 return
 
 ;--------------------------------ENDE Rechtsklickmenü
+
+; Sub Appchecker
+
+FindProc(p) {
+   Process, Exist, % p
+   Return, ErrorLevel
+}

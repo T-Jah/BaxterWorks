@@ -1,12 +1,12 @@
-CodeVersion := "1.0.0.9", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.1.4", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\runaway.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription GetReadyBax - BaxterWorks Konfiguration
-;@Ahk2Exe-SetFileVersion 1.0.0.9
-;@Ahk2Exe-SetProductVersion 1.0.0.9
+;@Ahk2Exe-SetFileVersion 1.0.1.4
+;@Ahk2Exe-SetProductVersion 1.0.1.4
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks GetReadyBax
@@ -21,7 +21,7 @@ CodeVersion := "1.0.0.9", Firma := "BaxterWorks Software"
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 019          M.u.s.t.e.r.Bax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 027          M.u.s.t.e.r.Bax AHK Skript
 
 /*
  * GetReadyBax
@@ -81,11 +81,12 @@ Process, Close, BaxterWorks.exe
 	IniRead, Bax_exe , %homeini%, FixVars, Bax_exe
 	IniRead, FensterVersion , %homeini%, FixVars, FensterVersion
 	IniRead, Erstnutzung , %userini%, %A_UserName%_%A_ComputerName%, Erstnutzung
+	IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex
 
 ; Startumgebungsvariablen festlegen
 	AppName = GetReadyBax
 	Bax_help = help_getreadybax
-	Skriptvorlage = MusterBax_019
+	Skriptvorlage = MusterBax_027
 	Bax_Icon = %Bax_Start%\Grafix\runaway.ico
 	LastLogIn = %A_Now%_%AppName%
 	LastLogInZeit = %A_Now%
@@ -101,17 +102,17 @@ Process, Close, BaxterWorks.exe
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   AppStart MusterBax mit Subanweisung         [Version 002]                                                          │
+; │   AppStart MusterBax mit Subanweisung         [Version 006]      + kein Appcheck                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 /** IP Logbuch, archiviert die eigene externe IP
-	URLDownloadToFile,http://www.netikus.net/show_ip.html, %A_ScriptDir%\..\..\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt
+	URLDownloadToFile,http://www.netikus.net/show_ip.html, %Bax_Start%\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt
 	if ErrorLevel = 1
   	{
     	MsgBox, 16,IpAddresses,Your public Ipaddress could not be detected.
   	}
-	FileReadLINE,BaxIP,%A_ScriptDir%\..\..\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt, 1
+	FileReadLINE,BaxIP,%Bax_Start%\Files\IP Logbuch\showip_%A_YYYY%_%A_MM%_%A_DD%.txt, 1
 	IniWrite, %BaxIP% , %scriptini%, Netzinfo, Letzte IP
 
 Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werden, das regelmäßig läuft
@@ -122,15 +123,23 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 ; Also hier nach Traymenü.
 ;---------------------------------------------------------------->
 
+AppStart:
 	GoSub,INIDELETE
 	GoSub,INIREAD
 	GoSub,INIWRITE
 	GoSub,TRAYMENU
+	GoSub,STATS
+	
+
+
+;---------------------------------------------------------------->
+; Ende AutoExec (kein return wegen includes)
+;---------------------------------------------------------------->
 
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Includes (Ende Autoexec)  MusterBax      [Version 006]                                                   │
+; │   Includes (Ende Autoexec)  MusterBax      [Version 009]                                                   │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -140,12 +149,17 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 
 ; BaxFunk Module
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_FensterInfo.ahk	
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_backuptxt.ahk	
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_VarSchau.ahk	
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Keys.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_IconShow.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_LicenceWindow.ahk	
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_2Win.ahk
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Dropper.ahk
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_ConfigWindow.ahk
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Progress.ahk
 	#Include %A_ScriptDir%\..\..\Function\BaxFunk_reloadAHK.ahk
+	#Include %A_ScriptDir%\..\..\Function\BaxFunk_Stats.ahk
 	#Include %A_ScriptDir%\..\..\Lib\datecalc.ahk
 	#include %A_ScriptDir%\..\..\Lib\funk_panic.ahk
 	#Include %A_ScriptDir%\..\..\Lib\funk_toggle.ahk
@@ -155,6 +169,7 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 	#Include %A_ScriptDir%\..\..\Lib\MouseisOver.ahk
 	#Include %A_ScriptDir%\..\..\Lib\ObjCSV.ahk
 	#Include %A_ScriptDir%\..\..\Lib\tf.ahk
+	#Include %A_ScriptDir%\..\..\Lib\toolbar.ahk
 	#Include %A_ScriptDir%\..\..\Lib\toggle_hiddenfiles.ahk
 	#Include %A_ScriptDir%\..\..\Lib\toggle_lightdark.ahk
 
@@ -164,7 +179,6 @@ Hinweis: Standardmäßig deaktiviert, sollte nur in einem Skript verwendet werde
 ;-------------------------------------------------------Ende AutoExec
 	return
 ;-------------------------------------------------------Ende AutoExec
-
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -303,7 +317,7 @@ Menu, Configmenü, UnCheck, 3&
 Gui,Menu, MeineMenüleiste
 Gui, Font
 Gui, Font, s12 cBlack, Verdana,Tahoma
-Gui,Add,Picture, x-1 y0 w600 h-1, ..\..\Grafix\bw_banner.png
+Gui,Add,Picture, x-1 y25 w600 h-1, ..\..\Grafix\bw_banner.png
 
 	IniRead, GetReadyBax_AOTStatus, %scriptini%, Schalter, GetReadyBax_AOTStatus
 	If (GetReadyBax_AOTStatus = "1") {
@@ -327,55 +341,55 @@ Gui, Font
 ;
 FileEncoding UTF-8
 Gui, Font, s10 cBlack, Verdana,Tahoma
-Gui, add, Groupbox, w440 h100 x600 y0,GetReadyBax - Konfiguration
+Gui, add, Groupbox, w440 h100 x600 y25,GetReadyBax - Konfiguration
 Gui, Font
 Gui, Font, s12 cBlack, Verdana,Tahoma
-Gui,Add,Text, x620 y25 R2, Wähle die Pfade mit dem SELECT Button.`nOhne die Eingabe kann es zu Fehlern kommen.
+Gui,Add,Text, x620 y50 R2, Wähle die Pfade mit dem SELECT Button.`nOhne die Eingabe kann es zu Fehlern kommen.
 Gui, Font
 
 Gui, Font, s9 cBlack, Tahoma,Verdana
 
-IniRead, Ziel1 , %userini% , Dropper , Ziel1 , %A_Space%
-Gui, Add, Text, x20 y150 w160 h20 , Dropper-Fenster - Ziel 1
-Gui, Add, Edit, x190 y150 w630 h20 vZiel1, %Ziel1%
+IniRead, Ziel1 , %userini% , UserVars, Ziel1 , %A_Space%
+Gui, Add, Text, x20 y160 w160 h20 , Dropper-Fenster - Ziel 1
+Gui, Add, Edit, x190 y160 w630 h20 vZiel1, %Ziel1%
 GuiControlGet, Ziel1
-Gui, Add, Button, x830 y150 w110 h20 gOrdnerwahl1 , Select
-Gui, Add, Button, x950 y150 w70 h20 gInfoknopf1, Info
+Gui, Add, Button, x830 y160 w110 h20 gOrdnerwahl1 , Select
+Gui, Add, Button, x950 y160 w70 h20 gInfoknopf1, Info
 
-IniRead, Ziel2 , %userini%, Dropper, Ziel2, %A_Space%
-Gui, Add, Text, x20 y170 w160 h20 , Dropper-Fenster - Ziel 2
-Gui, Add, Edit, x190 y170 w630 h20 vZiel2, %Ziel2%
+IniRead, Ziel2 , %userini%, UserVars, Ziel2, %A_Space%
+Gui, Add, Text, x20 y180 w160 h20 , Dropper-Fenster - Ziel 2
+Gui, Add, Edit, x190 y180 w630 h20 vZiel2, %Ziel2%
 GuiControlGet, Ziel2
-Gui, Add, Button, x830 y170 w110 h20 gOrdnerwahl2 , Select
-Gui, Add, Button, x950 y170 w70 h20 gInfoknopf1, Info
+Gui, Add, Button, x830 y180 w110 h20 gOrdnerwahl2 , Select
+Gui, Add, Button, x950 y180 w70 h20 gInfoknopf1, Info
 
-IniRead, DeinOrdner1 , %userini%, 2Win, DeinOrdner1 , %A_Space% 
-Gui, Add, Text, x20 y190 w160 h20 , 2Win-Ordner Nr.1
-Gui, Add, Edit, x190 y190 w630 h20 vDeinOrdner1, %DeinOrdner1%
+IniRead, DeinOrdner1 , %userini%, UserVars, DeinOrdner1 , %A_Space% 
+Gui, Add, Text, x20 y210 w160 h20 , 2Win-Ordner Nr.1
+Gui, Add, Edit, x190 y210 w630 h20 vDeinOrdner1, %DeinOrdner1%
 GuiControlGet, DeinOrdner1
-Gui, Add, Button, x830 y190 w110 h20 gOrdnerwahl3 , Select
-Gui, Add, Button, x950 y190 w70 h20 gInfoknopf3, Info
-
-IniRead, DeinOrdner2 , %userini%, 2Win, DeinOrdner2 , %A_Space%
-Gui, Add, Text, x20 y210 w160 h20 , 2Win-Ordner Nr.2
-Gui, Add, Edit, x190 y210 w630 h20 vDeinOrdner2, %DeinOrdner2%
-GuiControlGet, DeinOrdner2
-Gui, Add, Button, x830 y210 w110 h20 gOrdnerwahl4 , Select
+Gui, Add, Button, x830 y210 w110 h20 gOrdnerwahl3 , Select
 Gui, Add, Button, x950 y210 w70 h20 gInfoknopf3, Info
 
-IniRead, Bax_JobDir , %userini%, Variablen, Bax_JobDir , %A_Space%
-Gui, Add, Text, x20 y240 w160 h20 , Variable Bax_JobDir
-Gui, Add, Edit, x190 y240 w630 h20 vBax_JobDir, %Bax_JobDir%
-GuiControlGet, Bax_JobDir
-Gui, Add, Button, x830 y240 w110 h20 gOrdnerwahl5 , Select
-Gui, Add, Button, x950 y240 w70 h20 gInfoknopf5, Info
+IniRead, DeinOrdner2 , %userini%, UserVars, DeinOrdner2 , %A_Space%
+Gui, Add, Text, x20 y230 w160 h20 , 2Win-Ordner Nr.2
+Gui, Add, Edit, x190 y230 w630 h20 vDeinOrdner2, %DeinOrdner2%
+GuiControlGet, DeinOrdner2
+Gui, Add, Button, x830 y230 w110 h20 gOrdnerwahl4 , Select
+Gui, Add, Button, x950 y230 w70 h20 gInfoknopf3, Info
 
-IniRead, Bax_Flex , %userini%, Variablen, Bax_Flex , %A_Space%
-Gui, Add, Text, x20 y260 w160 h20 , Variable Bax_Flex
-Gui, Add, Edit, x190 y260 w630 h20 vBax_Flex, %Bax_Flex%
+IniRead, Bax_JobDir , %userini%, UserVars, Bax_JobDir , %A_Space%
+Gui, Add, Text, x20 y260 w160 h20 , Variable Bax_JobDir
+Gui, Add, Edit, x190 y260 w630 h20 vBax_JobDir, %Bax_JobDir%
+GuiControlGet, Bax_JobDir
+Gui, Add, Button, x830 y260 w110 h20 gOrdnerwahl5 , Select
+Gui, Add, Button, x950 y260 w70 h20 gInfoknopf5, Info
+
+IniRead, Bax_Flex , %userini%, UserVars, Bax_Flex , %A_Space%
+Gui, Add, Text, x20 y280 w160 h20 , Variable Bax_Flex
+Gui, Add, Edit, x190 y280 w630 h20 vBax_Flex, %Bax_Flex%
 GuiControlGet, Bax_Flex
-Gui, Add, Button, x830 y260 w110 h20 gOrdnerwahl6 , Select
-Gui, Add, Button, x950 y260 w70 h20 gInfoknopf6 , Info
+Gui, Add, Button, x830 y280 w110 h20 gOrdnerwahl6 , Select
+Gui, Add, Button, x950 y280 w70 h20 gInfoknopf6 , Info
 
 Gui, Add, Button, x20 y+20 gButtonSpeichern ,&speichern
 Gui, Add, Button, x+2 gButtonBeenden ,speichern und &beenden
@@ -384,7 +398,15 @@ Gui, Add, Button, x+2 gButtonCancelit ,&abbrechen
 Gui, Font
 Gui, Show, %Pos% w1070, %AppName%
 OnMessage(0x200, "CheckControl")
-return
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   GUI, Toolbar, MusterBax           [Version 001]              				               │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+	hToolbar := CreateToolbar()
+	return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -449,9 +471,26 @@ Return
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   HotKeys  MusterBax   [Version 001]                                                                       │
+; │  MusterBax Stats     [Version 003]                                                                           │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
+
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
+return
+
 
 
 
@@ -501,6 +540,97 @@ ToolTip % Message
 GuiDropFiles(GuiHwnd, DateiArray, ElementHwnd, X, Y) {
 	for i, Datei in DateiArray
 		MsgBox Datei %i% ist:`n%Datei%`n`nKeine Ahnung, was ich jetzt damit machen soll.
+}
+
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │   Funktionen Toolbar    MusterBax    [Version 006]                                                         │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+
+CreateToolbar() {
+    ImageList := IL_Create(10)
+    IL_Add(ImageList, "..\..\Grafix\bax.ico", 0)
+    IL_Add(ImageList, "shell32.dll", 45)
+    IL_Add(ImageList, "..\..\Grafix\welt.ico", 0)
+    IL_Add(ImageList, "shell32.dll", 259)
+    IL_Add(ImageList, "..\..\Grafix\bw_2win.ico", 0)
+    IL_Add(ImageList, "..\..\Grafix\klee.ico", 0)
+    IL_Add(ImageList, "shell32.dll", 44)
+    IL_Add(ImageList, "..\..\Grafix\geld.ico", 0)
+    IL_Add(ImageList, "..\..\Grafix\info.ico", 0)
+    IL_Add(ImageList, "shell32.dll", 28)
+
+    Buttons = 
+    (LTrim
+        BaxterWorks Menü
+	HotKeys in der Übersicht
+        SuchBax - MultisearchTool
+	iSafeText - sichert Text aus der Zwischenablage in Bax_JobDir
+	2win - Zwei Explorerfenster plus Notizblatt 
+	VarSchau ist keine Stadt
+	Deine Lieblingsapp starten
+        Donate - Unterstützung für Tom
+        Hilfetexte
+	Beenden
+    	)
+    	Return ToolbarCreate("OnToolbar", Buttons, ImageList, "Flat List Tooltips")
+	}
+
+OnToolbar(hWnd, Event, Text, Pos, Id) {
+    	If (Event != "Click") {
+        Return
+    	}
+	If (Text == "BaxterWorks Menü") {
+		;MsgBox, 0,, BaxterWorks Menü mit STRG+1, 2
+		send,{Ctrl down}1{Ctrl up}
+    		Gui,Submit,NoHide
+		
+	} Else If (Text == "HotKeys in der Übersicht") {
+		;MsgBox, 0,, HotKeyFenster mit STRG+2, 4
+		BaxProgressBar()
+		send,{Ctrl down}2{Ctrl up}
+		Gui,Submit,Hide
+		
+    	} Else If (Text == "SuchBax - MultisearchTool") {
+		;MsgBox, 0,, BaxterWorks Suche mit STRG+5, 4
+		run, ..\SuchBax\SuchBax.exe
+		Gui,Submit,Hide
+
+    	} Else If (Text == "iSafeText - sichert Text aus der Zwischenablage in Bax_JobDir") {
+		BaxFunk_backuptxt()
+		
+    	} Else If (Text == "2win - Zwei Explorerfenster plus Notizblatt") {
+		;MsgBox, 0,, Die Funktion 2win wird aufgerufen, 4
+		Bax_2Win_start()
+		Gui,Submit,Hide
+		
+    	} Else If (Text == "VarSchau ist keine Stadt") {
+		;MsgBox, 0,, Die Funktion VarSchau wird aufgerufen, 4
+		BaxFunk_VarSchau()
+		Gui,Submit,Hide
+		
+    	} Else If (Text == "Deine Lieblingsapp starten") {
+		IniRead, Bax_Flex, %A_ScriptDir%\..\..\Config\%A_UserName%_%A_ComputerName%.ini, UserVars, Bax_Flex
+ 		;MsgBox, 0,, Die Funktion %Bax_Flex% wird aufgerufen, 4
+		run,%Bax_Flex%        	
+		Gui,Submit,Hide
+		
+    	} Else If (Text == "Donate - Unterstützung für Tom") {
+		MsgBox, 0,, Tom braucht deinen Support, 2
+		run, https://www.tombesch.de/konto.htm
+		Gui,Submit,Hide
+		
+    	} Else If (Text == "Hilfetexte") {
+		MsgBox, 0,, Hilfe ist unterwegs - BaxterWorks Hilfeseiten, 4
+		run, http://www.baxterworks.de/software/hilfe/help.htm
+		Gui,Submit,Hide
+		
+    	} Else If (Text == "Beenden") {
+		MsgBox, 0,, BaxterWorks sagt tüss,2
+		GoSub,EXIT
+    }
+
 }
 return
 
@@ -584,24 +714,24 @@ return
 ;---------------------------------------------------------------------------- Speichern
 ButtonSpeichern:
 Gui,Submit,NoHide
-	IniWrite, %Ziel1% , %userini%, Dropper, Ziel1
-	IniWrite, %Ziel2% , %userini%, Dropper, Ziel2
-	IniWrite, %DeinOrdner1% , %userini%, 2Win, DeinOrdner1
-	IniWrite, %DeinOrdner2% , %userini%, 2Win, DeinOrdner2
-	IniWrite, %Bax_JobDir% , %userini%, Variablen, Bax_JobDir
-	IniWrite, %Bax_Flex% , %userini%, Variablen, Bax_Flex
+	IniWrite, %Ziel1% , %userini%, UserVars, Ziel1
+	IniWrite, %Ziel2% , %userini%, UserVars, Ziel2
+	IniWrite, %DeinOrdner1% , %userini%, UserVars, DeinOrdner1
+	IniWrite, %DeinOrdner2% , %userini%, UserVars, DeinOrdner2
+	IniWrite, %Bax_JobDir% , %userini%, UserVars, Bax_JobDir
+	IniWrite, %Bax_Flex% , %userini%, UserVars, Bax_Flex
 	IniWrite, %LetzteAnmeldung% , %userini%, Nutzerinfo, Letzter Nutzer
 	IniWrite, %LetzterEinsatz% , %userini%, Nutzerinfo, Letzter Rechner
 return
 
 ButtonBeenden:
 Gui,Submit,NoHide
-	IniWrite, %Ziel1% , %userini%, Dropper, Ziel1
-	IniWrite, %Ziel2% , %userini%, Dropper, Ziel2
-	IniWrite, %DeinOrdner1% , %userini%, 2Win, DeinOrdner1
-	IniWrite, %DeinOrdner2% , %userini%, 2Win, DeinOrdner2
-	IniWrite, %Bax_JobDir% , %userini%, Variablen, Bax_JobDir
-	IniWrite, %Bax_Flex% , %userini%, Variablen, Bax_Flex
+	IniWrite, %Ziel1% , %userini%, UserVars, Ziel1
+	IniWrite, %Ziel2% , %userini%, UserVars, Ziel2
+	IniWrite, %DeinOrdner1% , %userini%, UserVars, DeinOrdner1
+	IniWrite, %DeinOrdner2% , %userini%, UserVars, DeinOrdner2
+	IniWrite, %Bax_JobDir% , %userini%, UserVars, Bax_JobDir
+	IniWrite, %Bax_Flex% , %userini%, UserVars, Bax_Flex
 	IniWrite, %LetzteAnmeldung% , %userini%, Nutzerinfo, Letzter Nutzer
 	IniWrite, %LetzterEinsatz% , %userini%, Nutzerinfo, Letzter Rechner
 GoSub,EXIT
@@ -632,13 +762,13 @@ return
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini  [Version 004]    + muss nicht alle Vars laden, die im Skript gesetzt werden                     │
+; │   Sub Ini  [Version xxx]    + muss nicht alle Vars laden, die im Skript gesetzt werden                     │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini MusterBax [Version 008]                                                                          │
+; │   Sub Ini MusterBax [Version 011]          + s.o.                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -646,22 +776,20 @@ INIDELETE:
 	IniDelete, %scriptini%, Nutzerinfo, 
 
 INIREAD:
-	IniRead, Bax_IP , %homeini%, Netzinfo, Letzte IP, %A_Space%
-	IniRead, Ziel1, %userini%, Dropper, Ziel1, %A_Space% 
-	IniRead, Ziel2, %userini%, Dropper, Ziel2, %A_Space% 
-	IniRead, DeinOrdner1, %userini%, 2Win, DeinOrdner1, %A_Space% 
-	IniRead, DeinOrdner2, %userini%, 2Win, DeinOrdner2, %A_Space% 
-	IniRead, Bax_JobDir, %userini%, Variablen, Bax_JobDir, %A_Space% 
-	IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space% 
+	IniRead, Bax_IP , %homeini%, Netzinfo, Letzte IP
+	IniRead, Bax_Flex, %userini%, UserVars, Bax_Flex
 
 INIWRITE:
 	IniWrite, %LetzteAnmeldung% , %scriptini%, Nutzerinfo, Letzter Nutzer
 	IniWrite, %LetzterEinsatz% , %scriptini%, Nutzerinfo, Letzter Rechner
 	IniWrite, %Bax_IP% , %scriptini%, Nutzerinfo, Bax_IP
 	IniWrite, %FensterVersion% , %scriptini%, Nutzerinfo, FensterVersion
+	IniWrite, %Skriptvorlage% , %scriptini%, Nutzerinfo, Skriptvorlage
 	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
 
 return
+
 
 
 ;
@@ -694,7 +822,7 @@ AOTLabel:
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Dateimenü  MusterBax   [Version 003]                                                                │
+; │   Subs Dateimenü  MusterBax   [Version 004]                                                                │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -715,13 +843,10 @@ GetReadyBax_Icon:
 	IniRead, GetReadyBax_Icon, %scriptini%, Schalter, GetReadyBax_Icon
 	GetReadyBax_Icon := GetReadyBax_Icon
 
-; --------------------------------------------------------------- TextBox für die Fehlersuche
-;MsgBox, jetzt %GetReadyBax_Icon%
-
 if (GetReadyBax_Icon = "0")
 {
 	Menu, Configmenü, Check, Toggle DesktopSymbol  
-	FileCreateShortcut, %A_ScriptFullPath%, %A_Desktop%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%           
+	FileCreateShortcut, %A_ScriptFullPath%, %A_Desktop%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%      
 	IniWrite, 1, %scriptini%, Schalter, GetReadyBax_Icon
 }
 if (GetReadyBax_Icon = "1")
@@ -740,18 +865,18 @@ if (GetReadyBax_Icon = "ERROR")
 
 return
 
+;------------------------------------------------------------------------------------------
+
 GetReadyBax_BaxBar:
 	Gui,Submit,NoHide
 	IniRead, GetReadyBax_BaxBar, %scriptini%, Schalter, GetReadyBax_BaxBar
 	GetReadyBax_BaxBar := GetReadyBax_BaxBar
 
-; --------------------------------------------------------------- TextBox für die Fehlersuche
-;MsgBox, jetzt %GetReadyBax_BaxBar%
-
 if (GetReadyBax_BaxBar = "0")
 {
 	Menu, Configmenü, Check, Toggle BaxBarSymbol  
 	FileCreateShortcut, %A_ScriptFullPath%, %Bax_Bar%\%AppName%.lnk, %A_ScriptDir%, , BaxterWorks Software, %Bax_Icon%      
+  
 	IniWrite, 1, %scriptini%, Schalter, GetReadyBax_BaxBar
 }
 if (GetReadyBax_BaxBar = "1")
@@ -770,25 +895,26 @@ if (GetReadyBax_BaxBar = "ERROR")
 
 return
 
+;------------------------------------------------------------------------------------------
+
 GetReadyBax_FensterInfo:
 	Gui,Submit,NoHide
 	IniRead, GetReadyBax_FensterInfo, %scriptini%, Schalter, GetReadyBax_FensterInfo
 	GetReadyBax_FensterInfo := GetReadyBax_FensterInfo
-
-; --------------------------------------------------------------- TextBox für die Fehlersuche
-;MsgBox, jetzt %GetReadyBax_FensterInfo%
 
 if (GetReadyBax_FensterInfo = "0")
 {
 	Menu, Configmenü, Check, Toggle FensterInfo  
 	Bax_FensterInfo_Create()
 	IniWrite, 1, %scriptini%, Schalter, GetReadyBax_FensterInfo
+
 }
 if (GetReadyBax_FensterInfo = "1")
 {
     	Menu, Configmenü, UnCheck, Toggle FensterInfo
 	send, ^+8
 	IniWrite, 0, %scriptini%, Schalter, GetReadyBax_FensterInfo
+
 }
 if (GetReadyBax_FensterInfo = "ERROR")
 {
@@ -803,7 +929,6 @@ return
 GetReady:
 	run, %Bax_Start%\Apps\GetReadyBax\GetReadyBax.exe
 	return
-
 
 ; Dateimnenü: Tools ....................................
 
@@ -924,7 +1049,7 @@ MenuHilfe:
 	return
 
 MenuInfo:
-	run, %A_WinDir%\notepad.exe %Bax_Start%\ChangeLog\Versionsinfo_%AppName%.txt
+	run, %A_WinDir%\notepad.exe %Bax_Start%\Log\Versionsinfo_%AppName%.txt
 	return
 
 Lizenzmenu:
@@ -934,6 +1059,7 @@ Lizenzmenu:
 MenuSupport:
 	run, https://www.tombesch.de/konto.htm
 	return
+
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -1012,7 +1138,7 @@ AHKlabel:
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub  MusterBax        [Version 008]                                                                   │
+; │   EndSub  MusterBax        [Version 009]       +bw startet                                                 │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -1035,10 +1161,12 @@ SavePosition:
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
 CleanUp:
+	FormatTime, LastSeen,, LongDate
 	IniWrite, %Lastseen% , %backuptxt%, Stats_%BaxNutzerName% , Lastseen
 	IniWrite, %A_Now%_%AppName% , %backuptxt%, Stats_%BaxNutzerName% , LastLogIn
 	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 	DetectHiddenWindows On
 	WinGetPos, X, Y, %AppName%
 	If (x > 0)
@@ -1052,16 +1180,14 @@ CleanUp:
 
 	if FileExist("..\..\Files\*.htm")
 	FileDelete %Bax_Start%\Files\*.htm
-	
-; 
-; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub special MusterBax [Version 001]     + nur dieses Skript                                           │
-; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;
 
-	if !WinExist("ahk_exe BaxterWorks.exe")	
-	Run, %Bax_Start%\BaxterWorks.exe
-;--------------------------------------------------------------
-	
 
-ExitApp
+ 	If !FindProc("BaxterWorks.exe")
+        Run, %Bax_Start%\BaxterWorks.exe
+	ExitApp
+
+FindProc(p) {
+   Process, Exist, % p
+   Return, ErrorLevel
+}
+
