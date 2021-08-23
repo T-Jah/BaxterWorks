@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.4.5", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.5.5", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.4.5
-;@Ahk2Exe-SetProductVersion 1.0.4.5
+;@Ahk2Exe-SetFileVersion 1.0.5.5
+;@Ahk2Exe-SetProductVersion 1.0.5.5
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
@@ -20,7 +20,7 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 019          M.u.s.t.e.r.Bax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 027          M.u.s.t.e.r.Bax AHK Skript
 /*
  * BaxterWorks
  * Copyright 2021 T-Jah Tom
@@ -93,8 +93,8 @@
 ; Startumgebungsvariablen festlegen
 	AppName = BaxterWorks
 	Bax_help = help
-	FensterVersion = MusterBax_019		; aktuelle Vorlage und Module
-	Skriptvorlage = MusterBax_019		; eingesetzte Version und Vorlage
+	FensterVersion = MusterBax_027		; aktuelle Vorlage und Module
+	Skriptvorlage = MusterBax_027		; eingesetzte Version und Vorlage
 	Bax_Bar = %A_Appdata%\Microsoft\Internet Explorer\Quick Launch
 	LastVersionBW = %CodeVersion%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
@@ -137,6 +137,8 @@
 	IniWrite, %FensterVersion% , %homeini%, FixVars, FensterVersion
 	IniWrite, %Skriptvorlage% , %homeini%, FixVars, Skriptvorlage
 	IniWrite, %backuptxt% , %homeini%, FixVars, backuptxt
+	IniWrite, %A_Now%_%AppName% , %scriptini%, Stats_%BaxNutzerName% , LastLogIn
+	IniWrite, %A_Now% , %scriptini%, Stats_%BaxNutzerName% , LastLogInZeit
 
 
 
@@ -223,6 +225,11 @@ if !FileExist("%Bax_Start%\Config\%BaxNutzerName%.ini")
 	If (LastVersionBW != CodeVersion)
 	Run, notepad.exe %Bax_Start%\Log\Versionsinfo.txt
 
+; Toolstartcheck
+	#Include %A_ScriptDir%\Function\BaxFunk_appcheck.ahk	
+		BaxFunk_toolstart()
+
+
 ;--------------- Ende AutoExecBereich
 ;----------------------------------------------------------------------------------------------
 ; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck Ende AutoExec , 3
@@ -233,6 +240,7 @@ if !FileExist("%Bax_Start%\Config\%BaxNutzerName%.ini")
 	GoSub, BaxMenu		; erstellt das STRG+1 Menü
 	GoSub, TRAYMENU		; dann noch das TrayMenü
 	GoSub, CountBax		; ein einfacher Zähler
+	GoSub, Stats		; eine simple Statistik Funktion
 
 
 ; Wichtige HK (nur in diesem Skript, deswegen an dieser Stelle
@@ -286,6 +294,8 @@ BaxMenu:
 	Menu, SubBaxMenuBW, Icon, SuchBax, Grafix\welt.ico,1     
 	Menu, SubBaxMenuBW, Add, Digitaluhr, SubsBWHandler14
 	Menu, SubBaxMenuBW, Icon, Digitaluhr, Grafix\uhr3.ico,1     
+	Menu, SubBaxMenuBW, Add, neArtWürfel, SubsBWHandler15
+	Menu, SubBaxMenuBW, Icon, neArtWürfel, Grafix\wuerfel.ico,1     
 ; Einträge Untermenü Hilfe
 	Menu, SubBaxMenuHelp, Add, Hilfetexte HotKeys, SubsHilfeHandler3
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte HotKeys, Grafix\klee.ico,1     
@@ -321,6 +331,8 @@ BaxMenu:
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte SuchBax, Grafix\welt.ico,1     
 	Menu, SubBaxMenuHelp, Add, Hilfetexte UhrDigiSimple, SubsHilfeHandler14
 	Menu, SubBaxMenuHelp, Icon, Hilfetexte UhrDigiSimple, Grafix\uhr3.ico,1     
+	Menu, SubBaxMenuHelp, Add, Hilfetexte neArtWürfel, SubsHilfeHandler1
+	Menu, SubBaxMenuHelp, Icon, Hilfetexte neArtWürfel, Grafix\wuerfel.ico,1     
 ; Einträge Untermenü Versionsinfo
 	Menu, SubBaxMenuVersion, Add, Versionsinfo AppBoard, SubsMenuVersioninfo9
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo AppBoard, Grafix\logo_tjah.ico,1     
@@ -352,6 +364,8 @@ BaxMenu:
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo SuchBax, Grafix\welt.ico,1     
 	Menu, SubBaxMenuVersion, Add, Versionsinfo UhrDigiSimple, SubsMenuVersioninfo14
 	Menu, SubBaxMenuVersion, Icon, Versionsinfo UhrDigiSimple, Grafix\uhr3.ico,1     
+	Menu, SubBaxMenuVersion, Add, Versionsinfo neArtWürfel, SubsMenuVersioninfo16
+	Menu, SubBaxMenuVersion, Icon, Versionsinfo neArtWürfel, Grafix\wuerfel.ico,1     
 	; Einträge Untermenü Telegram
 	Menu, SubBaxMenuTG, Add, T-Jah Tom @BaxterWorks, TGHandler1
 	Menu, SubBaxMenuTG, Icon, T-Jah Tom @BaxterWorks, Grafix\bax.ico,1     
@@ -446,7 +460,9 @@ IncludeBax:
 	#Include %A_ScriptDir%\Function\BaxFunk_2Win.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_Dropper.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_ConfigWindow.ahk
+	#Include %A_ScriptDir%\Function\BaxFunk_Progress.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_reloadAHK.ahk
+	#Include %A_ScriptDir%\Function\BaxFunk_Stats.ahk
 
 ; ThirdParty
 	#Include %A_ScriptDir%\Lib\Class_CTLCOLORS.ahk
@@ -457,6 +473,7 @@ IncludeBax:
 	#Include %A_ScriptDir%\Lib\funk_toggle.ahk
 	#Include %A_ScriptDir%\Lib\Gdip_all.ahk
 	#Include %A_ScriptDir%\Lib\ipfindmap.ahk
+	#Include %A_ScriptDir%\Lib\JSON.ahk
 	#Include %A_ScriptDir%\Lib\keepalive.ahk
 	#Include %A_ScriptDir%\Lib\MouseisOver.ahk
 	#Include %A_ScriptDir%\Lib\ObjCSV.ahk
@@ -469,7 +486,6 @@ IncludeBax:
 	#Include %A_ScriptDir%\Lib\VA.inc.ahk
 
 	#Include %A_ScriptDir%\HotKeys\AutoCorrect.ahk
-
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 ; │   GUI, TrayFensterFenster (About), ein Label vom Traymenü      [Version 001]                               │
@@ -585,46 +601,49 @@ AboutMenuSub:
 ;--------------------------------------------------------------------------------------Menüpunkte BW Apps
 
 SubsBWHandler1:
-	run, %Bax_Start%\Apps\BWAppBar\BWAppBar.exe
+	run, %Bax_Start%\Apps\BWAppBar\BWAppBar.exe, , UseErrorLevel
 	return
 SubsBWHandler2:
-	run, %Bax_Start%\Apps\BWAppBar\00AppBar.exe
+	run, %Bax_Start%\Apps\BWAppBar\00AppBar.exe, , UseErrorLevel
 	return
 SubsBWHandler3:
-	run, %Bax_Start%\Apps\CaptureBax\CaptureBax.exe
+	run, %Bax_Start%\Apps\CaptureBax\CaptureBax.exe, , UseErrorLevel
 	return
 SubsBWHandler4:
-	run, %Bax_Start%\Apps\DesktopPainter\DesktopPainter.exe
+	run, %Bax_Start%\Apps\DesktopPainter\DesktopPainter.exe, , UseErrorLevel
 	return
 SubsBWHandler5:
-	run, %Bax_Start%\Apps\Emoji\EmojiMenu.exe
+	run, %Bax_Start%\Apps\Emoji\EmojiMenu.exe, , UseErrorLevel
 	return
 SubsBWHandler6:
-	run, %Bax_Start%\Apps\FavFolder\FavoriteFolders.exe
+	run, %Bax_Start%\Apps\FavFolder\FavoriteFolders.exe, , UseErrorLevel
 	return
 SubsBWHandler7:
-	run, %Bax_Start%\Apps\IconExctract\IconExctractor.exe
+	run, %Bax_Start%\Apps\IconExctract\IconExctractor.exe, , UseErrorLevel
 	return
 SubsBWHandler8:
-	run, %Bax_Start%\Apps\KillerBax\KillerBax.exe
+	run, %Bax_Start%\Apps\KillerBax\KillerBax.exe, , UseErrorLevel
 	return
 SubsBWHandler9:
-	run, %Bax_Start%\Apps\Launcher\AppBoard.exe
+	run, %Bax_Start%\Apps\Launcher\AppBoard.exe, , UseErrorLevel
 	return
 SubsBWHandler10:
-	run, %Bax_Start%\Apps\Emoji\EmojiMenu.exe
+	;run, %Bax_Start%\Apps\Emoji\EmojiMenu.exe
 	return
 SubsBWHandler11:
 	run, %Bax_Start%\Apps\MiniDB\MiniDBs.exe, , UseErrorLevel
 	return
 SubsBWHandler12:
-	run, %Bax_Start%\Apps\NumpadZeichner\NumpadZeichner.exe
+	run, %Bax_Start%\Apps\NumpadZeichner\NumpadZeichner.exe, , UseErrorLevel
 	return
 SubsBWHandler13:
-	run, %Bax_Start%\Apps\SuchBax\SuchBax.exe
+	run, %Bax_Start%\Apps\SuchBax\SuchBax.exe, , UseErrorLevel
 	return
 SubsBWHandler14:
-	run, %Bax_Start%\Apps\UhrDigiSimple\UhrDigiSimple.exe
+	run, %Bax_Start%\Apps\UhrDigiSimple\UhrDigiSimple.exe, , UseErrorLevel
+	return
+SubsBWHandler15:
+	run, %Bax_Start%\Apps\Würfel\neArtWürfel.exe, , UseErrorLevel
 	return
 
 ;--------------------------------------------------------------------------------------Menüpunkte Hilfetexte
@@ -791,6 +810,9 @@ SubsMenuVersioninfo14:
 SubsMenuVersioninfo15:
 	Run, %Bax_Start%\Log\Versionsinfo_CaptureBax.txt
 	return
+SubsMenuVersioninfo16:
+	Run, %Bax_Start%\Log\Versionsinfo_neArtWürfel.txt
+	return
 
 ;--------------------------------------------------------------------------------------Menüpunkte Telegram
 
@@ -899,12 +921,12 @@ OpenGUI:
 
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Subs Aboutfenster        [Version 001]                                                                   │
+; │   Subs Aboutfenster MusterBax       [Version 002]                                                          │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
 BWApp:
-  	Run,http://www.baxterworks.de/software/hilfe/help.htm,,UseErrorLevel
+  	Run,http://www.baxterworks.de/software/hilfe/%Bax_help%.htm,,UseErrorLevel
 	Return
 
 BWSoft:
@@ -921,17 +943,17 @@ AHKlabel:
 
 ;
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   Sub Ini  [Version 002]    +  nur in diesem Skript                                                        │
+; │   Sub Ini  [Version 003]    +  nur in diesem Skript                                                        │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ; hier einfügen, was der User an Vars setzen kann
 
 INIREAD:
-IniRead, Ziel1, %userini%, Dropper, Ziel1, %A_Space% 
-IniRead, Ziel2, %userini%, Dropper, Ziel2, %A_Space% 
-IniRead, DeinOrdner1, %userini%, 2Win, DeinOrdner1, %A_Space% 
-IniRead, DeinOrdner2, %userini%, 2Win, DeinOrdner2, %A_Space% 
-IniRead, Bax_JobDir, %userini%, Variablen, Bax_JobDir, %A_Space% 
-IniRead, Bax_Flex, %userini%, Variablen, Bax_Flex, %A_Space% 
+IniRead, Ziel1, %userini%, UserVars, Ziel1
+IniRead, Ziel2, %userini%, UserVars, Ziel2
+IniRead, DeinOrdner1, %userini%, UserVars, DeinOrdner1
+IniRead, DeinOrdner2, %userini%, UserVars, DeinOrdner2
+IniRead, Bax_JobDir, %userini%, UserVars, Bax_JobDir 
+IniRead, Bax_Flex, %userini%, UserVars, Bax_Flex
 
 
 ;----------------------------------------------------------------------------------------------
@@ -953,7 +975,7 @@ if (ErrorLevel = "ERROR")
 return
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub          [Version 002]    ohneGUI  + nicht Standard                                               │
+; │   EndSub          [Version 009]    ohneGUI  + nicht Standard                                               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -984,25 +1006,27 @@ DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
 	IniWrite, %FensterVersion% , %backuptxt%, FixVars, FensterVersion
 	IniWrite, %backuptxt% , %backuptxt%, FixVars, backuptxt
 	IniWrite, %BaxIP% , %backuptxt%, Netzinfo, Letzte IP
-	IniWrite, %Ziel1% , %backuptxt%, Dropper, Ziel1
-	IniWrite, %Ziel2% , %backuptxt%, Dropper, Ziel2
-	IniWrite, %DeinOrdner1% , %backuptxt%, 2Win, DeinOrdner1
-	IniWrite, %DeinOrdner2% , %backuptxt%, 2Win, DeinOrdner2
-	IniWrite, %Bax_JobDir% , %backuptxt%, Variablen, Bax_JobDir
-	IniWrite, %Bax_Flex% , %backuptxt%, Variablen, Bax_Flex
+	IniWrite, %Ziel1% , %backuptxt%, UserVars, Ziel1
+	IniWrite, %Ziel2% , %backuptxt%, UserVars, Ziel2
+	IniWrite, %DeinOrdner1% , %backuptxt%, UserVars, DeinOrdner1
+	IniWrite, %DeinOrdner2% , %backuptxt%, UserVars, DeinOrdner2
+	IniWrite, %Bax_JobDir% , %backuptxt%, UserVars, Bax_JobDir
+	IniWrite, %Bax_Flex% , %backuptxt%, UserVars, Bax_Flex
 	IniWrite, %A_UserName%_%A_ComputerName% , %backuptxt%, %BaxNutzerName%, %BaxNutzerName%
 	IniWrite, %count% , %backuptxt%, %BaxNutzerName%, %BaxNutzerName%
 	IniWrite, %LastSeen% , %backuptxt%, %BaxNutzerName% , LastSeen_davor
 	IniWrite, %UhrStart% , %backuptxt%, %BaxNutzerName% , UhrStart_davor
 	IniWrite, %LastSeen% , %userini%, %BaxNutzerName% , LastSeen_davor
 	IniWrite, %UhrStart% , %userini%, %BaxNutzerName% , UhrStart_davor
-	
+	IniWrite, %AppName%_%CodeVersion%_%Skriptvorlage%_%A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzung_%AppName%
+	IniWrite, %A_Now% , %userini%, Stats_%BaxNutzerName%, Nutzzeit_%AppName%
+
 	FormatTime, LastSeen,, LongDate
 	IniWrite, %LastSeen% , %backuptxt%, %BaxNutzerName% , LastSeen
 	IniWrite, %LastSeen% , %userini%, %BaxNutzerName% , LastSeen
 	IniWrite, %A_Now% , %backuptxt%, %BaxNutzerName% , UhrStart
 	IniWrite, %A_Now% , %userini%, %BaxNutzerName% , UhrStart
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName%  %A_Tab% App: %AppName%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
 
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
@@ -1039,21 +1063,49 @@ return
 ;----------------------------------------------------------------------------------------------
 
 if (count = 1)
-	msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Warum der Defender die App ab und zu als`ngefährlich einstuft - versuche ich in der Hilfe zu erklären. Es gibt kein Grund zur Sorge`n Der Quellcode ist offen einsehbar github.com/T-Jah. , 15
+	msgbox, 4, BaxterWorks Software informiert, Willkommen und Vielen Dank für dein Vertrauen.`n`nVorab ein Hinweis: Warum der Defender die App ab und zu als`ngefährlich einstuft - versuche ich in der Hilfe zu erklären. Es gibt kein Grund zur Sorge`n Der Quellcode ist offen einsehbar github.com/T-Jah. Das Thema findest du auch im offiziellen Forum.`n`nViel Spaß beim ausprobieren. Strg+1 und Strg+2 sind gute Startaktionen. , 15
 
 if (count = 15)
-msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 15 mal gestartet, was nur du lokal weißt`nDer Zähler ist eigentlich nur eine Übung und Info für dich. , 15
+msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 15 mal gestartet - was nur du lokal weißt`nDer Zähler ist eigentlich nur eine Übung und Info für dich. Mehr zum Thema Daten und wofür die Logdateien sind findest du in der Hilfe. , 15
 
 if (count = 50)
-msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 50 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe , 15
+msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 50 mal gestartet - was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe , 15
 
 if (count = 100)
 msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 100 mal gestartet, was nur du lokal weißt`nWenn sie dir gefällt magst du mich vielleicht mit einer Tasse Kaffee unterstützen? Vielen Dank für jede Hilfe. Oh hab ich das schon gesagt? Na gut - du weißt es und ich muss es nicht mehr sagen. Und DANKE , 15
+
+if (count = 250)
+msgbox, 4, BaxterWorks Software informiert, Wow. 250 Starts von baxterworks.exe - mehr als ich zu hoffen wagte. Gib mir Feedback über GitHub. Nach so vielen Starts hast du vielleicht wichtige Kritik? Danke. , 15
+
+if (count = 500)
+msgbox, 4, BaxterWorks Software informiert, Vielen Dank für dein Vertrauen. Du hast die App 500 mal gestartet - sehr beeindruckend. Das war nun die letzte Meldung dieser Art. Falls du mich unterstützt hast meinen aufrichtigen Dank. , 15
 
 
 ;----------------------------------------------------------------------------------------------
 ; msgbox, 4, BaxterWorks Software Testing, BaxterWorks Skriptcheck 005a Zähler , 3
 ;----------------------------------------------------------------------------------------------
 
+return
 
-	return
+; 
+; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+; │  MacroBax Stats     [Version 003]                                                                           │
+; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+;
+STATS:
+	
+	Bax_Stats_Nutzungstage()
+	;MsgBox, %Nutzungstage% Tage seit Installation
+	IniWrite, %Nutzungstage% , %scriptini%, Stats_%BaxNutzerName% , Nutzungstage
+	
+  	Bax_Stats_Zwischenzeit()
+	;MsgBox, %Zwischenzeit% Minuten seit deinem letzten Besuch
+	IniWrite, %Zwischenzeit% , %scriptini%, Stats_%BaxNutzerName% , Zwischenzeit
+
+	Bax_Stats_Zeilenzahl()
+	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
+
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+
+return
+

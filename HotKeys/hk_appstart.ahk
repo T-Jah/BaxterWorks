@@ -37,6 +37,7 @@ SendMode Input
 ^+f::Run, %Bax_Start%\Apps\FavFolders\FavoriteFolders.exe	; STRG + Shift + F
 ^+m::Run, %Bax_Start%\Apps\MiniDB\MiniDBs.exe	        	; STRG + Shift + M
 ^+n::Bax_2Win_start() 						; STRG + Shift + N
+^+w::Run, %Bax_Start%\Apps\Würfel\neArtWürfel.exe		; STRG + Shift + W
 ^#!d::Bax_DropperGui_Create()					; STRG + Win + Alt +D
 
 

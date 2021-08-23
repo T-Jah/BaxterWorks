@@ -23,7 +23,7 @@ SendMode Input
 SendInput {Raw}
 (
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐  
-│                                 Liste der Auslöser und Hotkeys Version 020				│  
+│                                 Liste der Auslöser und Hotkeys Version 021				│  
 │ ===================================================================================================== │  
 │ Diese Liste anzeigen	...............; STRG + 1        Benutzervariable Bax_Flex startet eine App     │  
 │ TBKeys		...............; STRG + 2        oder Webseite mit STRG+Shift+0 (Null)	        │  
@@ -43,7 +43,8 @@ SendInput {Raw}
 │ Always on top		.........; STRG + Shift + o │ Bax_Flex App	.............; STRG + Shift + 0 │  
 │ Reload all		.........; STRG + Shift + r │                                                   │  
 │ Uhr, digital		.........; STRG + Shift + u │                                                   │  
-│ VarSchau		.........; STRG + Shift + v │ iSafeText 	.............; STRG + ALT + b   │  
+│ VarSchau		.........; STRG + Shift + v │                                                   │  
+│ neArtWürfel		.........; STRG + Shift + w │ iSafeText 	.............; STRG + ALT + b   │  
 ├───────────────────────────────────────────────────────────────────────────────────────────────────────┤  
 │ Textmarkierung in GROSSBUCHSTABEN	; Alt GR + i                                                    │  
 │ Textmarkierung in kleinbuchstaben	; Alt GR + o                                                    │  
