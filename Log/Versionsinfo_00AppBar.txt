@@ -14,6 +14,10 @@
 
   INHALT:
 
+ 	1.0.2.1 Update Stats
+	1.0.2.0	BugFix im Pfad der Funktionen
+	1.0.1.9 Funktion Progress
+	1.0.1.8 Funktion Stats
 	1.0.1.7 Update auf Fensterversion 019
 	1.0.1.6 Stats für ini
 	1.0.1.5 Update auf Fensterversion 015

@@ -14,6 +14,10 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.1.0 Update Stats
+ 	1.0.0.9 Update MacroBax-Template 012
+	1.0.0.8 Funktion Stats
+	1.0.0.7 UserVars
 	1.0.0.6 Bugfix doppeltes schließen
 	1.0.0.5 Ini Vars, Statistik
 	1.0.0.4 In BaxterWorks integriert

@@ -14,6 +14,16 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.5.5 Update Stats
+	1.0.5.4	include JSON
+	1.0.5.3	STRG+Shift+w öffnet neArtWürfel
+	1.0.5.2	BugFix im Pfad der Funktionen
+	1.0.5.1	Feinjustierung, Texte MessageBoxes
+	1.0.5.0	Toolstarter Autostart über Tray einstellbar
+	1.0.4.9	RadioButtons in Toolstarter
+	1.0.4.8	Kompletttest
+	1.0.4.7	Funktion Stats
+	1.0.4.6	FensterVersion 022, Toolbar, diverse kleinere Bugfixes
 	1.0.4.5	FensterVersion 019
 	1.0.4.4	Versuch mit Errorlevel
 	1.0.4.3	Update Configfunktion

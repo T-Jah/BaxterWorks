@@ -14,8 +14,11 @@
 
   INHALT: Versionsinfo
 
-	1.0.0.7 Stats-Var in ini
-	1.0.0.6 Update auf FensterVersion 015
+ 	1.0.1.0 Update Stats
+	1.0.0.9 Update MacroBax-Template 012
+	1.0.0.8 Funktion Stats
+	1.0.0.7 Update MacroBax-Template 010
+	1.0.0.6 Update MacroBax-Template 008
 	1.0.0.5 In BaxterWorks integriert
 	1.0.0.4 Neuer Ordner, neue Pfade (Grafix)
 	1.0.0.3 Anpassung Menü

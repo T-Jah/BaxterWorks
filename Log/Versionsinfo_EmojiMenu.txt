@@ -16,6 +16,10 @@
 
   INHALT:
 
+ 	1.0.0.9 Update Stats
+	1.0.0.8 Update MacroBax-Template 012
+	1.0.0.7 Funktion Stats
+	1.0.0.6 UserVars
 	1.0.0.5 Variablen für die ini
 	1.0.0.4 Integration in BaxterWorks
 	1.0.0.3 Neue Pfade (Grafix)

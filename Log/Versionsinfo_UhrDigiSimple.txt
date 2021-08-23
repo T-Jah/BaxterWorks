@@ -1,31 +1,33 @@
-﻿
-__________                  __                __      __             __
-\______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______
- |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/
- |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \
- |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >
-        \/      \/      \/           \/             \/                   \/     \/
-------------------------------------------------------------------------------------
-                                                            (c) 1999-2021 T-Jah Tom
+﻿ ┌──────────────────────────────────────────────────────────────────────────────────────┐
+ │  __________                  __                __      __             __             │
+ │  \______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______ │
+ │   |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/ │
+ │   |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \  │
+ │   |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  > │
+ │          \/      \/      \/           \/             \/                   \/     \/  │
+ ├──────────────────────────────────────────────────────────────────────────────────────┤
+ │                                                              (c) 1999-2021 T-Jah Tom │
+ ├──────────────────────────────┬───────────────────────┬───────────────────────────────┤
+ │ Programm/Skript:		│ Autor:		│ Info:			        │
+ │ UhrDigiSimple		│ T-Jah Tom		│  				│
+ └──────────────────────────────└───────────────────────└───────────────────────────────┘
+
+  INHALT:
+
+	Versionsinfo UhrDigiSimple
 
 
-
-
-INHALT:
-
-
-Versionsinfo UhrDigiSimple
-
-Updates interne Module (für alle Skripte, Optionen Version 018)
-
-1.0.0.8 Variable in ini aufgenommen
-1.0.0.7 Umzug in Struktur BaxterWorks
-1.0.0.6 Update Traymenu
-1.0.0.5 Update EndSub
-1.0.0.4 Position fix, nicht über ini. Schreibt aber Position noch auf
-1.0.0.3 Code überarbeitet, Abouttext
-1.0.0.2 Schaltfläche entfernt, Traymenü hinzugefügt
-1.0.0.1 Neue Ordnerstruktur	
-1.0.0.0	Erste Version nach Veränderung des Codes aus dem AHK Handbuch
+	1.0.1.0 Update Stats
+	1.0.1.0 Update Vorlage 012
+	1.0.0.9 Funktion Stats
+	1.0.0.8 Variable in ini aufgenommen
+	1.0.0.7 Umzug in Struktur BaxterWorks
+	1.0.0.6 Update Traymenu
+	1.0.0.5 Update EndSub
+	1.0.0.4 Position fix, nicht über ini. Schreibt aber Position noch auf
+	1.0.0.3 Code überarbeitet, Abouttext
+	1.0.0.2 Schaltfläche entfernt, Traymenü hinzugefügt
+	1.0.0.1 Neue Ordnerstruktur	
+	1.0.0.0	Erste Version nach Veränderung des Codes aus dem AHK Handbuch
 
 

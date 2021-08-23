@@ -14,6 +14,11 @@
 
   INHALT:
 
+	1.0.1.4	Update Stats
+	1.0.1.3	BugFix im Pfad der Funktionen
+	1.0.1.2 Funktion Progress
+	1.0.1.1 Funktion Statistik
+	1.0.1.0 Update auf FensterVersion 022, Umbenennung UserVars
 	1.0.0.9 Update auf FensterVersion 019
 	1.0.0.8 Variable für Statistik in ini
 	1.0.0.7 Update auf BaxterWorks 015

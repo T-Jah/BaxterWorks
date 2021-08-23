@@ -15,6 +15,10 @@
 
   INHALT:
 
+	1.0.0.7	Update Stats
+	1.0.0.6	Update auf 012
+	1.0.0.5	BugFix im Pfad der Funktionen
+	1.0.0.4 Statistik Funktion	
 	1.0.0.3 StatistikVariable	
 	1.0.0.2 GUI verbessert	
 	1.0.0.1 Neue Ordnerstruktur	

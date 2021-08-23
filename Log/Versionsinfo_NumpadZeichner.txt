@@ -15,6 +15,9 @@
   INHALT:
 	Versionsinfo NumpadZeichner
 
+	2.0.2.2	Update Stats
+	2.0.2.1	BugFix im Pfad der Funktionen
+	2.0.2.0 Funktion Statistik
 	2.0.1.9 noch eine Statistik Variable
 	2.0.1.8 Statistik Variable
 	2.0.1.7 Update auf BaxterWorks 005

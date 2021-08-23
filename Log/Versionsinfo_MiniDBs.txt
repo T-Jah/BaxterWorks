@@ -14,8 +14,12 @@
 
   INHALT:
 
+	1.0.1.3 Update Stats
+	1.0.1.2 Update Vorlage 012
+	1.0.1.1	BugFix im Pfad der Funktionen
+	1.0.1.0 Statistik Funktion
 	1.0.0.9 Statistik Variable
-	1.0.0.8 Update auf Fenster 015
+	1.0.0.8 Update auf Fenster 010
 	1.0.0.7 TrayMenu
 	1.0.0.6 In BaxterWorks integriert
 	1.0.0.5 Neue Pfade (Grafix)

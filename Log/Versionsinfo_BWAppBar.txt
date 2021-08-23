@@ -14,6 +14,10 @@
 
   INHALT:
 
+ 	1.0.1.9 Update Stats
+	1.0.1.8	BugFix im Pfad der Funktionen
+	1.0.1.7 Funktion Stats
+	1.0.1.6 Prozesschecker, guckt ob BW da ist.
 	1.0.1.5 Bugfix doppeltes schließen
 	1.0.1.4 Statistikvariable
 	1.0.1.3 Errorlevel bei BW check eingebaut

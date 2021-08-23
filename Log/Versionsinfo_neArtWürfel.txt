@@ -8,33 +8,14 @@
  ├───────────────────────────────────────────────────────────────────────────────────────┤
  │                                                              (c) 1999-2021 T-Jah Tom  │
  ├──────────────────────────────┬────────────────────────────────────┬───────────────────┤
- │ Programm/Skript:		│ Autoren:	                     │ Info:		 │
- │ SuchBax	     		│ T-Jah Tom	                     │ 	Multisearch	 │
+ │ Programm/Skript:		│ Autor:	                     │ Info:		 │
+ │ neArtWuerfel	     		│ T-Jah Tom	                     │ 			 │
  └──────────────────────────────┴────────────────────────────────────┴───────────────────┘
 
-  INHALT: Versionsinfo
 
-	1.0.2.1	Update Stats
-	1.0.2.0	Update auf FensterVersion 025
-	1.0.1.9	Test
-	1.0.1.8	BugFix im Pfad der Funktionen
-	1.0.1.7 Funktion Progress
-	1.0.1.6 Neue Toolbar ab FensterVersion 021
-	1.0.1.5 StatistikVariable
-	1.0.1.4 Korrektur Icon Verknüpfung
-	1.0.1.3 Update auf FensterVersion 015, Variable Stats_Name
-	1.0.1.2 Update auf FensterVersion 013
-	1.0.1.1 Korrektur
-	1.0.1.0 Update auf FensterVersion 010
-	1.0.0.9 Update auf FensterVersion 005
-	1.0.0.8 Korrektur Funktionspfade
-	1.0.0.7 Umzug in Struktur BaxterWorks
-	1.0.0.6 Update auf FensterVersion 041 (alt)
-	1.0.0.5 Tooltips
-	1.0.0.4 Abouttexte
-	1.0.0.3 Update auf Fensterversion 037 (alt)
-	1.0.0.2 Neuer Ordner, neue Pfade (Grafix)
-	1.0.0.1 Neue Ordnerstruktur	
+  INHALT:
+
+	1.0.0.3	Update Stats
+	1.0.0.2	Alwaysontop
+	1.0.0.1	Zwei Würfel
 	1.0.0.0	Erste Version
-
-
