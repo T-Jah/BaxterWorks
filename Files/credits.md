@@ -1,5 +1,5 @@
-    Content: Software/Credits  
-<!-- Version 012 -->
+    Software: Credits  
+<!-- Version 014 -->
 <!-- Credits AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Credits
@@ -9,10 +9,8 @@
 ### 2. Handbuch und Forum
 ### 3. GitHub Heroes
 ### 4. Quellen
+
 ## BaxterWorks Software  
-
-<hr>
-
 #### 1. Generelle Danksagung
 Ich habe mich durch viele Seiten und Foren gewühlt, habe Handbücher und geklonte Handbücher gelesen und jede Menge Codeschnippsel gesichtet, von denen ich nur einen Bruchteil verstanden habe. Gerade die vielen Anmerkungen im Code selbst sind oft sehr hilfreich. Außerdem kann man nach einer gewissen Zeit bestimmte Quellen schon am Stil erkennen.
 
@@ -33,6 +31,7 @@ Durch die neugierige Sichtung von Skripten bin ich über etliche Libarys gestolp
 - https://github.com/cocobelgica
 - https://github.com/G33kDude
 - https://github.com/hi5
+- https://github.com/jleb
 - https://github.com/jNizM
 - https://github.com/lexikos
 - https://github.com/majkinetor

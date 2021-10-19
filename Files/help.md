@@ -1,22 +1,26 @@
-    Content: Software/Hilfe/Übersicht 
-<!-- Version 019 -->
+    Software: Hilfe/Übersicht 
+<!-- Version 024 -->
 <!-- Hilfedateien AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Über BaxterWorks Software
 ###### zurück zur [Startseite](http://www.baxterworks.de/software)   
 Die Datei **BaxterWorks.exe** bildet das **Kernstück und die Startdatei**. Nicht umsonst liegt sie an oberster Stelle im Ordner. Mit der Datei startest du die HotKeys und Funktionalitäten und vor allem die **BaxterWorks AppBar**. <p>
-Beim ersten Start wirst du zur Konfiguration geleitet und musst, bzw. darfst selber festlegen, welche Ordner für bestimmte Funktionen genutzt werden sollen. Eine kleine Info zu jeder Variablen versteckt sich hinter dem Info Button. <p>
-[![Logo](http://www.baxterworks.de/software/screens/getreadybax.png)](http://www.baxterworks.de/software/hilfe/help.htm)   
+Beim ersten Start wirst du zur Konfiguration [GetReadyBax](http://www.baxterworks.de/software/hilfe/help_getreadybax.htm) geleitet und musst, bzw. darfst selber festlegen, welche Ordner für bestimmte Funktionen genutzt werden sollen.
 
-Mit **STRG+1** und **STRG+2** musst du dir eigentlich nur 2 HotKeys merken, um nicht hilflos zu sein. Nr.1 öffnet ein **Menü** mit den wichtigsten Angaben. Nr.2 ist eine **Übersicht** über alle etwa 30 Möglichkeiten. <p>
-[![Logo](http://www.baxterworks.de/software/screens/keys.png)](http://www.baxterworks.de/software/hilfe/help.htm)  
+[![HotKeys](http://www.baxterworks.de/software/screens/bw_menu.png)](http://www.baxterworks.de/software/hilfe/help.htm)  
+
+Mit **STRG+1** und **STRG+2** musst du dir eigentlich nur 2 HotKeys merken, um nicht hilflos zu sein. Nr.1 öffnet ein **Menü** mit den wichtigsten Angaben. Nr.2 ist eine **Übersicht** über alle etwa 36 Möglichkeiten. <p>
+[![HotKeys](http://www.baxterworks.de/software/screens/keys.png)](http://www.baxterworks.de/software/hilfe/help.htm)  
 
 #### BaxterWorks Software - Anleitung und Hilfe
 - [Über ini Dateien, Fensterposition und Pfade](http://www.baxterworks.de/software/hilfe/help_ini.htm)
 - [Das Standarddateimenü](http://www.baxterworks.de/software/hilfe/help_menu.htm)
+- [Funktionen](http://www.baxterworks.de/software/hilfe/help_function.htm)  
+- [Hotkeys](http://www.baxterworks.de/software/hilfe/help_hotkeys.htm)  
+- [HotStrings](http://www.baxterworks.de/software/hilfe/help_hotstrings.htm)  
 
 #### BaxterWorks Software - Texte zu Funktionen, Fenstern und Apps
-- die Standardfunktionen: [Hotkeys](http://www.baxterworks.de/software/hilfe/help_hotkeys.htm)  
+  
 - [BWAppBar](http://www.baxterworks.de/software/hilfe/help_bwappbar.htm)  
 - [CaptureBax](http://www.baxterworks.de/software/hilfe/help_capturebax.htm)
 - [DesktopPainter](http://www.baxterworks.de/software/hilfe/help_deskpaint.htm)
@@ -26,6 +30,7 @@ Mit **STRG+1** und **STRG+2** musst du dir eigentlich nur 2 HotKeys merken, um n
 - [IconExtractor](http://www.baxterworks.de/software/hilfe/help_iconextract.htm)
 - [KillerBax](http://www.baxterworks.de/software/hilfe/help_killerbax.htm)
 - [MiniDBs](http://www.baxterworks.de/software/hilfe/help_minidb.htm)
+- [neArtWürfel](http://www.baxterworks.de/software/hilfe/help_wuerfel.htm)   
 - [NumpadZeichner](http://www.baxterworks.de/software/hilfe/help_numpadzeichner.htm)   
 - [SuchBax](http://www.baxterworks.de/software/hilfe/help_suchbax.htm)
 
