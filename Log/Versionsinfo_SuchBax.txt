@@ -14,6 +14,9 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.2.4 Update auf FensterVersion 030
+ 	1.0.2.3 Erweiterung Stats
+	1.0.2.2	Update auf FensterVersion 028
 	1.0.2.1	Update Stats
 	1.0.2.0	Update auf FensterVersion 025
 	1.0.1.9	Test

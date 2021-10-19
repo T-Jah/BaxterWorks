@@ -15,6 +15,8 @@
 
   INHALT:
 
+	1.0.0.9 Update auf Fensterversion 030
+ 	1.0.0.8 Erweiterung Stats
 	1.0.0.7	Update Stats
 	1.0.0.6	Update auf 012
 	1.0.0.5	BugFix im Pfad der Funktionen

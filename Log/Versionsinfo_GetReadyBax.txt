@@ -14,6 +14,9 @@
 
   INHALT:
 
+  	1.0.1.7 Erweiterung Stats, Update auf Fensterversion 030
+  	1.0.1.6 Erweiterung Stats
+	1.0.1.5 Update auf Fensterversion 028, Bugfix Toolbar
 	1.0.1.4	Update Stats
 	1.0.1.3	BugFix im Pfad der Funktionen
 	1.0.1.2 Funktion Progress

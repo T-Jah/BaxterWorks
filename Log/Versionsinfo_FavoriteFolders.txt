@@ -15,6 +15,8 @@
 
   INHALT:
 
+ 	1.0.2.1 Erweiterung Stats, Template Update 016
+ 	1.0.2.0 Erweiterung Stats
  	1.0.1.9 Update Stats
 	1.0.1.8 Update auf 012
 	1.0.1.7 Funktion Statistik

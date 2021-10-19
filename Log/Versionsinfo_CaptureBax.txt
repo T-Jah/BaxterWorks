@@ -14,6 +14,8 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.1.2 Update MacroBax 016
+ 	1.0.1.1 Erweiterung Stats
  	1.0.1.0 Update Stats
 	1.0.0.9 Update MacroBax-Template 012
 	1.0.0.8 Funktion Stats

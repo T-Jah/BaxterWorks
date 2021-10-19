@@ -17,8 +17,10 @@
 	Versionsinfo UhrDigiSimple
 
 
-	1.0.1.0 Update Stats
-	1.0.1.0 Update Vorlage 012
+	1.0.2.3 Update auf FensterVersion 030
+	1.0.2.2 Erweiterung Stats
+	1.0.2.1 Update Stats
+	1.0.2.0 Update Vorlage 012
 	1.0.0.9 Funktion Stats
 	1.0.0.8 Variable in ini aufgenommen
 	1.0.0.7 Umzug in Struktur BaxterWorks

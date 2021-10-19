@@ -14,6 +14,23 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.7.2 über 20 Smileys als Hotstrings eingefügt, Strg+2 nutzen
+ 	1.0.7.1 Hotstring .pic Korrigiert, neue HTML Befehle (button zB)
+ 	1.0.7.0 kleiner Fehler im Hotkey, neue Strings für JavaScript
+ 	1.0.6.9 Update listbax, erneut Hotstrings erweitert
+ 	1.0.6.8 Update listbax
+ 	1.0.6.7 Erweiterung Hotstrings, Funktion keys
+ 	1.0.6.6 Erweiterung Hotstrings
+ 	1.0.6.5 Update auf Fensterversion 030
+ 	1.0.6.4 Erweiterung Hilfe, Credits
+ 	1.0.6.3 Optische Korrekturen
+ 	1.0.6.2 Erweiterung Hotstrings (HTML und JS)
+ 	1.0.6.1 Erweiterung Hotstrings
+	1.0.6.0 Erweiterung Hilfe, Credits, IP-Funktion
+ 	1.0.5.9 Erweiterung HotStrings
+ 	1.0.5.8 Erweiterung VarSchau
+ 	1.0.5.7 Erweiterung Stats
+ 	1.0.5.6 Ungenutzte Funktion entfernt
  	1.0.5.5 Update Stats
 	1.0.5.4	include JSON
 	1.0.5.3	STRG+Shift+w öffnet neArtWürfel
