@@ -41,6 +41,8 @@ Gui,BaxterWorks:Add, Checkbox, vCheck3 Checked%Check3% , MiniDBs
 Gui,BaxterWorks:Add, Checkbox, vCheck4 Checked%Check4% , NumpadZeichner
 Gui,BaxterWorks:Add, Checkbox, vCheck5 Checked%Check5% , DesktopPainter
 Gui,BaxterWorks:Add, Checkbox, vCheck6 Checked%Check6% , SuchBax
+Gui,BaxterWorks:Add, Radio, vRadio1 Checked%Radio1%, Auswahl immer automatisch starten
+Gui,BaxterWorks:Add, Radio, vRadio2 Checked%Radio2%, Auswahl nicht automatisch starten
 Gui,BaxterWorks:Add, Button, xm gExitWithoutSaving, schließen
 Gui,BaxterWorks:Add, Button, x+2 gExitWithSaving, speichern und beenden
 Gui,BaxterWorks:Add, Button, x+2 gToggleall, Alles an/aus
@@ -51,6 +53,8 @@ GuiControlGet, Check3
 GuiControlGet, Check4
 GuiControlGet, Check5
 GuiControlGet, Check6
+GuiControlGet, Radio1
+GuiControlGet, Radio2
 Gui,BaxterWorks:Show, x400 y20, BaxterWorks Config
 OnMessage(0x200, "ConfigToolTips")
 
@@ -129,6 +133,18 @@ Gui,BaxterWorks:Submit, NoHide
 	}
 
 
+	If (Radio1 = 0)
+		IniWrite, 0 , %userini% , Komponenten , Radio1
+	else If (Radio1 = 1)
+	{
+		IniWrite, 1 , %userini% , Komponenten , Radio1
+	}
+	If (Radio2 = 0)
+		IniWrite, 0 , %userini% , Komponenten , Radio2
+	else If (Radio2 = 1)
+	{
+		IniWrite, 1 , %userini% , Komponenten , Radio2
+	}
 
 
 WinClose
@@ -151,8 +167,9 @@ IniRead, Check3, %userini%, Komponenten, Check3 , 0
 IniRead, Check4, %userini%, Komponenten, Check4 , 0
 IniRead, Check5, %userini%, Komponenten, Check5 , 0
 IniRead, Check6, %userini%, Komponenten, Check6 , 0
+IniRead, Radio1, %userini%, Komponenten, Radio1 , 0
+IniRead, Radio2, %userini%, Komponenten, Radio2 , 0
 return
-
 
 
 
@@ -190,17 +207,21 @@ ConfigToolTips() {
 
 MouseGetPos,,,, VarControl
 
-IfEqual, VarControl, Button7
+IfEqual, VarControl, Button9
 
 	Message := "Mach weg"
 
-else IfEqual, VarControl, Button8
+else IfEqual, VarControl, Button10
 
 	Message := "Auswahl speichern und loslegen"
 
-else IfEqual, VarControl, Button9
+else IfEqual, VarControl, Button11
 
 	Message := "Alle Haken oder doch besser gar keinen?"
+
+else IfEqual, VarControl, Button7
+
+	Message := "Die ausgewählten Tools bei jedem Programmstart laden"
 
 
 ToolTip % Message

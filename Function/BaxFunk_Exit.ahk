@@ -15,15 +15,15 @@ class BaxFunk_Exit
         SplashTextOn, 450 fs18 zh0,  , BaxEx macht den immer knappen  Speicher wieder frei.
 
 
-Sleep, 2000
-SoundBeep, 700, 100
+Sleep, 200
 SoundBeep, 600, 100
-SoundBeep, 500, 200
-SoundBeep, 700, 500
+SoundBeep, 500, 100
+SoundBeep, 400, 200
+SoundBeep, 600, 500
    Gui, Destroy			; gibt die Ressource frei
   CTLCOLORS.Free()		; wenn classCTLColours benutzt wurde
-if FileExist("..\Files\*.htm")
-FileDelete %A_ScriptDir%\..\Files\*.htm
+if FileExist("Files\*.htm")
+FileDelete %Bax_Start%\Files\*.htm
 ;Testbox
 ;MsgBox, Sag wo: %A_ScriptDir%
 

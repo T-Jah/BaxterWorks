@@ -62,8 +62,9 @@ Gui, Submit, NoHide
 	{
 		DropTarget1:=DropZiel1
 		msgbox, 4160, Dropper Bestätigung, %DropTarget1% ist das Ziel, 3
-		IniWrite, %DropZiel1% , %userini% , Dropper , Ziel1
+		IniWrite, %DropZiel1% , %userini% , UserVars, Ziel1
     		FileRead, content, %DroppedFile%
+		FileGetSize, Wzeit, %DroppedFile%, K
    		filecopy, %DroppedFile% , %DropTarget1% 
     		filedelete, %DroppedFile%
 	}
@@ -71,11 +72,11 @@ Gui, Submit, NoHide
 	{
 	   	DropTarget2:=DropZiel2
 		msgbox, 4160, Dropper Bestätigung, %DropTarget2% ist das Ziel, 3
-		IniWrite, %DropZiel2% , %userini% , Dropper , Ziel2
+		IniWrite, %DropZiel2% , %userini% , UserVars, Ziel2
     		FileRead, content, %DroppedFile%
+		FileGetSize, Wzeit, %DroppedFile%, K
    		filecopy, %DroppedFile% , %DropTarget2% 
     		filedelete, %DroppedFile%
-
 	}
 
 return
@@ -116,6 +117,6 @@ ToolTip % Message
 }
 
 IniReadDrop:
-IniRead, DropZiel1 , %userini%, Dropper, Ziel1
-IniRead, DropZiel2 , %userini%, Dropper, Ziel2
+IniRead, DropZiel1 , %userini%, UserVars, Ziel1
+IniRead, DropZiel2 , %userini%, UserVars, Ziel2
 return

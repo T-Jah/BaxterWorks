@@ -18,7 +18,7 @@ global
 ;-------------------------------------------------------------------------
 
 Gui,IconShow:New
-Gui,IconShow:+Owner  ; Definiert Dropper als Unterfenster vom Hauptfenster des Skripts, um dessen Taskleistenschaltfläche zu verstecken.
+Gui,IconShow:+Owner  ; Definiert IconShow als Unterfenster vom Hauptfenster des Skripts, um dessen Taskleistenschaltfläche zu verstecken.
 FileSelectFile, file, 32, %A_WinDir%\System32\shell32.dll, Pick a file to check icons., *.*
 if file =
     return

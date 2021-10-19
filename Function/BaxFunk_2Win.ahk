@@ -15,8 +15,8 @@ global
 ; MsgBox %DeinOrdner1%
 ; in der Haupt.ini
 ; -- Pfade zu den zu öffnenden Fenstern festlegen (kann beliebig geändert werden)
-IniRead, DeinOrdner1, %userini%, 2Win, DeinOrdner1, %A_Space% 
-IniRead, DeinOrdner2, %userini%, 2Win, DeinOrdner2, %A_Space% 
+IniRead, DeinOrdner1, %userini%, UserVars, DeinOrdner1, %A_Space% 
+IniRead, DeinOrdner2, %userini%, UserVars, DeinOrdner2, %A_Space% 
 
 
 fenster_links = %DeinOrdner1%
