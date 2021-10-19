@@ -24,8 +24,34 @@ SendMode Input
 
 ; # MD Vorlagen --------------------------------------------------------------------->
  
+ 
+:*:md_hilfe::
+SendInput {Raw}
+(
+    Software: Hilfe/App/AppName
+<!-- Version 001 -->
+<!-- md2htm, aktiv in BaxterWorks Software-->
+
+## BaxterWorks Software
+###### zurück zur [Startseite](http://www.baxterworks.de/software)   
+
+## AppName
+Text
+
+[![Logo](http://www.baxterworks.de/software/pix/tjah_banner_tr_600.png)](http://www.baxterworks.de/software/hilfe/help.htm) 
 
 
+        Tags: ahk,hilfe,prozesse,taskmanager
+
+
+(c) 1999 - 2021 T-Jah Tom, [BaxterWorks](http://www.baxterworks.de). [GitHub](https://github.com/T-Jah), [Blog](http://blog.baxterworks.de).  <p>
+[![Logo](http://www.baxterworks.de/software/pix/bw_banner.png)](http://www.baxterworks.de/software/pix/bw_banner.png) 
+<IMG SRC="https://www.tombesch.de/cgi-bin/location.cgi?seite=2021_bwsoftware_appname">
+
+)
+return
+
+;-------------------------------------------------------------------------
  
 :*:md_software::
 SendInput {Raw}
@@ -36,39 +62,35 @@ SendInput {Raw}
 
 <!-- Version 001 -->
 
-|      Key   	 |     Value   	          |
-|:---------------|:-----------------------|
-|  **Autor**:	 | T-Jah Tom 		  |
-|  **Webseite**: | [BaxterWorks Software](http://www.baxterworks.de/software) |
-|  **Credits**:  | [Die offizielle Anleitung](https://ahkde.github.io/docs)   |
-| **Download**:  | [Zip-File](http://www.baxterworks.de/software/files/name.zip) mit .ahk und .exe	|
-
-
+|      Key   	 |     Value   	          |  
+|:---------------|:-----------------------|  
+|  **Autor**:	 | T-Jah Tom 		  |  
+|  **Webseite**: | [BaxterWorks Software](http://www.baxterworks.de/software) |  
+|  **Credits**:  | [Die offizielle Anleitung](https://ahkde.github.io/docs)   |  
+| **Download**:  | [Zip-File](http://www.baxterworks.de/software/files/name.zip) mit .ahk und .exe	|  
+  
 
 ###Inhalt:
 
-Wenn dieses kleine Skript läuft, stehen dir 2 Hotkeys und 2 Textersetzungen zur Verfügung:
+Wenn dieses kleine Skript läuft, stehen dir 2 Hotkeys und 2 Textersetzungen zur Verfügung:  
 
 - *STRG+WIN+F1*: fügt das aktuelle Datum ein, Format: 
-- *STRG+WIN+F2*: die aktuelle Uhrzeit im Format 18 Uhr 48
+- *STRG+WIN+F2*: die aktuelle Uhrzeit im Format 18 Uhr 48  
+  
+die gleichen Ergebnisse kannst mit den Textersetzungen erzielen. Auslöser sind (mit Punkt vorn):  
 
-die gleichen Ergebnisse kannst mit den Textersetzungen erzielen. Auslöser sind (mit Punkt vorn):
+- *.heute*  
+- *.jetzt*  
+  
 
-- *.heute*
-- *.jetzt*
+© 2021 [BaxterWorks Software](http://www.baxterworks.de/software), [T-Jah Tom](https://www.tombesch.de)  
 
-
-© 2021 [BaxterWorks Software](http://www.baxterworks.de/software), [T-Jah Tom](https://www.tombesch.de)
-
-[![Logo](https://www.tombesch.de/md/100/2020_tom_cap_100.png)](https://www.tombesch.de/md/png/2020_tom_cap_1000.png)
-
+[![Logo](https://www.tombesch.de/md/100/2020_tom_cap_100.png)](https://www.tombesch.de/md/png/2020_tom_cap_1000.png)  
+  
 )
 return
 
-
-
-
-
+;-------------------------------------------------------------------------
 
  
 :*:md_tab::
@@ -136,6 +158,44 @@ SendInput {Raw}
       Tags: ToDo,Ticket,Jobs,Aufgabe
 
 © 2021 [T-Jah Tom](https://www.tombesch.de), [BaxterWorks](http://www.baxterworks.de)
+
+)
+return
+
+
+;--------------------------------------------------;
+ 
+:*:md_knowledge::
+SendInput {Raw}
+(
+```
+
+██╗  ██╗███╗   ██╗ ██████╗ ██╗    ██╗██╗     ███████╗██████╗  ██████╗ ███████╗
+██║ ██╔╝████╗  ██║██╔═══██╗██║    ██║██║     ██╔════╝██╔══██╗██╔════╝ ██╔════╝
+█████╔╝ ██╔██╗ ██║██║   ██║██║ █╗ ██║██║     █████╗  ██║  ██║██║  ███╗█████╗  
+██╔═██╗ ██║╚██╗██║██║   ██║██║███╗██║██║     ██╔══╝  ██║  ██║██║   ██║██╔══╝  
+██║  ██╗██║ ╚████║╚██████╔╝╚███╔███╔╝███████╗███████╗██████╔╝╚██████╔╝███████╗
+╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝
+                                                                     
+```
+
+)
+return
+;--------------------------------------------------;
+ 
+:*:md_tjah::
+SendInput {Raw}
+(
+```
+
+████████╗        ██╗ █████╗ ██╗  ██╗    ████████╗ ██████╗ ███╗   ███╗
+╚══██╔══╝        ██║██╔══██╗██║  ██║    ╚══██╔══╝██╔═══██╗████╗ ████║
+   ██║█████╗     ██║███████║███████║       ██║   ██║   ██║██╔████╔██║
+   ██║╚════╝██   ██║██╔══██║██╔══██║       ██║   ██║   ██║██║╚██╔╝██║
+   ██║      ╚█████╔╝██║  ██║██║  ██║       ██║   ╚██████╔╝██║ ╚═╝ ██║
+   ╚═╝       ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═╝       ╚═╝    ╚═════╝ ╚═╝     ╚═╝
+                                                                     
+```
 
 )
 return

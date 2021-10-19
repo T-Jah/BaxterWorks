@@ -99,7 +99,7 @@ return
 :*:ahk_box1::
 SendInput {Raw}
 (
-/**
+
 ;┌────────────────────────────────────┐
 ;│                                    │
 ;│            BaxterWorks             │
@@ -118,7 +118,7 @@ SendInput {Raw}
 ;│                                    │
 ;│                                    │
 ;└────────────────────────────────────┘
-**/
+
 )
 return
 
@@ -381,15 +381,41 @@ return
 
 ;------------------------------------------------------------------------------------->
 
-:*:ahk_msg::
+:*:ahk_msg1::
 SendInput {Raw}
 (
-MsgBox, 4,BaxterWorks Software meldet , Du bist dran - triff eine Entscheidung, 5  ; Zeitlimit.
-IfMsgBox, No
-    Return  ; Benutzer sagt nö
-IfMsgBox, Timeout
-    Return ; auch nein, weil die Zeit überschritten wurde.
-; Ansonsten fortsetzen:
+MsgBox, 4,BaxterWorks Software meldet , Du bist dran - triff eine Entscheidung, 5 
+	IfMsgBox, No
+    	Return  			; Benutzer sagt nö
+	IfMsgBox, Timeout
+    	Return 				; auch nein, timeout.
+					; wenn nicht nein und nicht timeout (also ja) fortsetzen
+	MsgBox, 0,BaxterWorks Software informiert, Juhuu eine Entscheidung. (5 Sekunden Timer), 5
+	Exit
+
+; Version 003 by T-Jah Tom, BaxterWorks - http://www.baxterworks.de/software
 
 )
 return
+
+
+;--------------------------------------------------;
+;--------------------------------------------------;
+
+ 
+:*:ahk_tjah::
+SendInput {Raw}
+(
+/*
+
+████████╗        ██╗ █████╗ ██╗  ██╗    ████████╗ ██████╗ ███╗   ███╗
+╚══██╔══╝        ██║██╔══██╗██║  ██║    ╚══██╔══╝██╔═══██╗████╗ ████║
+   ██║█████╗     ██║███████║███████║       ██║   ██║   ██║██╔████╔██║
+   ██║╚════╝██   ██║██╔══██║██╔══██║       ██║   ██║   ██║██║╚██╔╝██║
+   ██║      ╚█████╔╝██║  ██║██║  ██║       ██║   ╚██████╔╝██║ ╚═╝ ██║
+   ╚═╝       ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═╝       ╚═╝    ╚═════╝ ╚═╝     ╚═╝
+                                                                     
+*/
+)
+return
+

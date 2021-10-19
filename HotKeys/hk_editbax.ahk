@@ -150,28 +150,14 @@ Return
 URLDownloadToFile,http://www.netikus.net/show_ip.html, %Bax_Start%\Files\showip.txt
 if ErrorLevel = 1
   {
-    MsgBox, 16,IpAddresses,Your public Ipaddress could not be detected.
+    MsgBox, 16,IpAddresses,Eine öffentliche IP4-Adresse konnte nicht ermittelt werden. Bist du online? Prüfe deine Netzwerkverbindung.,5
   }
+clipboard := ""
 FileReadLINE,BaxIP,%Bax_Start%\Files\showip.txt, 1
-MsgBox, 64,Ipaddresses,Your Public IpAddress is: [%BaxIP%]`n`nYour private ipAddress is: [%A_IPAddress2%]
+MsgBox, 64,Ipaddresses,Deine öffentliche IP lautet: [%BaxIP%]`n`nDie private Adresse ist: [%A_IPAddress1%]`n`nIP kopiert.
+clipboard = %BaxIP%
 FileDelete, %Bax_Start%\showip.txt
 return
 ;--------------------------------------------------------------------------------------------------------
-^+v::
-OnMessage(0x53, "OnHelp")
-Gui +OwnDialogs
-MsgBox 0x4040, VarSchau, %A_ScriptName%`nBaxterWorks Variablen Tester Box Version 005:`n---------------------------------------------------`nBaxNutzerName: %BaxNutzerName%`nBaxIP: %BaxIP%`nBax_Start: %Bax_Start%`nScriptIni: %scriptini%`nBax_JobDir: %Bax_JobDir%`nBax_Flex: %Bax_Flex%`nA_ScriptHwnd: %A_ScriptHwnd%`n`nA_LineFile: %A_LineFile%`nA_ComputerName: %A_ComputerName%`nA_Username: %A_Username%`nA_MyDocuments:  %A_MyDocuments%`nA_AppData: %A_AppData%`nA_WinDir: %A_WinDir%`n`nA_ComSpec: %A_ComSpec%`nA_Temp: %A_Temp%`nA_OSType: %A_OSType%`n`n, 60
 
-IfMsgBox Timeout, {
-WinClose
-Gui, Destroy
-}
-
-OnHelp() {
-	If !(FileExist)
-	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/help.htm, %A_ScriptDir%\Files\help.htm
-	}
-	run,%A_ScriptDir%\Files\help.htm
-}
-return
+^+v::BaxFunk_VarSchau()

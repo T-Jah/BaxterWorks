@@ -23,7 +23,7 @@ SendMode Input
 SendInput {Raw}
 (
 ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐  
-│                                 Liste der Auslöser und Hotkeys Version 021				│  
+│                                 Liste der Auslöser und Hotkeys Version 023				│  
 │ ===================================================================================================== │  
 │ Diese Liste anzeigen	...............; STRG + 1        Benutzervariable Bax_Flex startet eine App     │  
 │ TBKeys		...............; STRG + 2        oder Webseite mit STRG+Shift+0 (Null)	        │  
@@ -57,9 +57,10 @@ SendInput {Raw}
 │ - <a href html link			; STRG + Win + b                                                │  
 │ Ton an/aus				; STRG + Punkt                                                  │  
 ├───────────────────────────────────────────────────────────────────────────────────────────────────────┤  
-│ MD-Module: 	      	 md_software _tab _todo _umleit                                          	│  
-│ AHK Textbausteine: 	 ahk_box1-4 _break _end _head _icon _info _msg _options _tabelle1+2 _titel      │  
-│ TXT Bausteine:     	 txt_box1 bis_3 _port _pubbw _bw _tabelle1+2 _tb _todo                   	│  
+│ MD-Module: 	      	 md_hilfe _know _soft _tab _tjah _todo _umleit                        		│  
+│ AHK Textbausteine: 	 ahk_box1-4 _break _end _head _icon _info _msg _options _tab1+2 _tjah _titel    │  
+│ TXT Bausteine:     	 txt_box1-3 _bw _dread_de _dreadyt _know _port _pubbw _tab1+2 _tb	        │
+│			 _tjah _todo         								│  
 └───────────────────────────────────────────────────────────────────────────────────────────────────────┘  
  
 )
