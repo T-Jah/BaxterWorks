@@ -24,7 +24,7 @@
   ClipWait 0
   If ErrorLevel
     {
-      MsgBox, No Text Selected!
+      MsgBox, Du musst einen Text auswählen der ein oder mehrere IP-Adressen enthält.
       Return
     }
 CountIP := 1
