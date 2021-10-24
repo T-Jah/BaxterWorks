@@ -1,8 +1,13 @@
     Software: Hilfe/Übersicht 
-<!-- Version 024 -->
+<!-- Version 025 -->
 <!-- Hilfedateien AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Über BaxterWorks Software
+![](https://img.shields.io/badge/BaxterWorks-public-blue?style=plastic)
+![](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)
+![](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)
+![](https://img.shields.io/github/license/t-Jah/baxterworks?style=plastic)
+
 ###### zurück zur [Startseite](http://www.baxterworks.de/software)   
 Die Datei **BaxterWorks.exe** bildet das **Kernstück und die Startdatei**. Nicht umsonst liegt sie an oberster Stelle im Ordner. Mit der Datei startest du die HotKeys und Funktionalitäten und vor allem die **BaxterWorks AppBar**. <p>
 Beim ersten Start wirst du zur Konfiguration [GetReadyBax](http://www.baxterworks.de/software/hilfe/help_getreadybax.htm) geleitet und musst, bzw. darfst selber festlegen, welche Ordner für bestimmte Funktionen genutzt werden sollen.

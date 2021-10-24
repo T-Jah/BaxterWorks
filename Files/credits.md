@@ -1,8 +1,13 @@
     Software: Credits  
-<!-- Version 014 -->
+<!-- Version 015 -->
 <!-- Credits AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Credits
+![](https://img.shields.io/badge/BaxterWorks-public-blue?style=plastic)
+![](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)
+![](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)
+![](https://img.shields.io/github/license/t-Jah/baxterworks?style=plastic)
+
 ###### zurück zur [Startseite](http://www.baxterworks.de/software)   
 
 ### 1. Generelle Danksagung
