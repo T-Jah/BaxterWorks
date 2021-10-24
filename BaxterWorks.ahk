@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.5.5", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.7.3", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.5.5
-;@Ahk2Exe-SetProductVersion 1.0.5.5
+;@Ahk2Exe-SetFileVersion 1.0.7.3
+;@Ahk2Exe-SetProductVersion 1.0.7.3
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
@@ -20,7 +20,7 @@
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
 ; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-;   Direktiven nach ganz oben                     Vorlage GesamtVersion 027          M.u.s.t.e.r.Bax AHK Skript
+;   Direktiven nach ganz oben                     Vorlage GesamtVersion 030          M.u.s.t.e.r.Bax AHK Skript
 /*
  * BaxterWorks
  * Copyright 2021 T-Jah Tom
@@ -93,8 +93,8 @@
 ; Startumgebungsvariablen festlegen
 	AppName = BaxterWorks
 	Bax_help = help
-	FensterVersion = MusterBax_027		; aktuelle Vorlage und Module
-	Skriptvorlage = MusterBax_027		; eingesetzte Version und Vorlage
+	FensterVersion = MusterBax_030		; aktuelle Vorlage und Module
+	Skriptvorlage = MusterBax_030		; eingesetzte Version und Vorlage
 	Bax_Bar = %A_Appdata%\Microsoft\Internet Explorer\Quick Launch
 	LastVersionBW = %CodeVersion%
 	BaxNutzerName = %A_UserName%_%A_ComputerName%
@@ -450,6 +450,7 @@ IncludeBax:
 	#Include %A_ScriptDir%\HotKeys\listbax.ahk
 	#Include %A_ScriptDir%\HotKeys\ifexist_notepad.ahk
 	#Include %A_ScriptDir%\HotKeys\tv_ahk.ahk
+	#Include %A_ScriptDir%\HotKeys\tv_htm.ahk
 	#Include %A_ScriptDir%\HotKeys\tv_md.ahk
 	#Include %A_ScriptDir%\HotKeys\tv_txt.ahk
 	#Include %A_ScriptDir%\HotKeys\hk_appstart.ahk
@@ -463,11 +464,12 @@ IncludeBax:
 	#Include %A_ScriptDir%\Function\BaxFunk_Progress.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_reloadAHK.ahk
 	#Include %A_ScriptDir%\Function\BaxFunk_Stats.ahk
+	#Include %A_ScriptDir%\Function\BaxFunk_VarSchau.ahk
 
 ; ThirdParty
+	#Include %A_ScriptDir%\Lib\AHKsock.ahk
 	#Include %A_ScriptDir%\Lib\Class_CTLCOLORS.ahk
 	#Include %A_ScriptDir%\Lib\datecalc.ahk
-	#Include %A_ScriptDir%\Lib\DayofDate.ahk
 	#Include %A_ScriptDir%\Lib\Functions.ahk
 	#Include %A_ScriptDir%\Lib\funk_panic.ahk
 	#Include %A_ScriptDir%\Lib\funk_toggle.ahk
@@ -975,7 +977,7 @@ if (ErrorLevel = "ERROR")
 return
 ; 
 ; ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-; │   EndSub          [Version 009]    ohneGUI  + nicht Standard                                               │
+; │   EndSub          [Version 010]    ohneGUI  + nicht Standard                                               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;
 
@@ -1026,7 +1028,7 @@ DateiBeenden:     		; Benutzer hat "Exit" im Dateimenü ausgewählt.
 	IniWrite, %LastSeen% , %userini%, %BaxNutzerName% , LastSeen
 	IniWrite, %A_Now% , %backuptxt%, %BaxNutzerName% , UhrStart
 	IniWrite, %A_Now% , %userini%, %BaxNutzerName% , UhrStart
-	FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage%`n , %Bax_Start%\Config\%A_ComputerName%.bax
+FileAppend, Nutzung: %A_Now% %A_Tab% Nutzer: %BaxNutzerName% %A_Tab% App: %AppName%_%CodeVersion% %A_Tab% Skriptvorlage: %Skriptvorlage% %A_Tab% %Appnutzcount% Starts in %Nutzungstage% Tagen`n , %Bax_Start%\Files\Stats\%A_ComputerName%.txt
 
 ButtonCancel:			; falls es einen Button gibt
 GuiEscape:
@@ -1105,7 +1107,7 @@ STATS:
 	Bax_Stats_Zeilenzahl()
 	IniWrite, %Appnutzcount% , %scriptini%, Stats_%BaxNutzerName% , Appnutzcount
 
-	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Log\%AppName%log.txt
+	FileAppend, %A_Now% | %CodeVersion% | %Fensterversion% | %Skriptvorlage% | %AppName% | Starts: %Appnutzcount% | Pause: %Zwischenzeit% Stunden | Nutzung: %Nutzungstage% Tage`n , %Bax_Start%\Files\Log\%AppName%_log.txt
 
 return
 
