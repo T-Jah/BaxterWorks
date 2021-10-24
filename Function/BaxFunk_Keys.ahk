@@ -169,7 +169,7 @@ Gui,Keys:Tab, 2
     LV_Add("", ".banner", "html Link zum Logo")
     LV_Add("", "mfg", "Mit freundlichen Grüßen`n")
     LV_Add("", "A_s", "ahk A_ScriptDir\")
-    LV_Add("", "A_w²", "ahk A_WorkingDir")
+    LV_Add("", "A_w", "ahk A_WorkingDir")
     LV_Add("", "A_p", "ahk A_ProgramData")
     LV_Add("", "A_u", "ahk A_UserName")
     LV_Add("", "A_c", "ahk A_ComputerName")
