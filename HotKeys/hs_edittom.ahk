@@ -27,7 +27,8 @@ SendMode Input
 :c*:..?::❔
 :c*:.grad::° Celsius
 :c*:.rec::🛑
-
+:c*:.yes::✓
+:c*:.no::✖
 :c*:.lol::😂
 :c*:.kotz::🤮
 :c*:.denk::🤔
@@ -79,6 +80,8 @@ SendMode Input
 :*:Tunier::Turnier
 :*:heir::hier
 :*:Verküpfung::Verknüpfung
+:*:licence::license
+
 
 :c*:.bw::BaxterWorks
 :c*:.top::Xelara_Top
