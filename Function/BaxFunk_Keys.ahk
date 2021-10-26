@@ -131,6 +131,8 @@ Gui,Keys:Tab, 2
     LV_Add("", ".kiss", "😘")
     LV_Add("", ".love", "😍")
     LV_Add("", ".lecker", "😛")
+    LV_Add("", ".yes", "✓")
+    LV_Add("", ".no", "✖")
     LV_Add("", ".grad", "° Celsius")
     LV_Add("", "ccm3", "ccm³")
     LV_Add("", ".neu", "Xelara_tb")
