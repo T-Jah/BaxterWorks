@@ -14,6 +14,8 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.7.4 Automatische Rechtschreibkorrektur erweitert, 2 neue Hotstrings, Update in der Hilfe
+ 	1.0.7.3 Minikorrektur in keys (Strg+2)
  	1.0.7.2 über 20 Smileys als Hotstrings eingefügt, Strg+2 nutzen
  	1.0.7.1 Hotstring .pic Korrigiert, neue HTML Befehle (button zB)
  	1.0.7.0 kleiner Fehler im Hotkey, neue Strings für JavaScript
