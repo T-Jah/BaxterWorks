@@ -1,12 +1,14 @@
     Software: Hilfe/Übersicht 
-<!-- Version 025 -->
+<!-- Version 026 -->
 <!-- Hilfedateien AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Über BaxterWorks Software
-![](https://img.shields.io/badge/BaxterWorks-public-blue?style=plastic)
-![](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)
-![](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)
-![](https://img.shields.io/github/license/t-Jah/baxterworks?style=plastic)
+
+<!-- Start Shields Badges -->
+ [![public doc](https://img.shields.io/badge/BaxterWorks-public-blue?style=plastic)](http://www.baxterworks.de)
+ [![tjah](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)](https://github.com/T-Jah)
+ [![bw_version](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)](http://www.baxterworks.de/software)
+ [![license](https://img.shields.io/github/license/t-Jah/baxterworks?style=plastic)](https://github.com/T-Jah/BaxterWorks/blob/bax/LICENSE)   
 
 ###### zurück zur [Startseite](http://www.baxterworks.de/software)   
 Die Datei **BaxterWorks.exe** bildet das **Kernstück und die Startdatei**. Nicht umsonst liegt sie an oberster Stelle im Ordner. Mit der Datei startest du die HotKeys und Funktionalitäten und vor allem die **BaxterWorks AppBar**. <p>
@@ -20,12 +22,11 @@ Mit **STRG+1** und **STRG+2** musst du dir eigentlich nur 2 HotKeys merken, um n
 #### BaxterWorks Software - Anleitung und Hilfe
 - [Über ini Dateien, Fensterposition und Pfade](http://www.baxterworks.de/software/hilfe/help_ini.htm)
 - [Das Standarddateimenü](http://www.baxterworks.de/software/hilfe/help_menu.htm)
-- [Funktionen](http://www.baxterworks.de/software/hilfe/help_function.htm)  
-- [Hotkeys](http://www.baxterworks.de/software/hilfe/help_hotkeys.htm)  
-- [HotStrings](http://www.baxterworks.de/software/hilfe/help_hotstrings.htm)  
+- [Funktionen](http://www.baxterworks.de/software/hilfe/help_function.htm)
 
 #### BaxterWorks Software - Texte zu Funktionen, Fenstern und Apps
-  
+- HotKeys: [HotKeys](http://www.baxterworks.de/software/hilfe/help_hotkeys.htm)  
+- HotStrings: [HotStrings](http://www.baxterworks.de/software/hilfe/help_hotstrings.htm)  
 - [BWAppBar](http://www.baxterworks.de/software/hilfe/help_bwappbar.htm)  
 - [CaptureBax](http://www.baxterworks.de/software/hilfe/help_capturebax.htm)
 - [DesktopPainter](http://www.baxterworks.de/software/hilfe/help_deskpaint.htm)
