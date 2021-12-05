@@ -1,22 +1,22 @@
     Software: Hilfe/Übersicht 
-<!-- Version 026 -->
+<!-- Version 029 -->
 <!-- Hilfedateien AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Über BaxterWorks Software
 
-<!-- Start Shields Badges -->
- [![public doc](https://img.shields.io/badge/BaxterWorks-public-blue?style=plastic)](http://www.baxterworks.de)
- [![tjah](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)](https://github.com/T-Jah)
- [![bw_version](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)](http://www.baxterworks.de/software)
- [![license](https://img.shields.io/github/license/t-Jah/baxterworks?style=plastic)](https://github.com/T-Jah/BaxterWorks/blob/bax/LICENSE)   
+<!-- START badges bw/software V002 -->
+[![bw_pub](https://img.shields.io/badge/BaxterWorks-Software-dodgerblue?style=plastic)](http://www.baxterworks.de/software) [![version](https://img.shields.io/endpoint?color=yellow&style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)](https://github.com/T-Jah) [![license](https://img.shields.io/github/license/t-Jah/baxterworks?color=limegreen&style=plastic)](https://www.tombesch.de/badge/license.htm) [![bw_net](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw_net.json)](https://www.tombesch.de/inhalt.htm) [![news](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_news.json)](https://www.tombesch.de/news/index.htm) [![support](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_support.json)](https://ko-fi.com/BaxterWorks) [![bw_tjah](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)](https://www.tombesch.de/badge/t-jah.htm) [![twitter_bw](https://img.shields.io/twitter/follow/BaxterWorks?style=social)](https://twitter.com/BaxterWorks)
+<!-- ENDE badges bw/software -->
 
 ###### zurück zur [Startseite](http://www.baxterworks.de/software)   
+#### Der erste Start
 Die Datei **BaxterWorks.exe** bildet das **Kernstück und die Startdatei**. Nicht umsonst liegt sie an oberster Stelle im Ordner. Mit der Datei startest du die HotKeys und Funktionalitäten und vor allem die **BaxterWorks AppBar**. <p>
-Beim ersten Start wirst du zur Konfiguration [GetReadyBax](http://www.baxterworks.de/software/hilfe/help_getreadybax.htm) geleitet und musst, bzw. darfst selber festlegen, welche Ordner für bestimmte Funktionen genutzt werden sollen.
+Beim **ersten Start wirst** du zur Konfiguration [GetReadyBax](http://www.baxterworks.de/software/hilfe/help_getreadybax.htm) geleitet und musst, bzw. darfst selber festlegen, welche Ordner für bestimmte Funktionen genutzt werden sollen. Das klingt lästig, gilt aber nur für den ersten Start. Alternativ hätte ich festlegen müssen, wo welcher Ordner genutzt werden soll. 
 
 [![HotKeys](http://www.baxterworks.de/software/screens/bw_menu.png)](http://www.baxterworks.de/software/hilfe/help.htm)  
 
-Mit **STRG+1** und **STRG+2** musst du dir eigentlich nur 2 HotKeys merken, um nicht hilflos zu sein. Nr.1 öffnet ein **Menü** mit den wichtigsten Angaben. Nr.2 ist eine **Übersicht** über alle etwa 36 Möglichkeiten. <p>
+#### Helfer
+Mit **STRG+1** und **STRG+2** musst du dir eigentlich nur 2 HotKeys merken, um nicht hilflos zu sein und weiter zu kommen. Nr.1 öffnet ein **Menü** mit den wichtigsten Angaben. Nr.2 ist eine **Übersicht** über alle etwa 140 Möglichkeiten. <p>
 [![HotKeys](http://www.baxterworks.de/software/screens/keys.png)](http://www.baxterworks.de/software/hilfe/help.htm)  
 
 #### BaxterWorks Software - Anleitung und Hilfe
@@ -65,6 +65,16 @@ Eine gute Stelle, um auf die [Credits](http://www.baxterworks.de/software/hilfe/
         Tags: ahk,hilfe,index
 
 
-(c) 1999 - 2021 T-Jah Tom, [BaxterWorks](http://www.baxterworks.de). [GitHub](https://github.com/T-Jah), [Blog](http://blog.baxterworks.de).  <p>
-[![Logo](http://www.baxterworks.de/software/pix/bw_banner.png)](http://www.baxterworks.de/software/pix/bw_banner.png) 
+© 1999 - 2021 T-Jah Tom, [BaxterWorks](http://www.baxterworks.de). [GitHub](https://github.com/T-Jah), [Blog](http://blog.baxterworks.de).  <p>
+[![Logo](https://www.tombesch.de/icons/svg/BaxterWorks_Software.svg)](https://www.tombesch.de/icons/svg/BaxterWorks_Software.svg) 
 <IMG SRC="https://www.tombesch.de/cgi-bin/location.cgi?seite=2021_credits">
+
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('baxterworks', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#00b9fe',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>

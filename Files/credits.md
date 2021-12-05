@@ -1,10 +1,12 @@
     Software: Credits  
-<!-- Version 015 -->
+<!-- Version 020 -->
 <!-- Credits AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## Credits
 
-![public doc](https://img.shields.io/badge/BaxterWorks-public-blue?style=plastic) ![bw](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json) ![bw_software](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json) ![author](https://img.shields.io/github/license/t-Jah/baxterworks?style=plastic)   
+<!-- START badges bw/software V002 -->
+[![bw_pub](https://img.shields.io/badge/BaxterWorks-Software-dodgerblue?style=plastic)](http://www.baxterworks.de/software) [![version](https://img.shields.io/endpoint?color=yellow&style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bwsoft.json)](https://github.com/T-Jah) [![license](https://img.shields.io/github/license/t-Jah/baxterworks?color=limegreen&style=plastic)](https://www.tombesch.de/badge/license.htm) [![bw_net](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw_net.json)](https://www.tombesch.de/inhalt.htm) [![news](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_news.json)](https://www.tombesch.de/news/index.htm) [![support](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_support.json)](https://ko-fi.com/BaxterWorks) [![bw_tjah](https://img.shields.io/endpoint?style=plastic&url=https%3A%2F%2Fwww.tombesch.de%2Fapi%2Fjson%2Fbadge_bw.json)](https://www.tombesch.de/badge/t-jah.htm) [![twitter_bw](https://img.shields.io/twitter/follow/BaxterWorks?style=social)](https://twitter.com/BaxterWorks)
+<!-- ENDE badges bw/software -->
 
 ###### zurück zur [Startseite](http://www.baxterworks.de/software)   
 
@@ -51,6 +53,16 @@ Im Code stehen (von mir oder anderen Autoren hingesetzt) noch weitere Credits, n
 ## BaxterWorks Software
 Eine [Übersicht](http://www.baxterworks.de/software/hilfe/help.htm) der Apps und Hilfetexte, für die mein Dank gilt.   
 
-(c) 1999 - 2021 T-Jah Tom, [BaxterWorks](http://www.baxterworks.de). [GitHub](https://github.com/T-Jah), [Blog](http://blog.baxterworks.de).  <p>
-[![Logo](http://www.baxterworks.de/software/pix/bw_banner.png)](http://www.baxterworks.de/software/pix/bw_banner.png) 
+© 1999 - 2021 T-Jah Tom, [BaxterWorks](http://www.baxterworks.de). [GitHub](https://github.com/T-Jah), [Blog](http://blog.baxterworks.de).  <p>
+[![Logo](https://www.tombesch.de/icons/svg/BaxterWorks_Software.svg)](https://www.tombesch.de/icons/svg/BaxterWorks_Software.svg) 
 <IMG SRC="https://www.tombesch.de/cgi-bin/location.cgi?seite=2021_credits">
+
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('baxterworks', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#00b9fe',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>
