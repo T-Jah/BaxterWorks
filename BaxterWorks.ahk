@@ -889,7 +889,7 @@ HilfeTray:
 Credits:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\credits.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/credits.htm, %Bax_Start%\Files\credits.htm
 	}
 	run, %Bax_Start%\Files\credits.htm
 	return
