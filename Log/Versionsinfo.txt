@@ -14,6 +14,7 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.7.6 Relaunch Web, deswegen kleine Änderungen an Credits, Hilfeseiten
  	1.0.7.5 Erweiterung Hilfe, Credits
  	1.0.7.4 Automatische Rechtschreibkorrektur erweitert, 2 neue Hotstrings, Update in der Hilfe
  	1.0.7.3 Minikorrektur in keys (Strg+2)
