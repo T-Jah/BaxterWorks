@@ -137,6 +137,8 @@ Gui,Keys:Tab, 2
     LV_Add("", "ccm3", "ccm³")
     LV_Add("", ".neu", "Xelara_tb")
     LV_Add("", ".bw", "BaxterWorks")
+    LV_Add("", ".tomde", "https://www.tombesch.de")
+    LV_Add("", ".baxde", "http://www.baxterworks.de")
     LV_Add("", ".link", "html Link")
     LV_Add("", "fms", "Fibromyalgiesyndrom (FMS)")
     LV_Add("", ".logo", "html ")
