@@ -101,7 +101,7 @@ SendMode Input
 
 :*:Bax_S::%Bax_Start%\
 :*:Bax_F::%Bax_Flex%\
-:*:BaxN::%BaxNutzerName%\
+:*:BaxNu::%BaxNutzerName%\
 :*:Bax_J::%Bax_JobDir%\
 
 :*:.msg1::MsgBox, 4,BaxterWorks Software meldet , Du bist dran - triff eine Entscheidung, 5
@@ -110,8 +110,8 @@ SendMode Input
 
 ; HTML Hotstrings, ganz kurze mit DREI Punkten
 
-:*:.tb.de::https://www.tombesch.de
-:*:.bw.de::http://www.baxterworks.de
+:*:.tomde::https://www.tombesch.de
+:*:.baxde::http://www.baxterworks.de
 :*:.banner::https://www.tombesch.de/pix/md_pix/bw_banner.png
 :*:.logo::https://www.tombesch.de/pix/md_pix/bw_software2.png
 :*:.soft::http://www.baxterworks.de/software

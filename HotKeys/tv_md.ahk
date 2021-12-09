@@ -28,26 +28,25 @@ SendMode Input
 :*:md_hilfe::
 SendInput {Raw}
 (
-    Software: Hilfe/App/AppName
-<!-- Version 001 -->
-<!-- md2htm, aktiv in BaxterWorks Software-->
+    Software: Startseite  
+<!-- Version 011 -->
+<!-- Hilfedateien AHK Markdown, aktiv in BaxterWorks Software und pastebin -->
 
 ## BaxterWorks Software
-###### zurück zur [Startseite](http://www.baxterworks.de/software)   
 
-## AppName
-Text
 
+<!-- Logos von bw.de -->
 [![Logo](http://www.baxterworks.de/software/pix/tjah_banner_tr_600.png)](http://www.baxterworks.de/software/hilfe/help.htm) 
+### Die Software BaxterWorks
+##### [Übersicht Apps](http://www.baxterworks.de/software/hilfe/help.htm)
 
 
-        Tags: ahk,hilfe,prozesse,taskmanager
+        Tags: ahk,startseite,software,baxterworks
 
 
 (c) 1999 - 2021 T-Jah Tom, [BaxterWorks](http://www.baxterworks.de). [GitHub](https://github.com/T-Jah), [Blog](http://blog.baxterworks.de).  <p>
 [![Logo](http://www.baxterworks.de/software/pix/bw_banner.png)](http://www.baxterworks.de/software/pix/bw_banner.png) 
-<IMG SRC="https://www.tombesch.de/cgi-bin/location.cgi?seite=2021_bwsoftware_appname">
-
+<IMG SRC="https://www.tombesch.de/cgi-bin/location.cgi?seite=2021_software_start">
 )
 return
 

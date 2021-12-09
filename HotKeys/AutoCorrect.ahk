@@ -4610,11 +4610,11 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::tormenters::tormentors
 ::toriodal::toroidal
 ::torpeados::torpedoes
-::torpedos::torpedoes
 ::totaly::totally
 ::totalyl::totally
 ::towrad::toward
 ::towords::towards
+::twiiter::twitter
 ::twon::town
 ::traditition::tradition
 ::traditionnal::traditional
