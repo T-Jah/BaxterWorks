@@ -1,0 +1,86 @@
+﻿
+__________                  __                __      __             __
+\______   \_____  ___  ____/  |_  ___________/  \    /  \___________|  | __  ______
+ |    |  _/\__  \ \  \/  /\   __\/ __ \_  __ \   \/\/   /  _ \_  __ \  |/ / /  ___/
+ |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \
+ |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >
+        \/      \/      \/           \/             \/                   \/     \/
+------------------------------------------------------------------------------------
+                                                            (c) 1999-2021 T-Jah Tom
+AUTOR: T-Jah Tom
+INHALT: Anleitung
+
+Das sind die Zeichen, aus denen man Kästen und Tabellen machen kann.
+Beschränkt auf den Ziffernblock, aber erweitert um die Kombi mit der
+Steuerungstaste.
+Es sieht erst verwirrend aus, aber die Anordnung ist auf Kästen und
+Rahmen ausgelegt, die Tasten mit STRG sind die Doppellinien, ohne Zusatztaste
+ergibt das die einfachen Rahmen, grob gesagt. Übung macht den...
+
+Ziffernblock: ░└─┘┌│┐╚┼╝┬┴├┤◌●
+
+Ziffernblock und STRG:  █╙═╜╒║╕╔╬╗╤╧▀▄■□◌●╫
+
+Ab Version 2.0.1.x sind die Kürzel dazugekommen:
+
+                STRG+Shift+1 bis STRG+Shift+0
+Damit lassen sich Tabellen noch schneller umsetzen. Die letzte Kombi, also
+STRG+Shift+0 bringt eine komplette Tabelle auf den Schirm, die sich ggf.
+schneller umbauen lässt, als eine neue zu gestalten.
+
+Beispiele:
+
+ ╓─────────────────────────────────────────────────────────────────────╖
+ ║                                HQ                                   ║
+ ╙══════╤═════════════════╤═════════════════╤═════════════════╤════════╜
+        │                 │                 │                 │
+ ┌──────┴──────┐   ┌──────┴──────┐   ┌──────┴──────┐   ┌──────┴──────┐ 
+ │             │   │             │   │             │   │             │
+ │             ├───┤             ├───┤             ├───┤             │
+ │             │   │             │   │             │   │             │
+ └─────────────┘   └─────────────┘   └─────────────┘   └─────────────┘
+
+
+
+                          ┌───────────────┐
+                          │     Boss      │
+                          │               │
+                          └───────┬───────┘
+                                  │
+              ┌─────────┬─────────┼─────────┬─────────┐
+              │         │         │         │         │
+          ┌───┴───┐ ┌───┴───┐ ┌───┴───┐ ┌───┴───┐ ┌───┴───┐
+          │       │ │       │ │       │ │       │ │       │
+          └───────┘ └───────┘ └───────┘ └───────┘ └───────┘
+               
+
+	Bekannt Einschränkungen:
+	========================
+	UTF-8 Zeichenkodierung empfohlen. Wenn das Programm nur Doppelpunkte zeigt,
+	ist dein Zeichencode auf ANSI eingestellt. Einige ältere Editoren können
+	nur den ANSI Zeichensatz, da geht es nicht.
+
+	Mit AutoHotKey nutzen:
+	Kein Problem. Sollte es ein Problem bei der Darstellung geben, beispielsweise,
+	wenn ein Hotstring den Text oder den Rahmen auf dem Bidschirm 'drucken' soll,
+	dann stören vermutlich 2 senkrechte Striche, die wie ein Pipezeichen gewertet
+	werden. Das kann auch passieren, wenn die eine Zeile mit einem senkrechten
+	Rahmen schließt und die nächste Zeile ebenso beginnt.
+	Lösung:
+	2 Freizeichen ganz rechts am Zeilenende oder ein Semikolon am Zeilenbeginn der
+	nächsten Zeile...
+
+
+███╗   ██╗██╗   ██╗███╗   ███╗██████╗  █████╗ ██████╗        
+████╗  ██║██║   ██║████╗ ████║██╔══██╗██╔══██╗██╔══██╗       
+██╔██╗ ██║██║   ██║██╔████╔██║██████╔╝███████║██║  ██║       
+██║╚██╗██║██║   ██║██║╚██╔╝██║██╔═══╝ ██╔══██║██║  ██║       
+██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║     ██║  ██║██████╔╝       
+╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝  ╚═╝╚═════╝        
+███████╗███████╗██╗ ██████╗██╗  ██╗███╗   ██╗███████╗██████╗ 
+╚══███╔╝██╔════╝██║██╔════╝██║  ██║████╗  ██║██╔════╝██╔══██╗
+  ███╔╝ █████╗  ██║██║     ███████║██╔██╗ ██║█████╗  ██████╔╝
+ ███╔╝  ██╔══╝  ██║██║     ██╔══██║██║╚██╗██║██╔══╝  ██╔══██╗
+███████╗███████╗██║╚██████╗██║  ██║██║ ╚████║███████╗██║  ██║
+╚══════╝╚══════╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝
+   
