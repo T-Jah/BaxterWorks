@@ -1,12 +1,12 @@
-﻿CodeVersion := "2.0.2.4", Firma := "BaxterWorks Software"
+﻿CodeVersion := "2.0.2.5", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\npz.ico
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Rahmen und Kästen mit Numpad
-;@Ahk2Exe-SetFileVersion 2.0.2.4
-;@Ahk2Exe-SetProductVersion 2.0.2.4
+;@Ahk2Exe-SetFileVersion 2.0.2.5
+;@Ahk2Exe-SetProductVersion 2.0.2.5
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks NumpadZeichner
@@ -170,7 +170,7 @@ Menu,Tray,NoMainWindow
 Menu,Tray,Add,%AppName%,OpenGUI
 Menu,Tray,Add						; Trennlinie
 Menu,Tray,Add,&Licence...,Licence
-Menu,Tray,Add,&Credits...,Credits
+Menu,Tray,Add,&credits...,credits
 Menu,Tray,Add,&About...,About
 Menu,Tray,Add,&Hilfe...,HilfeTray
 Menu,Tray,Add						; Trennlinie
@@ -507,12 +507,12 @@ HilfeTray:
 	run,%Bax_Start%\Files\%Bax_help%.htm
 	return
 
-Credits:
+credits:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/credits.htm, %Bax_Start%\Files\credits.htm
 	}
-	run, %Bax_Start%\Files\Credits.htm
+	run, %Bax_Start%\Files\credits.htm
 	return
 
 APPS:

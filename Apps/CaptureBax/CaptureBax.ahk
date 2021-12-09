@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.1.2", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.1.3", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\schere.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright Rajat
 ;@Ahk2Exe-SetDescription Screencapture Tool
-;@Ahk2Exe-SetFileVersion 1.0.1.2
-;@Ahk2Exe-SetProductVersion 1.0.1.2
+;@Ahk2Exe-SetFileVersion 1.0.1.3
+;@Ahk2Exe-SetProductVersion 1.0.1.3
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks CaptureBax
@@ -447,7 +447,7 @@ ExitApp
 ;
 
 About:
-	MsgBox, 64, About, Mehr über BaxterWorks Software findest du im Netz:`nhttp://www.BaxterWorks.de/software`nCredits an das offizielle Handbuch.`n`nDownload: https://github.com/T-Jah
+	MsgBox, 64, About, Mehr über BaxterWorks Software findest du im Netz:`nhttp://www.BaxterWorks.de/software`ncredits an das offizielle Handbuch.`n`nDownload: https://github.com/T-Jah
 	return
 
 helptray:
@@ -457,12 +457,12 @@ If !(FileExist)
 	}
 	run,%A_ScriptDir%\..\..\Files\%Bax_help%.htm
 	return
-Credits:
+credits:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/credits.htm, %Bax_Start%\Files\credits.htm
 	}
-	run, %Bax_Start%\Files\Credits.htm
+	run, %Bax_Start%\Files\credits.htm
 	return
 Version:
 	Run,%Bax_Start%\Log\Versionsinfo_%AppName%.txt
@@ -491,7 +491,7 @@ TRAYMENU:
 	Menu, Tray, Add, Über diese App, About
 	Menu, Tray, Add, Hilfe, helptray
 	Menu, Tray, Add, Versionsinfo, version
-	Menu, Tray, Add, Credits, Credits
+	Menu, Tray, Add, credits, credits
 	Menu, Tray, Add
 	Menu, Tray, Add, Reload, reload
 	Menu, Tray, Add, Exit, quit

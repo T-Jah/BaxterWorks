@@ -1,12 +1,12 @@
-CodeVersion := "1.0.1.7", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.1.8", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\runaway.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription GetReadyBax - BaxterWorks Konfiguration
-;@Ahk2Exe-SetFileVersion 1.0.1.7
-;@Ahk2Exe-SetProductVersion 1.0.1.7
+;@Ahk2Exe-SetFileVersion 1.0.1.8
+;@Ahk2Exe-SetProductVersion 1.0.1.8
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks GetReadyBax
@@ -193,7 +193,7 @@ Menu,Tray,NoMainWindow
 Menu,Tray,Add,%AppName%,OpenGUI
 Menu,Tray,Add						; Trennlinie
 Menu,Tray,Add,&Licence...,Licence
-Menu,Tray,Add,&Credits...,Credits
+Menu,Tray,Add,&credits...,credits
 Menu,Tray,Add,&About...,About
 Menu,Tray,Add,&Hilfe...,HilfeTray
 Menu,Tray,Add						; Trennlinie
@@ -245,8 +245,8 @@ Menu, Baxmenü, Icon, Blog BaxterWorks, ..\..\Grafix\bax.ico, 0
 Menu, Baxmenü, Icon, Home Tom Besch, ..\..\Grafix\logo_tb2.ico, 0
 Menu, Baxmenü, Icon, GitHub T-Jah Tom, ..\..\Grafix\github1.ico, 0
 
-Menu, Hilfsmenü, Add, Credits, MenuCredits
-Menu, Hilfsmenü, Icon, Credits, C:\WINDOWS\System32\SHELL32.dll,131
+Menu, Hilfsmenü, Add, credits, Menucredits
+Menu, Hilfsmenü, Icon, credits, C:\WINDOWS\System32\SHELL32.dll,131
 Menu, Hilfsmenü, Add, Info, MenuInfo
 Menu, Hilfsmenü, Icon, Info, C:\WINDOWS\System32\SHELL32.dll,222
 Menu, Hilfsmenü, Add, Software Lizenz, Lizenzmenu
@@ -1032,12 +1032,12 @@ GitHub:
 
 ; Dateimnenü: Hilfe ....................................
 
-MenuCredits:
+Menucredits:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/credits.htm, %Bax_Start%\Files\credits.htm
 	}
-	run,%Bax_Start%\Files\Credits.htm
+	run,%Bax_Start%\Files\credits.htm
 	return
 
 MenuHilfe:
@@ -1079,12 +1079,12 @@ HilfeTray:
 	run,%Bax_Start%\Files\%Bax_help%.htm
 	return
 
-Credits:
+credits:
 	If !(FileExist)
 	{
-	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/Credits.htm, %Bax_Start%\Files\Credits.htm
+	UrlDownloadToFile, http://www.baxterworks.de/software/hilfe/credits.htm, %Bax_Start%\Files\credits.htm
 	}
-	run, %Bax_Start%\Files\Credits.htm
+	run, %Bax_Start%\Files\credits.htm
 	return
 
 APPS:
