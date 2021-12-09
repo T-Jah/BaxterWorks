@@ -14,6 +14,7 @@
 
   INHALT:
 
+ 	1.0.2.5 Kleiner Schreibfehler, große Wirkung. Korrektur in allen Skripten mit Traymenü.
  	1.0.2.4 Update auf Fensterversion 030
  	1.0.2.3 Erweiterung Stats
  	1.0.2.2 Update auf Fensterversion 028, Bugfix Toolbar

@@ -14,6 +14,7 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.1.3 Kleiner Schreibfehler, große Wirkung. Korrektur in allen Skripten mit Traymenü.
   	1.0.1.2 Update MacroBax-Template 016
   	1.0.1.1 Erweiterung Stats
 	1.0.1.0 Update Stats

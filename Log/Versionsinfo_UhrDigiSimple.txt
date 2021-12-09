@@ -17,6 +17,7 @@
 	Versionsinfo UhrDigiSimple
 
 
+ 	1.0.2.4 Kleiner Schreibfehler, große Wirkung. Korrektur in allen Skripten mit Traymenü.
 	1.0.2.3 Update auf FensterVersion 030
 	1.0.2.2 Erweiterung Stats
 	1.0.2.1 Update Stats

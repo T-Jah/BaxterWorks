@@ -15,7 +15,8 @@
   INHALT:
 	Versionsinfo NumpadZeichner
 
- 	2.0.2.4 Update FensterVerion 017
+  	1.0.2.5 Kleiner Schreibfehler, große Wirkung. Korrektur in allen Skripten mit Traymenü.
+	2.0.2.4 Update FensterVerion 017
  	2.0.2.3 Erweiterung Stats
 	2.0.2.2	Update Stats
 	2.0.2.1	BugFix im Pfad der Funktionen

@@ -14,6 +14,7 @@
 
   INHALT:
 
+ 	1.0.2.3 Kleiner Schreibfehler, große Wirkung. Korrektur in allen Skripten mit Traymenü.
  	1.0.2.2 nochmal Erweiterung Stats
  	1.0.2.1 Erweiterung Stats
  	1.0.2.0 Das Menü mit Symbolen ausgestattet (Win-z)
