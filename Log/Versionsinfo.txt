@@ -14,6 +14,9 @@
 
   INHALT: Versionsinfo
 
+ 	1.0.8.0 Vorerst letzte Emojis eingebaut
+ 	1.0.7.9 einige neue Emotes
+ 	1.0.7.8 Aktualisierung Links
  	1.0.7.7 Kleiner Schreibfehler, große Wirkung. Korrektur in allen Skripten mit Traymenü.
  	1.0.7.6 Relaunch Web, deswegen kleine Änderungen an Credits, Hilfeseiten
  	1.0.7.5 Erweiterung Hilfe, Credits
