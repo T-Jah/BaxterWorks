@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.7.7", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.8.0", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
-;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
+;@Ahk2Exe-SetCopyright (c) 1999-2022`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.7.7
-;@Ahk2Exe-SetProductVersion 1.0.7.7
+;@Ahk2Exe-SetFileVersion 1.0.8.0
+;@Ahk2Exe-SetProductVersion 1.0.8.0
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
@@ -18,12 +18,12 @@
 ; │             |    |   \ / __ \_>    <  |  | \  ___/|  | \/\        (  <_> )  | \/    <  \___ \              │
 ; │             |______  /(____  /__/\_ \ |__|  \___  >__|    \__/\  / \____/|__|  |__|_ \/____  >             │
 ; │                    \/      \/      \/           \/             \/                   \/     \/              │
-; │              http://www.baxterworks.de/software                      (c) 1999-2021 T-Jah Tom               │
+; │              http://www.baxterworks.de/software                      (c) 1999-2022 T-Jah Tom               │
 ; └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ;   Direktiven nach ganz oben                     Vorlage GesamtVersion 030          M.u.s.t.e.r.Bax AHK Skript
 /*
  * BaxterWorks
- * Copyright 2021 T-Jah Tom
+ * Copyright 2022 T-Jah Tom
  * All Rights Reserved.
  * Use, reproduction, distribution, and modification of this code is subject to the terms and
  * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
@@ -598,7 +598,7 @@ ConfigMenu:
 	return
 
 AboutMenuSub:
-	MsgBox, %AppName% %U_version%`nBaxterWorks Software`n(c) 1999-2021 T-Jah Tom
+	MsgBox, %AppName% %U_version%`nBaxterWorks Software`n(c) 1999-2022 T-Jah Tom
 	return
 ;--------------------------------------------------------------------------------------Menüpunkte BW Apps
 
