@@ -1,12 +1,12 @@
-﻿CodeVersion := "1.0.8.0", Firma := "BaxterWorks Software"
+﻿CodeVersion := "1.0.8.5", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\Grafix\bax.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2022`, T-Jah Tom
 ;@Ahk2Exe-SetDescription Tools und Skripte
-;@Ahk2Exe-SetFileVersion 1.0.8.0
-;@Ahk2Exe-SetProductVersion 1.0.8.0
+;@Ahk2Exe-SetFileVersion 1.0.8.5
+;@Ahk2Exe-SetProductVersion 1.0.8.5
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks
