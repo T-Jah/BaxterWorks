@@ -1,12 +1,12 @@
-CodeVersion := "1.0.2.3", Firma := "BaxterWorks Software"
+CodeVersion := "1.0.2.4", Firma := "BaxterWorks Software"
 ;@Ahk2Exe-Let U_version = %A_PriorLine~U)^(.+"){1}(.+)".*$~$2%
 ;@Ahk2Exe-Let U_company = %A_PriorLine~U)^(.+"){3}(.+)".*$~$2%
 ;@Ahk2Exe-SetMainIcon %A_ScriptDir%\..\..\Grafix\appbar.ico
 ;@Ahk2Exe-SetCompanyName BaxterWorks Software
 ;@Ahk2Exe-SetCopyright (c) 1999-2021`, T-Jah Tom
 ;@Ahk2Exe-SetDescription BWAppBar - Taskleiste2 credits to SKAN
-;@Ahk2Exe-SetFileVersion 1.0.2.3
-;@Ahk2Exe-SetProductVersion 1.0.2.3
+;@Ahk2Exe-SetFileVersion 1.0.2.4
+;@Ahk2Exe-SetProductVersion 1.0.2.4
 ;@Ahk2Exe-SetLanguage 0x0407
 ;@Ahk2Exe-SetLegalTrademarks BaxterWorks
 ;@Ahk2Exe-SetName BaxterWorks BWAppBar
@@ -217,7 +217,7 @@ Menu, Tray, Default, AppBar Hide/Show
 Menu,Tray,Add						; Trennlinie
 Menu,Tray,Add,&HotKeys...,HotKeys
 Menu,Tray,Add,&Reload...,Reload
-Menu,Tray,Add,&credits...,credits
+Menu,Tray,Add,&Credits...,credits
 Menu,Tray,Add,&Hilfe...,HilfeTray
 Menu,Tray,Add						; Trennlinie
 Menu,Tray,Add,E&xit,EXIT
